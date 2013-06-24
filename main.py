@@ -2,7 +2,8 @@
 
 from engine.generalFunctions import *
 from engine.world import World
-realm = World()
 
-from engine.entity import Entity
+#let there be a new world...
+realm = World()
+realm.run()
 

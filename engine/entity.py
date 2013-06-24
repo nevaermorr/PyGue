@@ -2,10 +2,10 @@ from engine.generalFunctions import *
 class Entity:
     "class corresponding to all entities present in the in-game world"
     
-    def __init__(self, coordinates):
+    def __init__(self, location, coordinates):
         "creation of entity"
         #pointer to the map, where this entity is currently present
-        self.location = None
+        self.location = location
         #coordinates of the tile, on which this entity is located
         self.coordinates = coordinates
         #size of entity (length of one side in tiles)
@@ -15,13 +15,14 @@ class Entity:
         
     def move(self, direction):
         "what happens when some force moves the entity"
-        #vector of movement
+        #evaluation of desired position
         vector = directionToVector(direction)
-        #checking if new position is available
         newCoordinates = [self.coordinates[0] + vector[0], self.coordinates[1] + vector[1]]
-#        if self.canMoveTo(tile)
-        #changing current coordinates
-        self.coordinates = newCoordinates
+        destinationTile = self.location.getTileFromCoordinates(newCoordinates)
+        #checking if new position is available
+        if self.canMoveTo(destinationTile):
+            #moving to new position
+            self.coordinates = newCoordinates
         
     def moveAlongPath(self, path):
         "executing movement to subsequent points of route"

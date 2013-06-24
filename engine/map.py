@@ -8,11 +8,15 @@ class Map:
         
         #creating example grid
         self.grid_ = [[Tile() for i in range(10)] for j in range(10)]
-        
-    def validateCoordinates(self, coordinates_):
-        "method checks if all desired tiles are not occupied by animated entity"
-        pass
+        #pointers to all animate entities in this map
+        self.animates_ = []
     
     def getTileByCoordinates(self, coordinates):
-        "methods returns tile corresponding to given coordinates"
+        "method returns tile corresponding to given coordinates"
+        if isset(self.grid_, coordinates):
+            return self.grid_[coordinates[0]][coordinates[1]]
+        else:
+            return False
         
+    def getAnimates(self):
+        return self.animates_
