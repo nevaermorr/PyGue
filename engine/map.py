@@ -1,9 +1,15 @@
 from engine.generalFunctions import *
+
+
 class Map:
-    "class corresponding to single location in the game"
+    """
+    class corresponding to single location in the game
+    """
     
     def __init__(self):
-        "creating map"
+        """
+        creating map
+        """
         from engine.tile import Tile
         
         #creating example grid
@@ -12,11 +18,16 @@ class Map:
         self.animates_ = []
     
     def getTileByCoordinates(self, coordinates):
-        "method returns tile corresponding to given coordinates"
-        if isset(self.grid_, coordinates):
+        """
+        method returns tile corresponding to given coordinates
+        """
+        if isSet(self.grid_, coordinates):
             return self.grid_[coordinates[0]][coordinates[1]]
         else:
             return False
         
     def getAnimates(self):
+        """
+        method returns all animate entities present in the location
+        """
         return self.animates_

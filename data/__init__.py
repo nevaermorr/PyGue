@@ -1,1 +1,3 @@
-"directory containing various predefined in-game elements"
+"""
+directory containing various predefined in-game elements
+"""
