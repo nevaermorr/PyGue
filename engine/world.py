@@ -59,4 +59,4 @@ class World:
         self.currentLocation = self.maps_[0]
 
         log('msg', 'a hero is born')
-        hero = Hero(self.currentLocation, [0, 0])
+        hero = Hero(self.currentLocation, [0, 0], 'goblin')

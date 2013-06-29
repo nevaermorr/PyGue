@@ -7,20 +7,39 @@ class Animate(Entity):
     class corresponding to entities that can take actions
     """
 
-    def __init__(self, location, coordinates):
+    def __init__(self, location, coordinates, type):
         """
         create animated entity
         :param location: location where the Entity is placed
         :param coordinates: coordinates depicting the position of Entity in given location
+        :param type: type of being
         """
         #inherited attributes
         Entity.__init__(self, location, coordinates)
+        #load type-dependent features
+        self.loadTypeDependencies(type)
         #give a signal to location, that some new animate entity arrived
         location.checkIn(self)
 
         #cool-down time determines how much time quanta till entity can perform another act
-        #entities get kind-of default "summoning sickness"
-        self.coolDown = 100
+        #entities get kind-of "summoning sickness"
+        self.coolDown = self.summoningSickness
+
+    def loadTypeDependencies(self, type):
+        """
+        load all type-dependent information
+        :param type: type of being
+        """
+        #remember type, just in case
+        self.type = type
+        #import proper file
+        module = __import__('data.animateTypes.' + type, fromlist=[])
+        typeDependency = getattr(module.animateTypes, type)
+
+        #time costs of different actions
+        self.actionTimeCosts_ = typeDependency.timeCosts_
+        #time needed between creation and first action
+        self.summoningSickness = typeDependency.summoningSickness
 
     def act(self):
         """
@@ -62,7 +81,8 @@ class Animate(Entity):
         actionParameters = action[1:]
         try:
             #perform desired action and receive its time cost
-            timeCost = getattr(self, actionName)(*actionParameters)
+            getattr(self, actionName)(*actionParameters)
+            timeCost = self.actionTimeCosts_[actionName]
             #set cool-down time
             self.coolDown += timeCost
         except AttributeError:
@@ -88,8 +108,7 @@ class Animate(Entity):
         """
         pass one turn
         """
-        return 100
+        log('msg', 'entity waits')
 
     def move(self, direction):
         Entity.move(self, direction)
-        return 100

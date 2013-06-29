@@ -21,6 +21,12 @@ class Hero(Animate):
         #return corresponding method name
         return keyMapping_[actionKey]
 
+    @doc_inherit
+    def loadTypeDependencies(self, type):
+        Animate.loadTypeDependencies(self, type)
+        #only heroes can quit
+        self.actionTimeCosts_['quit'] = 0
+
     def quit(self):
         """
         quit the game
