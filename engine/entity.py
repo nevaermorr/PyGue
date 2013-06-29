@@ -5,7 +5,7 @@ class Entity:
     """
     class corresponding to all entities present in the in-game world
     """
-    
+
     def __init__(self, location, coordinates):
         """
         creation of entity
@@ -29,46 +29,50 @@ class Entity:
         #evaluation of desired position
         vector = directionToVector(direction)
         newCoordinates = [self.coordinates[0] + vector[0], self.coordinates[1] + vector[1]]
-        destinationTile = self.location.getTileFromCoordinates(newCoordinates)
+        destinationTile = self.location.getTileByCoordinates(newCoordinates)
         #checking if new position is available
-        if self.canMoveTo(destinationTile):
+        if (
+            destinationTile
+            and self.canMoveTo(destinationTile)
+        ):
             #moving to new position
             self.coordinates = newCoordinates
-        
+            print('entity moves to', newCoordinates)
+
     def moveAlongPath(self, path):
         """
-        executing movement to subsequent points of route
+        execute movement to subsequent points of route
         :param path: list of directions of consecutive steps
         """
         pass
-    
+
     def canMoveTo(self, tile):
         """
-        checking if certain tile is accessible for this entity
+        check if certain tile is accessible for this entity
         :param tile: tile in question
         """
         #by default we allow entity to move to any accessible tile
-        if tile.accessible:
+        if tile.isPassable:
             return True
         else:
             return False
-            
+
 #==========
 #pseudo-static methods
 
 
 def directionToVector(direction):
         """
-        function translates direction in form of string into vector
+        translate direction in form of string into vector
         :param direction: literal geographical direction, combination of N, W, S, E
         """
         vector = [0, 0]
         if direction.find("N") > -1:
-            vector[0] = 1
-        if direction.find("S") > -1:
-            vector[0] = -1
-        if direction.find("E") > -1:
             vector[1] = 1
-        if direction.find("W") > -1:
+        if direction.find("S") > -1:
             vector[1] = -1
+        if direction.find("E") > -1:
+            vector[0] = 1
+        if direction.find("W") > -1:
+            vector[0] = -1
         return vector

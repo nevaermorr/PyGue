@@ -9,12 +9,14 @@ class Animate(Entity):
 
     def __init__(self, location, coordinates):
         """
-        creating animated entity
+        create animated entity
         :param location: location where the Entity is placed
         :param coordinates: coordinates depicting the position of Entity in given location
         """
         #inherited attributes
         Entity.__init__(self, location, coordinates)
+        #give a signal to location, that some new animate entity arrived
+        location.checkIn(self)
 
         #cool-down time determines how much time quanta till entity can perform another act
         #entities get kind-of default "summoning sickness"
@@ -22,65 +24,52 @@ class Animate(Entity):
 
     def act(self):
         """
-        method combining all elements required to act
+        combination of all elements required to act
         """
         self.decreaseCoolDown()
         #if entity is ready for action
         if self.isReadyToAct():
             self.performAction(self.chooseAction())
+            pass
 
     def decreaseCoolDown(self):
         """
-        method decreasing cool-down every time quantum
+        decrease cool-down every time quantum
         """
         if self.coolDown > 0:
             self.coolDown -= 1
 
     def isReadyToAct(self):
         """
-        method checks if the state of the entity allows it to act
+        check if the state of the entity allows it to act
         """
         if self.coolDown == 0:
             return True
 
     def chooseAction(self):
         """
-        method chooses action based on entity's choice
+        decide what to do
         """
-        import sys
-
-        actionKey = sys.stdin.read(1)
-        if actionKey == '1':
-            return ['move', ['NW']]
-        if actionKey == '2':
-            return ['move', ['N']]
-        if actionKey == '3':
-            return ['move', ['NE']]
-        if actionKey == '4':
-            return ['move', ['W']]
-        if actionKey == '6':
-            return ['move', ['E']]
-        if actionKey == '7':
-            return ['move', ['SW']]
-        if actionKey == '8':
-            return ['move', ['S']]
-        if actionKey == '9':
-            return ['move', ['SE']]
-        #default action is a pass
+        #pass by default
         return None
 
     def performAction(self, action):
         """
-        method calls proper methods resolving certain actions
+        call proper methods resolving certain actions
         :param action: list containing desired action name and parameters
         """
+        #if none action selected, animated entity waits
+        if action is None:
+            return False
+
         actionName = action[0]
-        actionParameters = action[1]
+        actionParameters = action[1:]
         try:
             #for action 'foo' we try to automatically run method actionFoo()
-            getattr(self, 'action' + actionName.capitalize())(*actionParameters)
+            getattr(self, actionName)(*actionParameters)
         except AttributeError:
             #undefined action type
+            print(actionName, ': no such action defined')
             return False
 
     def react(self, action):
@@ -90,7 +79,9 @@ class Animate(Entity):
         """
         pass
 
-    @doc_inherit
-    def move(self, direction):
-        Entity.move(self, direction)
-        #if self.location.validateCoordinates(newCoordinates) == True:
+    def die(self):
+        """
+        trigger all death effects
+        """
+        #this animate entity is no more
+        self.location.checkOut()

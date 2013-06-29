@@ -1,16 +1,24 @@
+#standard imports here
+from pprint import pprint
+
+
 def isSet(array, *index):
     """
     checking if array contains element by given index (can be multidimensional)
     :param array: 
     :param index:
     """
+    #simply try to reference element under given index
     try:
         element = array[index[0]]
     except IndexError:
+        #fail if such index is not set
         return False
     else:
+        #in case of multidimensional index, check recursively
         if len(index) > 1:
             return isSet(element, *index[1:])
+        #if we reached desired depth, we're done
         else:
             return True
 

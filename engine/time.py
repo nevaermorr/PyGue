@@ -11,7 +11,7 @@ class Time:
     
     def __init__(self):
         """
-        starting the great clock
+        start the great clock
         """
         self.quantumCount = 0
         self.quantumOfHour = 0
@@ -23,7 +23,7 @@ class Time:
         
     def passTime(self):
         """
-        method that triggers passing of in-game time
+        trigger passing of in-game time
         """
         #incrementing passed quanta of time
         self.quantumCount += 1
@@ -34,7 +34,7 @@ class Time:
         
     def incrementHour(self):
         """
-        method that increments hour
+        increment number of hours
         """
         #next hour resets counter of quanta in hour
         self.quantumOfHour = 0
@@ -47,9 +47,16 @@ class Time:
         
     def incrementDay(self):
         """
-        method that increments day
+        increment number of days
         """
         #next day resets counter of hours in day
         self.hourOfDay = 0
         #incrementing passed days
         self.dayCount += 1
+
+    def getCurrentTime(self):
+        """
+        compose string with formatted game-time
+        """
+        return (str(self.hourOfDay) + ':' + str(self.quantumOfHour) + ' '
+              + str(self.dayCount) + '/' + str(self.moonCount))

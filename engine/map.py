@@ -8,7 +8,7 @@ class Map:
     
     def __init__(self):
         """
-        creating map
+        create map
         """
         from engine.tile import Tile
         
@@ -19,15 +19,28 @@ class Map:
     
     def getTileByCoordinates(self, coordinates):
         """
-        method returns tile corresponding to given coordinates
+        return tile corresponding to given coordinates
         """
-        if isSet(self.grid_, coordinates):
+
+        if isSet(self.grid_, *coordinates):
             return self.grid_[coordinates[0]][coordinates[1]]
         else:
             return False
         
     def getAnimates(self):
         """
-        method returns all animate entities present in the location
+        return all animate entities present in the location
         """
         return self.animates_
+
+    def checkIn(self, animate):
+        """
+        notice presence of animate entity in this location
+        """
+        self.animates_.append(animate)
+
+    def checkOut(self, exAnimate):
+        """
+        when entity leaves the location, forget it
+        """
+        self.animates_.remove(exAnimate)
