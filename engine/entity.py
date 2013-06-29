@@ -37,7 +37,7 @@ class Entity:
         ):
             #moving to new position
             self.coordinates = newCoordinates
-            print('entity moves to', newCoordinates)
+            log('msg', 'entity moves to', newCoordinates)
 
     def moveAlongPath(self, path):
         """

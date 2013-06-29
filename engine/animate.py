@@ -67,7 +67,7 @@ class Animate(Entity):
             self.coolDown += timeCost
         except AttributeError:
             #undefined action type
-            print(actionName, ': no such action defined')
+            log('error', actionName, ': no such action defined')
             return False
 
     def react(self, action):

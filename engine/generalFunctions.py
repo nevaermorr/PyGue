@@ -28,6 +28,22 @@ def isSet(array, *index):
 from functools import wraps
 
 
+def log(label, *info):
+    """
+    log some information to source depending on label
+    :param label: label deciding where to log the information
+    :param info: information to log
+    """
+    #depending on label, choose where to log to
+    #msg goes to screen
+    if label == 'msg':
+        print(*info)
+    #warnings and errors go to error log
+    if label in ['warning', 'error']:
+        print(label + ':', *info)
+        #TODO write to file
+
+
 class DocInherit(object):
     """
     Docstring inheriting method descriptor

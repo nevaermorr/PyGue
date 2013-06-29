@@ -16,7 +16,7 @@ class Hero(Animate):
         actionKey = sys.stdin.readlines(1)[0][0]
         #wait for valid command
         while not isSet(keyMapping_, actionKey):
-            print('unknown action')
+            log('warning', 'unknown action')
             actionKey = sys.stdin.readlines(1)[0][0]
         #return corresponding method name
         return keyMapping_[actionKey]
