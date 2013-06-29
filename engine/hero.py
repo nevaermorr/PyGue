@@ -12,7 +12,7 @@ class Hero(Animate):
         """
         import sys
 
-        actionKey = sys.stdin.read(1)
+        actionKey = sys.stdin.readlines(1)[0][0]
         if actionKey == 'q':
             return['quit']
         if actionKey == '1':
