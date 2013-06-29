@@ -14,6 +14,9 @@ def isSet(array, *index):
     except IndexError:
         #fail if such index is not set
         return False
+    except KeyError:
+        #fail if such key is not set
+        return False
     else:
         #in case of multidimensional index, check recursively
         if len(index) > 1:
@@ -28,7 +31,6 @@ from functools import wraps
 class DocInherit(object):
     """
     Docstring inheriting method descriptor
-
     The class itself is also used as a decorator
     taken from http://code.activestate.com/recipes/576862/
     """

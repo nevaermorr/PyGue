@@ -60,5 +60,3 @@ class World:
 
         print('a hero is born')
         hero = Hero(self.currentLocation, [0, 0])
-        hero.move('N')
-        pprint(vars(hero))

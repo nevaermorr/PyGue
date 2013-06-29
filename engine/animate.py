@@ -30,7 +30,6 @@ class Animate(Entity):
         #if entity is ready for action
         if self.isReadyToAct():
             self.performAction(self.chooseAction())
-            pass
 
     def decreaseCoolDown(self):
         """
@@ -51,22 +50,21 @@ class Animate(Entity):
         decide what to do
         """
         #pass by default
-        return None
+        return ['wait']
 
     def performAction(self, action):
         """
         call proper methods resolving certain actions
         :param action: list containing desired action name and parameters
         """
-        #if none action selected, animated entity waits
-        if action is None:
-            return False
 
         actionName = action[0]
         actionParameters = action[1:]
         try:
-            #for action 'foo' we try to automatically run method actionFoo()
-            getattr(self, actionName)(*actionParameters)
+            #perform desired action and receive its time cost
+            timeCost = getattr(self, actionName)(*actionParameters)
+            #set cool-down time
+            self.coolDown += timeCost
         except AttributeError:
             #undefined action type
             print(actionName, ': no such action defined')
@@ -74,7 +72,7 @@ class Animate(Entity):
 
     def react(self, action):
         """
-        method responsible for reaction to certain action
+        react to certain action
         :param action: list containing external action name and parameters
         """
         pass
@@ -85,3 +83,13 @@ class Animate(Entity):
         """
         #this animate entity is no more
         self.location.checkOut()
+
+    def wait(self):
+        """
+        pass one turn
+        """
+        return 100
+
+    def move(self, direction):
+        Entity.move(self, direction)
+        return 100
