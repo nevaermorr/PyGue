@@ -2,27 +2,27 @@ from engine.generalFunctions import *
 from engine.entity import Entity
 
 
-class Animate(Entity):
+class Being(Entity):
     """
-    class corresponding to entities that can take actions
+    entity capable of taking actions
     """
 
     def __init__(self, location, coordinates, type):
         """
-        create animated entity
-        :param location: location where the Entity is placed
-        :param coordinates: coordinates depicting the position of Entity in given location
+        create being
+        :param location: location where the being is placed
+        :param coordinates: coordinates depicting the position of being in given location
         :param type: type of being
         """
         #inherited attributes
         Entity.__init__(self, location, coordinates)
         #load type-dependent features
         self.loadTypeDependencies(type)
-        #give a signal to location, that some new animate entity arrived
+        #give a signal to location, that some new being arrived
         location.checkIn(self)
 
-        #cool-down time determines how much time quanta till entity can perform another act
-        #entities get kind-of "summoning sickness"
+        #cool-down time determines how much time quanta till being can perform another act
+        #beings get kind-of "summoning sickness"
         self.coolDown = self.summoningSickness
 
     def loadTypeDependencies(self, type):
@@ -33,8 +33,8 @@ class Animate(Entity):
         #remember type, just in case
         self.type = type
         #import proper file
-        module = __import__('data.animateTypes.' + type, fromlist=[])
-        typeDependency = getattr(module.animateTypes, type)
+        module = __import__('data.beingTypes.' + type, fromlist=[])
+        typeDependency = getattr(module.beingTypes, type)
 
         #time costs of different actions
         self.actionTimeCosts_ = typeDependency.timeCosts_
@@ -46,7 +46,7 @@ class Animate(Entity):
         combination of all elements required to act
         """
         self.decreaseCoolDown()
-        #if entity is ready for action
+        #if being is ready for action
         if self.isReadyToAct():
             self.performAction(self.chooseAction())
 
@@ -59,7 +59,7 @@ class Animate(Entity):
 
     def isReadyToAct(self):
         """
-        check if the state of the entity allows it to act
+        check if the state of the being allows it to act
         """
         if self.coolDown == 0:
             return True
@@ -101,7 +101,7 @@ class Animate(Entity):
         """
         trigger all death effects
         """
-        #this animate entity is no more
+        #this being is no more
         self.location.checkOut()
 
     def wait(self):

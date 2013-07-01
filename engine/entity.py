@@ -9,8 +9,8 @@ class Entity:
     def __init__(self, location, coordinates):
         """
         creation of entity
-        :param location: location where the Entity is placed
-        :param coordinates: coordinates depicting the position of Entity in given location
+        :param location: location where the entity is placed
+        :param coordinates: coordinates depicting the position of entity in given location
         """
         #pointer to the map, where this entity is currently present
         self.location = location

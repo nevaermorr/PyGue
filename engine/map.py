@@ -14,8 +14,8 @@ class Map:
         
         #creating example grid
         self.grid_ = [[Tile() for i in range(10)] for j in range(10)]
-        #pointers to all animate entities in this map
-        self.animates_ = []
+        #pointers to all beings in this map
+        self.beings_ = []
     
     def getTileByCoordinates(self, coordinates):
         """
@@ -27,20 +27,20 @@ class Map:
         else:
             return False
         
-    def getAnimates(self):
+    def getBeings(self):
         """
-        return all animate entities present in the location
+        return all beings present in the location
         """
-        return self.animates_
+        return self.beings_
 
-    def checkIn(self, animate):
+    def checkIn(self, being):
         """
-        notice presence of animate entity in this location
+        notice presence of being in this location
         """
-        self.animates_.append(animate)
+        self.beings_.append(being)
 
-    def checkOut(self, exAnimate):
+    def checkOut(self, exBeing):
         """
-        when entity leaves the location, forget it
+        when being leaves the location, forget it
         """
-        self.animates_.remove(exAnimate)
+        self.beings_.remove(exBeing)

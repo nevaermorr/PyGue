@@ -15,12 +15,11 @@ class Tile:
         self.passage = None
         #list of pointers to present entities
         self.entities_ = []
-        #list of animate entities present on tile;
-        #for convenience kept apart from non-animate entities
-        self.animates_ = []
+        #pointer to being present on tile;
+        self.being = None
         
-    def getAnimates(self):
+    def getBeings(self):
         """
-        return all animate entities present on this tile
+        return all beings present on this tile
         """
-        return self.animates_
+        return self.being

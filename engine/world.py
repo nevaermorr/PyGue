@@ -27,8 +27,8 @@ class World:
             #time flies
             self.time.passTime()
             #we are giving a chance to act for everything that is eligible for acting
-            for animate in self.currentLocation.getAnimates():
-                animate.act()
+            for being in self.currentLocation.getBeings():
+                being.act()
                 #no point in letting anyone act if the game is over
                 if World.gameOver:
                     break

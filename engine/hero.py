@@ -1,8 +1,8 @@
 from engine.generalFunctions import *
-from engine.animate import Animate
+from engine.being import Being
 
 
-class Hero(Animate):
+class Hero(Being):
     """
     class representing player character
     """
@@ -23,7 +23,7 @@ class Hero(Animate):
 
     @doc_inherit
     def loadTypeDependencies(self, type):
-        Animate.loadTypeDependencies(self, type)
+        Being.loadTypeDependencies(self, type)
         #only heroes can quit
         self.actionTimeCosts_['quit'] = 0
 
@@ -41,6 +41,6 @@ class Hero(Animate):
         """
         hero have fallen during his quest
         """
-        Animate.die(self)
+        Being.die(self)
         #leave it all behind
         self.quit()
