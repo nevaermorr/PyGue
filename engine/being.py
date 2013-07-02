@@ -80,13 +80,15 @@ class Being(Entity):
         try:
             #perform desired action
             actionResult = getattr(self, actionName)(*actionParameters)
-            #set cool-down to time cost of chosen action
-            self.coolDown += self.actionTimeCosts_[actionName]
         except AttributeError:
             #undefined action type
             log('error', actionName, ': no such action defined')
             return False
         else:
+            #if action performed successfully
+            if actionResult:
+                #set cool-down to time cost of chosen action
+                self.coolDown += self.actionTimeCosts_[actionName]
             #report success or failure of action
             return actionResult
 
