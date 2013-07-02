@@ -44,8 +44,9 @@ class Being(Entity):
         self.decreaseCoolDown()
         #if being is ready for action
         if self.isReadyToAct():
-            #choose and try to perform some action
-            self.performAction(self.chooseAction())
+            #choose and try to perform some action until performed successfully
+            while not self.performAction(self.chooseAction()):
+                pass
 
     def decreaseCoolDown(self):
         """
@@ -78,7 +79,7 @@ class Being(Entity):
         actionParameters = action[1:]
         try:
             #perform desired action
-            getattr(self, actionName)(*actionParameters)
+            actionResult = getattr(self, actionName)(*actionParameters)
             #set cool-down to time cost of chosen action
             self.coolDown += self.actionTimeCosts_[actionName]
         except AttributeError:
@@ -86,8 +87,8 @@ class Being(Entity):
             log('error', actionName, ': no such action defined')
             return False
         else:
-            #if action was performed report success
-            return True
+            #report success or failure of action
+            return actionResult
 
     def react(self, action):
         """
