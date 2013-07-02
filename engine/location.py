@@ -6,14 +6,12 @@ class Location:
     single location in the game
     """
     
-    def __init__(self):
+    def __init__(self, grid_):
         """
         create location
         """
-        from engine.tile import Tile
-        
-        #create example grid
-        self.grid_ = [[Tile() for i in range(10)] for j in range(10)]
+        #assign defined grid
+        self.grid_ = grid_
         #pointers to all beings in this map
         self.beings_ = []
     

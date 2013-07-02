@@ -50,12 +50,15 @@ class World:
         """
         create some environment for testing purposes
         """
+        #general classes
         from engine.location import Location
         from engine.hero import Hero
         from engine.entity import Entity
+        #tailored test data
+        from data.location.template.testLocation import grid_
 
         #a single map will do for now
-        self.locations_ = [Location()]
+        self.locations_ = [Location(grid_)]
         #pointer to current location
         self.currentLocation = self.locations_[0]
 
