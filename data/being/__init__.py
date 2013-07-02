@@ -1,0 +1,3 @@
+"""
+information characteristic for beings
+"""

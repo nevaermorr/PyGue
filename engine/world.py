@@ -3,7 +3,7 @@ from engine.generalFunctions import *
 
 class World:
     """
-    class representing the world
+    the game universe
     """
     #boolean flag ending the game
     gameOver = False
@@ -16,7 +16,7 @@ class World:
 
         #initialize some environment
         self.createEnvironment()
-        #starting the great clock
+        #start the great clock
         self.time = Time()
 
     def run(self):
@@ -50,13 +50,15 @@ class World:
         """
         create some environment for testing purposes
         """
-        from engine.map import Map
+        from engine.location import Location
         from engine.hero import Hero
+        from engine.entity import Entity
 
         #a single map will do for now
-        self.maps_ = [Map()]
+        self.locations_ = [Location()]
         #pointer to current location
-        self.currentLocation = self.maps_[0]
+        self.currentLocation = self.locations_[0]
 
         log('msg', 'a hero is born')
         hero = Hero(self.currentLocation, [0, 0], 'goblin')
+        stuff = Entity(self.currentLocation, [2, 2])

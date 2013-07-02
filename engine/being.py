@@ -7,39 +7,35 @@ class Being(Entity):
     entity capable of taking actions
     """
 
-    def __init__(self, location, coordinates, type):
+    def __init__(self, location, coordinates, species):
         """
         create being
         :param location: location where the being is placed
         :param coordinates: coordinates depicting the position of being in given location
-        :param type: type of being
+        :param species: species of this being
         """
         #inherited attributes
         Entity.__init__(self, location, coordinates)
-        #load type-dependent features
-        self.loadTypeDependencies(type)
-        #give a signal to location, that some new being arrived
+        #load species-dependent features
+        self.loadSpeciesDependencies(species)
+        #give a signal to location, that new being has arrived
         location.checkIn(self)
 
-        #cool-down time determines how much time quanta till being can perform another act
-        #beings get kind-of "summoning sickness"
-        self.coolDown = self.summoningSickness
-
-    def loadTypeDependencies(self, type):
+    def loadSpeciesDependencies(self, species):
         """
-        load all type-dependent information
-        :param type: type of being
+        load all species-dependent information
+        :param species: species of this being
         """
-        #remember type, just in case
-        self.type = type
+        #remember species, just in case
+        self.species = species
         #import proper file
-        module = __import__('data.beingTypes.' + type, fromlist=[])
-        typeDependency = getattr(module.beingTypes, type)
+        module = __import__('data.being.species.' + species, fromlist=[])
+        speciesDependency = getattr(module.being.species, species)
 
         #time costs of different actions
-        self.actionTimeCosts_ = typeDependency.timeCosts_
+        self.actionTimeCosts_ = speciesDependency.timeCosts_
         #time needed between creation and first action
-        self.summoningSickness = typeDependency.summoningSickness
+        self.coolDown = speciesDependency.summoningSickness
 
     def act(self):
         """
@@ -48,6 +44,7 @@ class Being(Entity):
         self.decreaseCoolDown()
         #if being is ready for action
         if self.isReadyToAct():
+            #choose and try to perform some action
             self.performAction(self.chooseAction())
 
     def decreaseCoolDown(self):
@@ -80,15 +77,17 @@ class Being(Entity):
         actionName = action[0]
         actionParameters = action[1:]
         try:
-            #perform desired action and receive its time cost
+            #perform desired action
             getattr(self, actionName)(*actionParameters)
-            timeCost = self.actionTimeCosts_[actionName]
-            #set cool-down time
-            self.coolDown += timeCost
+            #set cool-down to time cost of chosen action
+            self.coolDown += self.actionTimeCosts_[actionName]
         except AttributeError:
             #undefined action type
             log('error', actionName, ': no such action defined')
             return False
+        else:
+            #if action was performed report success
+            return True
 
     def react(self, action):
         """
@@ -102,13 +101,10 @@ class Being(Entity):
         trigger all death effects
         """
         #this being is no more
-        self.location.checkOut()
+        self.location.checkOut(self)
 
     def wait(self):
         """
         pass one turn
         """
-        log('msg', 'entity waits')
-
-    def move(self, direction):
-        Entity.move(self, direction)
+        log('msg', 'being waits')

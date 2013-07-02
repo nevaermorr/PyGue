@@ -4,11 +4,11 @@ from engine.being import Being
 
 class Hero(Being):
     """
-    class representing player character
+    player character
     """
     def chooseAction(self):
         """
-        method chooses action based on players input
+        choose action basing on players input
         """
         import sys
         from data.keyMapping import keyMapping_
@@ -22,8 +22,8 @@ class Hero(Being):
         return keyMapping_[actionKey]
 
     @doc_inherit
-    def loadTypeDependencies(self, type):
-        Being.loadTypeDependencies(self, type)
+    def loadSpeciesDependencies(self, species):
+        Being.loadSpeciesDependencies(self, species)
         #only heroes can quit
         self.actionTimeCosts_['quit'] = 0
 
@@ -34,13 +34,27 @@ class Hero(Being):
         #the world is a cold place now
         from engine.world import World
         World.gameOver = True
-
-        return 0
+        #successful quit
+        return True
 
     def die(self):
         """
-        hero have fallen during his quest
+        what happens when hero dies
         """
+        #log some notice about hero's death
+        log('msg', 'hero have fallen during his quest')
         Being.die(self)
         #leave it all behind
         self.quit()
+
+    def move(self, direction):
+        #move like other beings
+        #if movement failed
+        if not Being.move(self, direction):
+            #report failure of movement
+            return False
+        #if movement succeeded
+        else:
+            #TODO display stuff found at current tile
+            #in the end report success of movement
+            return True

@@ -9,17 +9,17 @@ class Tile:
     def __init__(self):
         #is it possible to step on this tile?
         self.isPassable = True
-        #type of terrain
+        #species of terrain
         self.terrain = ''
         #optional pointer to corresponding location, where this tile leads
         self.passage = None
-        #list of pointers to present entities
-        self.entities_ = []
-        #pointer to being present on tile;
+        #list of pointers to present items
+        self.items_ = []
+        #pointer to being present on tile
         self.being = None
         
-    def getBeings(self):
+    def getAnimates(self):
         """
-        return all beings present on this tile
+        return all animate entities present on this tile
         """
-        return self.being
+        return self.animates_

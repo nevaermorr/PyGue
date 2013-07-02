@@ -3,7 +3,7 @@ from engine.generalFunctions import *
 
 class Entity:
     """
-    class corresponding to all entities present in the in-game world
+    any entity present in the in-game world
     """
 
     def __init__(self, location, coordinates):
@@ -26,18 +26,24 @@ class Entity:
         what happens when some force moves the entity
         :param direction: direction of the movement given as literal geographic direction
         """
-        #evaluation of desired position
+        #evaluate desired position
         vector = directionToVector(direction)
         newCoordinates = [self.coordinates[0] + vector[0], self.coordinates[1] + vector[1]]
         destinationTile = self.location.getTileByCoordinates(newCoordinates)
-        #checking if new position is available
+        #check if new position is available
         if (
             destinationTile
             and self.canMoveTo(destinationTile)
         ):
-            #moving to new position
+            #move to new position
             self.coordinates = newCoordinates
             log('msg', 'entity moves to', newCoordinates)
+            #report successful movement
+            return True
+        else:
+            log('warning', 'cannot move to', newCoordinates)
+            #report movement failure
+            return False
 
     def moveAlongPath(self, path):
         """
@@ -57,7 +63,7 @@ class Entity:
         else:
             return False
 
-#==========
+#===========
 #pseudo-static methods
 
 

@@ -4,7 +4,7 @@ from pprint import pprint
 
 def isSet(array, *index):
     """
-    checking if array contains element by given index (can be multidimensional)
+    check if array contains element by given index (can be multidimensional)
     :param array: 
     :param index:
     """
@@ -21,7 +21,7 @@ def isSet(array, *index):
         #in case of multidimensional index, check recursively
         if len(index) > 1:
             return isSet(element, *index[1:])
-        #if we reached desired depth, we're done
+        #if desired depth is reached, we're done
         else:
             return True
 
@@ -39,7 +39,7 @@ def log(label, *info):
     if label == 'msg':
         print(*info)
     #warnings and errors go to error log
-    if label in ['warning', 'error']:
+    elif label in ['warning', 'error']:
         print(label + ':', *info)
         #TODO write to file
 
