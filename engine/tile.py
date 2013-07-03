@@ -23,3 +23,22 @@ class Tile:
         return all animate entities present on this tile
         """
         return self.animates_
+
+    def displayPresentItems(self):
+        #if there are any items
+        if self.items_:
+            log('msg', 'found:')
+            for item in self.items_:
+                log('msg', 'some item')
+
+    def addItem(self, item):
+        """
+        add item to the list of items present on this tile
+        """
+        self.items_.append(item)
+
+    def removeItem(self, item):
+        """
+        remove item to the list of items present on this tile
+        """
+        self.items_.remove(item)

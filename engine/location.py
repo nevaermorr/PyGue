@@ -44,6 +44,3 @@ class Location:
         when being leaves the location, forget it
         """
         self.beings_.remove(exBeing)
-
-    def displayPresentItems(self):
-        pass

@@ -53,7 +53,7 @@ class World:
         #general classes
         from engine.location import Location
         from engine.hero import Hero
-        from engine.entity import Entity
+        from engine.item import Item
         #tailored test data
         from data.location.template.testLocation import grid_
 
@@ -64,4 +64,4 @@ class World:
 
         log('msg', 'a hero is born')
         hero = Hero(self.currentLocation, [0, 0], 'goblin')
-        stuff = Entity(self.currentLocation, [2, 2])
+        stuff = Item(self.currentLocation, [2, 2])

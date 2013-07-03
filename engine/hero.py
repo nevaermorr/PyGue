@@ -55,6 +55,7 @@ class Hero(Being):
             return False
         #if movement succeeded
         else:
-            #TODO display stuff found at current tile
+            #display stuff found at current tile
+            self.location.getTileByCoordinates(self.coordinates).displayPresentItems()
             #in the end report success of movement
             return True

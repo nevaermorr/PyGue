@@ -29,12 +29,8 @@ class Entity:
         #evaluate desired position
         vector = directionToVector(direction)
         newCoordinates = [self.coordinates[0] + vector[0], self.coordinates[1] + vector[1]]
-        destinationTile = self.location.getTileByCoordinates(newCoordinates)
         #check if new position is available
-        if (
-            destinationTile
-            and self.canMoveTo(destinationTile)
-        ):
+        if self.canMoveTo(newCoordinates):
             #move to new position
             self.coordinates = newCoordinates
             log('msg', 'entity moves to', newCoordinates)
@@ -52,13 +48,19 @@ class Entity:
         """
         pass
 
-    def canMoveTo(self, tile):
+    def canMoveTo(self, coordinates):
         """
-        check if certain tile is accessible for this entity
-        :param tile: tile in question
+        check if certain position in the location is accessible for this entity
+        :param coordinates: coordinates of desired position
         """
-        #by default we allow entity to move to any accessible tile
-        if tile.isPassable:
+        #find corresponding tile
+        targetTile = self.location.getTileByCoordinates(coordinates)
+
+        #check if tile exists and is accessible
+        if (
+            targetTile
+            and targetTile.isPassable
+        ):
             return True
         else:
             return False
