@@ -15,4 +15,6 @@ keyMapping_ = {
     '7': ['move', 'NW'],
     '8': ['move', 'N'],
     '9': ['move', 'NE'],
+    #equipment management
+    '+': ['collect'],
 }

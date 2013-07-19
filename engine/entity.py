@@ -20,6 +20,29 @@ class Entity:
         self.size = 1
         #ASCII character representing the entity
         self.character = ''
+        #import default messages characteristic to this entity
+        self._importDefaults()
+
+    def _importDefaults(self):
+        """
+        import all defaults for this entity
+        """
+        try:
+            module = __import__('data.' + self.__class__.__name__.lower() + '.default',
+                                fromlist=['messages_'])
+            self.messages_ = module.messages_
+        #warn if no default messages are found
+        except ImportError:
+            self.messages_ = {}
+            log('warning', 'no default messages for ' + self.__class__.__name__)
+
+    def msg(self, label):
+        """
+        log message characteristic to this entity
+        """
+        #log only if specific message is defined for certain label
+        if isSet(self.messages_, label):
+            log('msg', self.messages_[label])
 
     def move(self, direction):
         """
@@ -64,6 +87,20 @@ class Entity:
             return True
         else:
             return False
+
+    def __str__(self):
+        """
+        description of this entity
+        """
+        #by default assign class name as description
+        return self.__class__.__name__
+
+    def getCurrentTile(self):
+        """
+        method retrieves tile on which the entity is located
+        :rtype : Tile
+        """
+        return self.location.getTileByCoordinates(self.coordinates)
 
 #===========
 #pseudo-static methods

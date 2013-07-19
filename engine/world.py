@@ -43,7 +43,6 @@ class World:
         """
         indicate end of the game for the World.run() method
         """
-        log('msg', 'nothing to do here...')
         log('msg', self.time.getCurrentTime())
 
     def createEnvironment(self):
@@ -65,3 +64,4 @@ class World:
         log('msg', 'a hero is born')
         hero = Hero(self.currentLocation, [0, 0], 'goblin')
         stuff = Item(self.currentLocation, [2, 2])
+        moreStuff = Item(self.currentLocation, [2, 2])

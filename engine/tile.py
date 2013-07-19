@@ -1,4 +1,5 @@
 from engine.generalFunctions import *
+from engine.inventory import Inventory
 
 
 class Tile:
@@ -13,32 +14,26 @@ class Tile:
         self.terrain = ''
         #optional pointer to corresponding location, where this tile leads
         self.passage = None
-        #list of pointers to present items
-        self.items_ = []
+        #inventory object for present items
+        self.inventory = Inventory(self)
         #pointer to being present on tile
         self.being = None
-        
-    def getAnimates(self):
-        """
-        return all animate entities present on this tile
-        """
-        return self.animates_
 
     def displayPresentItems(self):
         #if there are any items
-        if self.items_:
+        if not self.inventory.isEmpty():
             log('msg', 'found:')
-            for item in self.items_:
-                log('msg', 'some item')
+            for item in self.inventory.get():
+                log('msg', str(item))
 
-    def addItem(self, item):
+    def addItems(self, *items_):
         """
         add item to the list of items present on this tile
         """
-        self.items_.append(item)
+        self.inventory.add(*items_)
 
     def removeItem(self, item):
         """
         remove item to the list of items present on this tile
         """
-        self.items_.remove(item)
+        self.inventory.removeItems(item)

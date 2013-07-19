@@ -4,10 +4,16 @@ from engine.entity import Entity
 
 class Item(Entity):
     """
-    class corresponding to usable items
+    usable item
     """
     def __init__(self, location, coordinates):
         #inherited state
         Entity.__init__(self, location, coordinates)
         #inform tile about presence of new item
-        self.location.getTileByCoordinates(coordinates).addItem(self)
+        self.location.getTileByCoordinates(coordinates).addItems(self)
+
+    def __str__(self):
+        """
+        description of the item
+        """
+        return 'some item'

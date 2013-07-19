@@ -1,8 +1,9 @@
 from engine.generalFunctions import *
 from engine.entity import Entity
+from engine.inventory import *
 
 
-class Being(Entity):
+class Being(Entity, InventoryInterface):
     """
     entity capable of taking actions
     """
@@ -18,6 +19,8 @@ class Being(Entity):
         Entity.__init__(self, location, coordinates)
         #load species-dependent features
         self.loadSpeciesDependencies(species)
+        #provide the being with space for its belongings
+        self.inventory = Inventory(self)
         #give a signal to location, that new being has arrived
         location.checkIn(self)
 
@@ -45,7 +48,7 @@ class Being(Entity):
         #if being is ready for action
         if self.isReadyToAct():
             #choose and try to perform some action until performed successfully
-            while not self.performAction(self.chooseAction()):
+            while not self.performAction(*self.chooseAction()):
                 pass
 
     def decreaseCoolDown(self):
@@ -69,17 +72,15 @@ class Being(Entity):
         #pass by default
         return ['wait']
 
-    def performAction(self, action):
+    def performAction(self, actionName, *actionParameters_):
         """
         call proper methods resolving certain actions
         :param action: list containing desired action name and parameters
         """
 
-        actionName = action[0]
-        actionParameters = action[1:]
         try:
             #perform desired action
-            actionResult = getattr(self, actionName)(*actionParameters)
+            actionResult = getattr(self, actionName)(*actionParameters_)
         except AttributeError:
             #undefined action type
             log('error', actionName, ': no such action defined')
@@ -110,4 +111,11 @@ class Being(Entity):
         """
         pass one turn
         """
-        log('msg', 'being waits')
+        pass
+
+    def collect(self):
+        """
+        collect some items
+        """
+        #add items chosen from current tile's inventory
+        # self.inventory.add(self.chooseItems(self.getCurrentTile().get()))

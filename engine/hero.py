@@ -6,6 +6,7 @@ class Hero(Being):
     """
     player character
     """
+
     def chooseAction(self):
         """
         choose action basing on players input
@@ -20,6 +21,14 @@ class Hero(Being):
             actionKey = sys.stdin.readlines(1)[0][0]
         #return corresponding method name
         return keyMapping_[actionKey]
+
+    @doc_inherit
+    def performAction(self, actionName, *actionParameters_):
+        result = Being.performAction(self, actionName, *actionParameters_)
+        #try to log corresponding message
+        self.msg(actionName)
+        #return original result
+        return result
 
     @doc_inherit
     def loadSpeciesDependencies(self, species):
@@ -41,8 +50,6 @@ class Hero(Being):
         """
         what happens when hero dies
         """
-        #log some notice about hero's death
-        log('msg', 'hero have fallen during his quest')
         Being.die(self)
         #leave it all behind
         self.quit()

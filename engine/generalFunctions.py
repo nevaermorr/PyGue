@@ -25,8 +25,6 @@ def isSet(array, *index):
         else:
             return True
 
-from functools import wraps
-
 
 def log(label, *info):
     """
@@ -42,6 +40,8 @@ def log(label, *info):
     elif label in ['warning', 'error']:
         print(label + ':', *info)
         #TODO write to file
+
+from functools import wraps
 
 
 class DocInherit(object):
