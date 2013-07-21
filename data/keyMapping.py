@@ -1,5 +1,5 @@
 """
-file contains key values for all actions
+key values for all actions
 """
 
 keyMapping_ = {

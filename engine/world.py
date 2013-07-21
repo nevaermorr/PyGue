@@ -49,19 +49,9 @@ class World:
         """
         create some environment for testing purposes
         """
-        #general classes
-        from engine.location import Location
-        from engine.hero import Hero
-        from engine.item import Item
-        #tailored test data
-        from data.location.template.testLocation import grid_
+        from data.environment.testEnvironment import initEnvironment
 
         #a single map will do for now
-        self.locations_ = [Location(grid_)]
+        self.locations_ = initEnvironment()
         #pointer to current location
         self.currentLocation = self.locations_[0]
-
-        log('msg', 'a hero is born')
-        hero = Hero(self.currentLocation, [0, 0], 'goblin')
-        stuff = Item(self.currentLocation, [2, 2])
-        moreStuff = Item(self.currentLocation, [2, 2])

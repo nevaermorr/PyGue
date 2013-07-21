@@ -7,6 +7,11 @@ class Hero(Being):
     player character
     """
 
+    def __init__(self, location, coordinates, species):
+        Being.__init__(self, location, coordinates, species)
+        #log information about hero's birth
+        log('msg', 'a hero is born')
+
     def chooseAction(self):
         """
         choose action basing on players input
