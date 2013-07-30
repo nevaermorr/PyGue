@@ -16,14 +16,13 @@ class Hero(Being):
         """
         choose action basing on players input
         """
-        import sys
         from data.keyMapping import keyMapping_
 
-        actionKey = sys.stdin.readlines(1)[0][0]
+        actionKey = getKeyInput()
         #wait for valid command
         while not isSet(keyMapping_, actionKey):
             log('warning', 'unknown action')
-            actionKey = sys.stdin.readlines(1)[0][0]
+            actionKey = getKeyInput()
         #return corresponding method name
         return keyMapping_[actionKey]
 
@@ -71,3 +70,10 @@ class Hero(Being):
             self.location.getTileByCoordinates(self.coordinates).displayPresentItems()
             #in the end report success of movement
             return True
+
+    def addItems(self, *items_):
+        #add items normally
+        Being.addItems(self, *items_)
+        #log information about quantity of added items
+        log('msg', 'added ' + str(len(items_)) + ' item(s)')
+

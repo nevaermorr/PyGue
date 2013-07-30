@@ -10,7 +10,7 @@ class Item(Entity):
         #inherited state
         Entity.__init__(self, location, coordinates)
         #inform tile about presence of new item
-        self.location.getTileByCoordinates(coordinates).addItems(self)
+        self.getCurrentTile().addItems(self)
 
     def __str__(self):
         """

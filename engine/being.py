@@ -15,13 +15,13 @@ class Being(Entity, InventoryInterface):
         :param coordinates: coordinates depicting the position of being in given location
         :param species: species of this being
         """
-        #inherited attributes
+        #inherited attributes from Entity
         Entity.__init__(self, location, coordinates)
+        #provide the being with space for its belongings
+        InventoryInterface.__init__(self)
         #load species-dependent features
         self.loadSpeciesDependencies(species)
-        #provide the being with space for its belongings
-        self.inventory = Inventory(self)
-        #give a signal to location, that new being has arrived
+        #announce that a new being has arrived
         location.checkIn(self)
 
     def loadSpeciesDependencies(self, species):
@@ -75,23 +75,18 @@ class Being(Entity, InventoryInterface):
     def performAction(self, actionName, *actionParameters_):
         """
         call proper methods resolving certain actions
-        :param action: list containing desired action name and parameters
+        :param actionName: name of desired action
+        :param actionParameters_: list of parameters for action
         """
+        #perform desired action
+        actionResult = getattr(self, actionName)(*actionParameters_)
 
-        try:
-            #perform desired action
-            actionResult = getattr(self, actionName)(*actionParameters_)
-        except AttributeError:
-            #undefined action type
-            log('error', actionName, ': no such action defined')
-            return False
-        else:
-            #if action performed successfully
-            if actionResult:
-                #set cool-down to time cost of chosen action
-                self.coolDown += self.actionTimeCosts_[actionName]
-            #report success or failure of action
-            return actionResult
+        #if action performed successfully
+        if actionResult:
+            #set cool-down to time cost of chosen action
+            self.coolDown += self.actionTimeCosts_[actionName]
+        #report success or failure of action
+        return actionResult
 
     def react(self, action):
         """
@@ -118,4 +113,4 @@ class Being(Entity, InventoryInterface):
         collect some items
         """
         #add items chosen from current tile's inventory
-        # self.inventory.add(self.chooseItems(self.getCurrentTile().get()))
+        self.addItems(*self.getItemsFrom(self.getCurrentTile().accessInventory()))

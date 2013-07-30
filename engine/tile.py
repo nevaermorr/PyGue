@@ -1,21 +1,21 @@
 from engine.generalFunctions import *
-from engine.inventory import Inventory
+from engine.inventory import *
 
 
-class Tile:
+class Tile(InventoryInterface):
     """
     class corresponding to quantum of space
     """
     
     def __init__(self):
+        #add inventory
+        InventoryInterface.__init__(self)
         #is it possible to step on this tile?
         self.isPassable = True
         #species of terrain
         self.terrain = ''
         #optional pointer to corresponding location, where this tile leads
         self.passage = None
-        #inventory object for present items
-        self.inventory = Inventory(self)
         #pointer to being present on tile
         self.being = None
 
@@ -23,17 +23,5 @@ class Tile:
         #if there are any items
         if not self.inventory.isEmpty():
             log('msg', 'found:')
-            for item in self.inventory.get():
+            for item in self.inventory.chooseAll():
                 log('msg', str(item))
-
-    def addItems(self, *items_):
-        """
-        add item to the list of items present on this tile
-        """
-        self.inventory.add(*items_)
-
-    def removeItem(self, item):
-        """
-        remove item to the list of items present on this tile
-        """
-        self.inventory.removeItems(item)

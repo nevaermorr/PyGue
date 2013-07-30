@@ -1,10 +1,10 @@
-
+import pprint
 from engine.generalFunctions import *
 
 
 class Inventory:
     """
-    inventory of any being
+    set of items connected with some entity or place
     """
 
     def __init__(self, owner):
@@ -19,24 +19,20 @@ class Inventory:
         """
         self.items_.extend(items_)
 
-    def take(self, *items_):
+    def remove(self, *items_):
         """
-        take something out of the inventory
+        remove something from the inventory
         """
-        items_ = self.get(*items_)
-        self.remove(items_)
-        return items_
+        #delete items from inventory through list comprehension
+        self.items_ = [item for item in self.items_ if not item in items_]
 
-    def get(self, *items_):
+    def chooseAll(self, condition=False):
         """
-        get something from the inventory but don't remove it
+        get from the inventory all items that meet certain condition
         """
-        return self.items_
-        
-    def remove(self):
-        """
-        take something out of the inventory
-        """
+        #by default, get all the items
+        if not condition:
+            return self.items_
 
     def isEmpty(self):
         """
@@ -52,13 +48,26 @@ class InventoryInterface:
 
     def __init__(self):
         #inventory is obligatory
-        self.inventory = Inventory()
+        self.inventory = Inventory(self)
 
-    def chooseItems(self, inventory):
+    def accessInventory(self):
         """
-        choose items from an inventory
+        grant access to the inventory
         """
-        #by default choose all items
-        return inventory.get()
+        return self.inventory
 
-    #TODO copy methods get, add, remove etc from __init__
+    def getItemsFrom(self, inventory):
+        """
+        choose and obtain items from an inventory
+        """
+        #by default choose all possible items
+        items_ = inventory.chooseAll()
+        #remove all the items from original inventory (in order to avoid duplication)
+        inventory.remove(*items_)
+        return items_
+
+    def addItems(self, *items_):
+        """
+        shortcut for adding items to inventory
+        """
+        self.inventory.add(*items_)

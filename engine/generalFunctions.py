@@ -26,6 +26,15 @@ def isSet(array, *index):
             return True
 
 
+def getKeyInput():
+    """
+    read pressed key
+    """
+    import sys
+    #for now take first character from given line
+    return sys.stdin.readlines(1)[0][0]
+
+
 def log(label, *info):
     """
     log some information to source depending on label
@@ -42,6 +51,26 @@ def log(label, *info):
         #TODO write to file
 
 from functools import wraps
+
+
+def charRange(startChar, stopChar):
+    """
+    generate characters from startChar to stopChar
+    :param startChar: first character to be generated
+    :param stopChar: last character to be generated
+    """
+    for c in range(ord(startChar), ord(stopChar)+1):
+        yield chr(c)
+
+
+def charGen(char, length):
+    """
+    generate length of characters starting from char
+    :param char: first character to be generated
+    :param length: number of characters to generate
+    """
+    #cast parameters to fit charRange() function
+    return charRange(char, chr(ord(char) + length - 1))
 
 
 class DocInherit(object):
