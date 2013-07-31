@@ -77,3 +77,12 @@ class Hero(Being):
         #log information about quantity of added items
         log('msg', 'added ' + str(len(items_)) + ' item(s)')
 
+    @doc_inherit
+    def collect(self):
+        #check if there is anything to take
+        if self.getCurrentTile().accessInventory().isEmpty():
+            #if not - send proper information
+            log('msg', 'nothing to pick up here')
+            return False
+        #if tile is not empty, proceed normally
+        Being.collect(self)
