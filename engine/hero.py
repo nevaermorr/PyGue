@@ -71,11 +71,26 @@ class Hero(Being):
             #in the end report success of movement
             return True
 
+    @doc_inherit
     def addItems(self, *items_):
         #add items normally
         Being.addItems(self, *items_)
         #log information about quantity of added items
         log('msg', 'added ' + str(len(items_)) + ' item(s)')
+
+    @doc_inherit
+    def getItemsFrom(self, inventory=False):
+        #if no outer inventory is provided, assume own inventory is needed
+        if not inventory:
+            inventory = self.inventory
+        #get items normally
+        items_ = Being.getItemsFrom(self, inventory)
+        #if own inventory is considered
+        if inventory == self.inventory:
+            #log information about quantity of removed items
+            log('msg', 'dropped ' + str(len(items_)) + ' item(s)')
+        #return items in question
+        return items_
 
     @doc_inherit
     def collect(self):
@@ -86,3 +101,13 @@ class Hero(Being):
             return False
         #if tile is not empty, proceed normally
         Being.collect(self)
+
+    @doc_inherit
+    def drop(self):
+        #check if there is anything to drop
+        if self.inventory.isEmpty():
+            #if not - send proper information
+            log('msg', 'nothing to drop')
+            return False
+        #if tile is not empty, proceed normally
+        Being.drop(self)

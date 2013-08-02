@@ -114,3 +114,9 @@ class Being(Entity, InventoryInterface):
         """
         #add items chosen from current tile's inventory
         self.addItems(*self.getItemsFrom(self.getCurrentTile().accessInventory()))
+
+    def drop(self):
+        """
+        drop some items
+        """
+        self.getCurrentTile().addItems(*self.getItemsFrom())

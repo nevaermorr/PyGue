@@ -17,4 +17,5 @@ keyMapping_ = {
     '9': ['move', 'NE'],
     #equipment management
     '+': ['collect'],
+    '-': ['drop'],
 }
