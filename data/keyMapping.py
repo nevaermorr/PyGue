@@ -18,4 +18,5 @@ keyMapping_ = {
     #equipment management
     '+': ['collect'],
     '-': ['drop'],
+    'i': ['showInventory']
 }

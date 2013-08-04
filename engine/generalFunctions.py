@@ -59,18 +59,23 @@ def charRange(startChar, stopChar):
     :param startChar: first character to be generated
     :param stopChar: last character to be generated
     """
+    #if characters out of range (a-z)
+    if startChar < 'a':
+        startChar = 'a'
+    if stopChar > 'z':
+        stopChar = 'z'
+    #generate characters in given range
     for c in range(ord(startChar), ord(stopChar)+1):
         yield chr(c)
 
 
-def charGen(char, length):
+def charGen(length=26):
     """
-    generate length of characters starting from char
-    :param char: first character to be generated
-    :param length: number of characters to generate
+    generate length of characters starting from 'a'
+    :param length: number of characters to generate (max 26, which corresponds to a-z)
     """
     #cast parameters to fit charRange() function
-    return charRange(char, chr(ord(char) + length - 1))
+    return charRange('a', chr(ord('a') + length - 1))
 
 
 class DocInherit(object):

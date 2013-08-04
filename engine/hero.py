@@ -111,3 +111,11 @@ class Hero(Being):
             return False
         #if tile is not empty, proceed normally
         Being.drop(self)
+
+    def showInventory(self):
+        """
+        display owned items
+        """
+        if self.inventory.isEmpty():
+            log('msg', 'inventory is empty')
+        self.inventory.displayElements()
