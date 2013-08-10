@@ -20,8 +20,10 @@ class Tile(InventoryInterface):
         self.being = None
 
     def displayPresentItems(self):
+        """
+        display items present on this tile
+        """
         #if there are any items
         if not self.inventory.isEmpty():
             log('msg', 'found:')
-            for item in self.inventory.chooseAll():
-                log('msg', str(item))
+            self.inventory.displayElements()

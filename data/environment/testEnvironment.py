@@ -21,4 +21,7 @@ def initEnvironment():
     stuff = Item(currentLocation, [2, 2])
     moreStuff = Item(currentLocation, [2, 2])
 
+    for i in range(52):
+        Item(currentLocation, [0, 1])
+
     return locations_

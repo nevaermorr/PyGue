@@ -8,6 +8,10 @@ class Hero(Being):
     """
 
     def __init__(self, location, coordinates, species):
+        #import key map
+        from data.keyMap import hero_
+        self.keyMap = hero_
+
         Being.__init__(self, location, coordinates, species)
         #log information about hero's birth
         log('msg', 'a hero is born')
@@ -16,15 +20,14 @@ class Hero(Being):
         """
         choose action basing on players input
         """
-        from data.keyMapping import keyMapping_
 
         actionKey = getKeyInput()
         #wait for valid command
-        while not isSet(keyMapping_, actionKey):
+        while not isSet(self.keyMap, actionKey):
             log('warning', 'unknown action')
             actionKey = getKeyInput()
         #return corresponding method name
-        return keyMapping_[actionKey]
+        return self.keyMap[actionKey]
 
     @doc_inherit
     def performAction(self, actionName, *actionParameters_):

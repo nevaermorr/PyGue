@@ -2,7 +2,8 @@
 key values for all actions
 """
 
-keyMapping_ = {
+#key map for hero actions
+hero_ = {
     #quit button
     'Q': ['quit'],
     #movement keys
@@ -18,5 +19,12 @@ keyMapping_ = {
     #equipment management
     '+': ['collect'],
     '-': ['drop'],
-    'i': ['showInventory']
+    'i': ['showInventory'],
+}
+
+#key map for list navigation
+displayableList_ = {
+    'quit' : 'q',
+    'next' : '+',
+    'prev' : '-',
 }
