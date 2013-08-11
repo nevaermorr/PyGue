@@ -16,51 +16,62 @@ class DisplayableList:
         self.keyMap = displayableList_
         #basis for this class - list of elements
         self.elements_ = list_
+        #internal pointer - id of first element after currently displayed
+        self.pointer = 0
 
     def displayElements(self):
         """
         display elements of this list (with multiple pages if necessary)
         """
         #start with displaying top of the inventory
-        #and retrieve id of next element to display
-        next = self.displaySelection(0)
-        print(next)
+        self.displaySelection(self.pointer)
         #loop until exited from within
         while 1:
             key = getKeyInput()
             if key == self.keyMap['quit']:
+                #reset internal pointer
+                self.pointer = 0
                 #exit the loop and finish displaying
                 break
             #show next page of elements
             if key == self.keyMap['next']:
-                next = self.displaySelection(next)
+                self.displaySelection('next')
             #show previous page of elements
             if key == self.keyMap['prev']:
                 pass
 
-    def displaySelection(self, start):
+    def displaySelection(self, dir = 'next'):
         """
         display one page of items
+        :param dir: direction of displaying - next or prev
         """
-        #iteration counter
-        i = start
-        #check if id not out of range
-        if not isSet(self.elements_, i):
-            #reset id if necessary
-            i = 0
+        #TODO direction of displaying
+        #selection of elements to display
+        selection_ = []
+        #check if pointer is in range
+        self.validatePointer()
+        #iterate character labels
         for char in charGen():
             #check if the end of the list is reached
-            if not isSet(self.elements_, i):
+            if not self.validatePointer():
                 break
             #display element
-            print(char + ': ' + str(self.elements_[i]))
+            selection_.append(char + ': ' + str(self.elements_[self.pointer]))
             #iterate counter
-            i += 1
-        #if end of list was not reached during display
-        else:
-            #return the iterator indicating id of the element
-            return i
+            self.pointer += 1
 
-        #return 0 indicating first element of the list is next to be displayed
-        #resulting in kind-of rewind or wrap-around
-        return 0
+        #display extracted selection
+        for element in selection_:
+            print(element)
+
+    def validatePointer(self):
+        """
+        check there is an element in list corresponding to internal pointer
+        """
+        #check if pointer is not out of range
+        if not isSet(self.elements_, self.pointer):
+            #reset pointer if necessary
+            self.pointer = 0
+            return False
+        else:
+            return True
