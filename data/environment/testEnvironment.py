@@ -2,7 +2,6 @@
 environment for testing purposes
 """
 #general classes
-from engine.generalFunctions import *
 from engine.location import Location
 from engine.hero import Hero
 from engine.item import Item

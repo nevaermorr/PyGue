@@ -1,10 +1,11 @@
-from engine.generalFunctions import *
+from generalFunctions import *
 from engine.inventory import *
+from engine.gear import *
 
 
-class Tile(InventoryInterface):
+class Tile(Gear, InventoryInterface):
     """
-    class corresponding to quantum of space
+    quantum of space
     """
     
     def __init__(self):
@@ -16,8 +17,6 @@ class Tile(InventoryInterface):
         self.terrain = ''
         #optional pointer to corresponding location, where this tile leads
         self.passage = None
-        #pointer to being present on tile
-        self.being = None
 
     def displayPresentItems(self):
         """

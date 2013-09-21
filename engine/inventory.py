@@ -1,8 +1,8 @@
-from engine.generalFunctions import *
-from engine.displayableList import *
+from generalFunctions import *
+from engine.gear import *
 
 
-class Inventory(DisplayableList):
+class Inventory(Gear):
     """
     set of items connected with some entity or place
     """
@@ -10,8 +10,6 @@ class Inventory(DisplayableList):
     def __init__(self, owner):
         #list of items present in the inventory
         self.items_ = []
-        #items serve as the basis for displayableList
-        DisplayableList.__init__(self, self.items_)
         #remember owner of this inventory
         self.owner = owner
 

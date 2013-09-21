@@ -1,5 +1,6 @@
-from engine.generalFunctions import *
-from engine.being import Being
+from generalFunctions import *
+from engine.being import *
+from view.hero import *
 
 
 class Hero(Being):
@@ -7,14 +8,14 @@ class Hero(Being):
     player character
     """
 
-    def __init__(self, location, coordinates, species):
+    def __init__(self, location, coordinates_, species):
         #import key map
         from data.keyMap import hero_
         self.keyMap = hero_
 
-        Being.__init__(self, location, coordinates, species)
-        #log information about hero's birth
-        log('msg', 'a hero is born')
+        Being.__init__(self, location, coordinates_, species)
+        #assign the view
+        self.view = HeroView(self)
 
     def chooseAction(self):
         """
@@ -24,7 +25,7 @@ class Hero(Being):
         actionKey = getKeyInput()
         #wait for valid command
         while not isSet(self.keyMap, actionKey):
-            log('warning', 'unknown action')
+            self.log.warning('unknown action')
             actionKey = getKeyInput()
         #return corresponding method name
         return self.keyMap[actionKey]
@@ -32,8 +33,6 @@ class Hero(Being):
     @doc_inherit
     def performAction(self, actionName, *actionParameters_):
         result = Being.performAction(self, actionName, *actionParameters_)
-        #try to log corresponding message
-        self.msg(actionName)
         #return original result
         return result
 
@@ -47,9 +46,11 @@ class Hero(Being):
         """
         quit the game
         """
-        #the world is a cold place now
+        #notify the world about pointlessness of its existence
         from engine.world import World
         World.gameOver = True
+        #notify the view about the situation
+        self.view.callActionQuit()
         #successful quit
         return True
 
@@ -69,17 +70,15 @@ class Hero(Being):
             return False
         #if movement succeeded
         else:
-            #display stuff found at current tile
-            self.location.getTileByCoordinates(self.coordinates).displayPresentItems()
-            #in the end report success of movement
+            #notify the view
+            self.view.callActionMove(True)
+            #report success of movement
             return True
 
     @doc_inherit
     def addItems(self, *items_):
         #add items normally
         Being.addItems(self, *items_)
-        #log information about quantity of added items
-        log('msg', 'added ' + str(len(items_)) + ' item(s)')
 
     @doc_inherit
     def getItemsFrom(self, inventory=False):
@@ -88,10 +87,6 @@ class Hero(Being):
             inventory = self.inventory
         #get items normally
         items_ = Being.getItemsFrom(self, inventory)
-        #if own inventory is considered
-        if inventory == self.inventory:
-            #log information about quantity of removed items
-            log('msg', 'dropped ' + str(len(items_)) + ' item(s)')
         #return items in question
         return items_
 
@@ -99,26 +94,23 @@ class Hero(Being):
     def collect(self):
         #check if there is anything to take
         if self.getCurrentTile().accessInventory().isEmpty():
-            #if not - send proper information
-            log('msg', 'nothing to pick up here')
             return False
         #if tile is not empty, proceed normally
-        Being.collect(self)
+        return Being.collect(self)
 
     @doc_inherit
     def drop(self):
         #check if there is anything to drop
         if self.inventory.isEmpty():
-            #if not - send proper information
-            log('msg', 'nothing to drop')
             return False
         #if tile is not empty, proceed normally
-        Being.drop(self)
+        return Being.drop(self)
 
     def showInventory(self):
         """
         display owned items
         """
         if self.inventory.isEmpty():
-            log('msg', 'inventory is empty')
+            return False
         self.inventory.displayElements()
+        return True

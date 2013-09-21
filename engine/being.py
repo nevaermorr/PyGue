@@ -1,6 +1,7 @@
-from engine.generalFunctions import *
-from engine.entity import Entity
+from generalFunctions import *
+from engine.entity import *
 from engine.inventory import *
+from view.being import *
 
 
 class Being(Entity, InventoryInterface):
@@ -8,21 +9,24 @@ class Being(Entity, InventoryInterface):
     entity capable of taking actions
     """
 
-    def __init__(self, location, coordinates, species):
+    def __init__(self, location, coordinates_, species):
         """
         create being
         :param location: location where the being is placed
-        :param coordinates: coordinates depicting the position of being in given location
+        :param coordinates_: coordinates depicting the position of being in given location
         :param species: species of this being
         """
+
         #inherited attributes from Entity
-        Entity.__init__(self, location, coordinates)
+        Entity.__init__(self, location, coordinates_)
         #provide the being with space for its belongings
         InventoryInterface.__init__(self)
         #load species-dependent features
         self.loadSpeciesDependencies(species)
         #announce that a new being has arrived
         location.checkIn(self)
+        #assign the view
+        self.view = BeingView(self)
 
     def loadSpeciesDependencies(self, species):
         """
@@ -80,7 +84,6 @@ class Being(Entity, InventoryInterface):
         """
         #perform desired action
         actionResult = getattr(self, actionName)(*actionParameters_)
-
         #if action performed successfully
         if actionResult:
             #set cool-down to time cost of chosen action
@@ -106,14 +109,23 @@ class Being(Entity, InventoryInterface):
         """
         pass one turn
         """
-        pass
+        #wait is always successful
+        return True
 
     def collect(self):
         """
         collect some items
         """
         #add items chosen from current tile's inventory
-        self.addItems(*self.getItemsFrom(self.getCurrentTile().accessInventory()))
+        collectedItems = self.getItemsFrom(self.getCurrentTile().accessInventory())
+        #if there is anything to pick up
+        if collectedItems:
+            self.addItems(*collectedItems)
+            #collected successfully
+            return True
+        else:
+            #failed to collect
+            return False
 
     def drop(self):
         """

@@ -1,7 +1,8 @@
-from engine.generalFunctions import *
+from generalFunctions import *
+from engine.gear import *
 
 
-class Location:
+class Location(Gear):
     """
     single location in the game
     """
@@ -17,9 +18,9 @@ class Location:
     
     def getTileByCoordinates(self, coordinates):
         """
-        return tile corresponding to given coordinates
+        return tile corresponding to given coordinates_
         """
-        #negative coordinates not allowed
+        #negative coordinates_ not allowed
         if coordinates[0] < 0 or coordinates[1] < 0:
             return False
         elif isSet(self.grid_, *coordinates):

@@ -1,7 +1,8 @@
-from engine.generalFunctions import *
+from generalFunctions import *
+from engine.gear import *
 
 
-class Time:
+class Time(Gear):
     """
     class representing time passing in the game's world
     """
