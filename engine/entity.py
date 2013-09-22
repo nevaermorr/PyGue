@@ -58,7 +58,7 @@ class Entity(Gear):
         ):
             return True
         else:
-            self.view.callActionCanMoveTo(False, coordinates_)
+            self.view.callActionCanMoveTo(False, targetTile)
             return False
 
     def __str__(self):

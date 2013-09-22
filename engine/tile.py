@@ -1,6 +1,7 @@
 from generalFunctions import *
 from engine.inventory import *
 from engine.gear import *
+from view.tile import *
 
 
 class Tile(Gear, InventoryInterface):
@@ -8,21 +9,22 @@ class Tile(Gear, InventoryInterface):
     quantum of space
     """
     
-    def __init__(self):
+    def __init__(self, coordinates_):
+        #coordinates of this tile in context of location
+        self.coordinates_ = coordinates_
         #add inventory
         InventoryInterface.__init__(self)
         #is it possible to step on this tile?
         self.isPassable = True
-        #species of terrain
+        #type of terrain
         self.terrain = ''
-        #optional pointer to corresponding location, where this tile leads
+        #optional pointer to corresponding location, to where this tile leads
         self.passage = None
+        #assign view
+        self.view = TileView(self)
 
-    def displayPresentItems(self):
+    def getCoordinates(self):
         """
-        display items present on this tile
+        get coordinates of this tile
         """
-        #if there are any items
-        if not self.inventory.isEmpty():
-            log('msg', 'found:')
-            self.inventory.displayElements()
+        return self.coordinates_

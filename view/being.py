@@ -11,3 +11,15 @@ class BeingView(EntityView):
         #parent constructor
         EntityView.__init__(self, model)
 
+    def callActionCollect(self, actionResult, collectedItems_=[]):
+        """
+        display information that the being collected some items
+        """
+        pass
+
+    def callActionDrop(self, actionResult, droppedItems_=[]):
+        """
+        display information that the being collected some items
+        """
+        pass
+

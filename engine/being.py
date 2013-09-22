@@ -117,10 +117,12 @@ class Being(Entity, InventoryInterface):
         collect some items
         """
         #add items chosen from current tile's inventory
-        collectedItems = self.getItemsFrom(self.getCurrentTile().accessInventory())
+        collectedItems_ = self.getItemsFrom(self.getCurrentTile().getInventory())
         #if there is anything to pick up
-        if collectedItems:
-            self.addItems(*collectedItems)
+        if collectedItems_:
+            self.addItems(*collectedItems_)
+            #notify view
+            self.view.callActionCollect(True, collectedItems_)
             #collected successfully
             return True
         else:
@@ -131,4 +133,9 @@ class Being(Entity, InventoryInterface):
         """
         drop some items
         """
-        self.getCurrentTile().addItems(*self.getItemsFrom())
+        #choose items to drop (as for now - all)
+        droppedItems = self.getItemsFrom()
+        self.getCurrentTile().addItems(*droppedItems)
+        #notify view
+        self.view.callActionDrop(True, droppedItems)
+        return True

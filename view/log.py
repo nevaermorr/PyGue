@@ -7,13 +7,30 @@ class LogView(View):
     display of logged information
     """
 
-    def __init__(self, model):
-        View.__init__(self, model)
-        #start with empty information
-        self.information = ''
+    def callActionLog(self, info):
+        """
+        how to display information about undertaken actions
+        """
+        #for now just put it on the screen
+        print(info)
 
-    def display(self):
+    def callWarning(self, info):
         """
-        put the log on screen
+        how to display information about undertaken actions
         """
-        print(self.information)
+        #for now just put it on the screen
+        print(info)
+
+    def callError(self, info):
+        """
+        how to display information about undertaken actions
+        """
+        #for now just put it on the screen
+        print(info)
+
+    def callFatalError(self, info):
+        """
+        how to display information about undertaken actions
+        """
+        #for now just put it on the screen
+        print(info)

@@ -1,5 +1,6 @@
 from generalFunctions import *
 from engine.gear import *
+from view.inventory import *
 
 
 class Inventory(Gear):
@@ -12,6 +13,8 @@ class Inventory(Gear):
         self.items_ = []
         #remember owner of this inventory
         self.owner = owner
+        #assign view
+        self.view = InventoryView(self)
 
     def add(self, *items_):
         """
@@ -40,6 +43,12 @@ class Inventory(Gear):
         """
         return not bool(self.items_)
 
+    def getItems(self):
+        """
+        obtain all items from inventory
+        """
+        return self.items_
+
 
 class InventoryInterface:
     """
@@ -50,7 +59,7 @@ class InventoryInterface:
         #inventory is obligatory
         self.inventory = Inventory(self)
 
-    def accessInventory(self):
+    def getInventory(self):
         """
         grant access to the inventory
         """
@@ -71,3 +80,15 @@ class InventoryInterface:
         shortcut for adding items to inventory
         """
         self.inventory.add(*items_)
+
+    def hasEmptyInventory(self):
+        """
+        is the inventory of this object empty?
+        """
+        return self.inventory.isEmpty()
+
+    def showInventory(self):
+        """
+        request inspection of the inventory
+        """
+        self.inventory.getView().callDisplayItems()

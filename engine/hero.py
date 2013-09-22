@@ -11,6 +11,7 @@ class Hero(Being):
     def __init__(self, location, coordinates_, species):
         #import key map
         from data.keyMap import hero_
+
         self.keyMap = hero_
 
         Being.__init__(self, location, coordinates_, species)
@@ -46,8 +47,9 @@ class Hero(Being):
         """
         quit the game
         """
-        #notify the world about pointlessness of its existence
         from engine.world import World
+
+        #notify the world about pointlessness of its existence
         World.gameOver = True
         #notify the view about the situation
         self.view.callActionQuit()
@@ -61,6 +63,12 @@ class Hero(Being):
         Being.die(self)
         #leave it all behind
         self.quit()
+
+    def wait(self):
+        result = Being.wait(self)
+        self.view.callActionWait()
+        #return the original result
+        return result
 
     def move(self, direction):
         #move like other beings
@@ -93,7 +101,9 @@ class Hero(Being):
     @doc_inherit
     def collect(self):
         #check if there is anything to take
-        if self.getCurrentTile().accessInventory().isEmpty():
+        if self.getCurrentTile().getInventory().isEmpty():
+            #notify the view
+            self.view.callActionCollect(False)
             return False
         #if tile is not empty, proceed normally
         return Being.collect(self)
@@ -102,6 +112,7 @@ class Hero(Being):
     def drop(self):
         #check if there is anything to drop
         if self.inventory.isEmpty():
+            self.view.callActionDrop(False)
             return False
         #if tile is not empty, proceed normally
         return Being.drop(self)
@@ -110,7 +121,5 @@ class Hero(Being):
         """
         display owned items
         """
-        if self.inventory.isEmpty():
-            return False
-        self.inventory.displayElements()
+        self.view.callShowInventory()
         return True

@@ -5,7 +5,16 @@ from view.view import *
 
 class Gear:
     """
-    every element of the engine
+    any element of the engine
     """
     #channel of communication common for whole engine
     log = Log()
+
+    def getView(self):
+        """
+        return view of this gear
+        """
+        try:
+            return self.view
+        except AttributeError:
+            return None
