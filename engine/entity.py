@@ -24,14 +24,13 @@ class Entity(Gear):
         #assign the view
         self.view = EntityView(self)
 
-    def move(self, direction):
+    def move(self, direction_):
         """
         what happens when some force moves the entity
-        :param direction: direction of the movement given as literal geographic direction
+        :param direction_: direction of the movement given as literal geographic direction
         """
         #evaluate desired position
-        vector_ = directionToVector(direction)
-        newCoordinates_ = [self.coordinates_[0] + vector_[0], self.coordinates_[1] + vector_[1]]
+        newCoordinates_ = [self.coordinates_[0] + direction_[0], self.coordinates_[1] + direction_[1]]
         #check if new position is available
         if self.canMoveTo(newCoordinates_):
             #move to new position

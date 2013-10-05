@@ -9,6 +9,11 @@ class HeroView(BeingView):
 
     def __init__(self, model):
         View.__init__(self, model)
+
+        #import key map
+        from data.keyMap import hero_
+        self.keyMap = hero_
+
         #notify about birth of Hero
         print('a Hero is born')
 
@@ -58,7 +63,7 @@ class HeroView(BeingView):
                 print('picked up', len(collectedItems_), 'items')
 
     def callActionDrop(self, actionResult, droppedItems_=[]):
-        #when nothing was dropped due to lack of items possible to collect
+        #when nothing was dropped due to lack of items possible to drop
         if not actionResult:
             print('nothing to drop')
         #when attempt to dropped some items was made
@@ -72,3 +77,16 @@ class HeroView(BeingView):
 
     def callShowInventory(self):
         self.model.getInventory().getView().callDisplayItems()
+
+    def chooseAction(self):
+        """
+        choose action basing on players input
+        """
+
+        actionKey = getKeyInput()
+        #wait for valid command
+        while not isSet(self.keyMap, actionKey):
+            print('unknown action')
+            actionKey = getKeyInput()
+        #return corresponding method name
+        return self.keyMap[actionKey]

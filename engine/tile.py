@@ -18,7 +18,7 @@ class Tile(Gear, InventoryInterface):
         self.isPassable = True
         #type of terrain
         self.terrain = ''
-        #optional pointer to corresponding location, to where this tile leads
+        #optional pointer to corresponding location, where this tile leads
         self.passage = None
         #assign view
         self.view = TileView(self)

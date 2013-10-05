@@ -7,24 +7,17 @@ hero_ = {
     #quit button
     'Q': ['quit'],
     #movement keys
-    '1': ['move', 'SW'],
-    '2': ['move', 'S'],
-    '3': ['move', 'SE'],
-    '4': ['move', 'W'],
+    '1': ['move', [-1, -1]],
+    '2': ['move', [0, -1]],
+    '3': ['move', [1, -1]],
+    '4': ['move', [-1, 0]],
     '5': ['wait'],
-    '6': ['move', 'E'],
-    '7': ['move', 'NW'],
-    '8': ['move', 'N'],
-    '9': ['move', 'NE'],
+    '6': ['move', [1, 0]],
+    '7': ['move', [-1, 1]],
+    '8': ['move', [0, 1]],
+    '9': ['move', [1, 1]],
     #equipment management
     '+': ['collect'],
     '-': ['drop'],
     'i': ['showInventory'],
-}
-
-#key map for list navigation
-displayableList_ = {
-    'quit' : 'q',
-    'next' : '+',
-    'prev' : '-',
 }

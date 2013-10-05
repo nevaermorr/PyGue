@@ -60,20 +60,3 @@ def charGen(length=26):
     """
     #cast parameters to fit charRange() function
     return charRange('a', chr(ord('a') + length - 1))
-
-
-def directionToVector(direction):
-    """
-    translate direction in form of string into vector
-    :param direction: literal geographical direction, combination of N, W, S, E
-    """
-    vector = [0, 0]
-    if direction.find("N") > -1:
-        vector[1] = 1
-    if direction.find("S") > -1:
-        vector[1] = -1
-    if direction.find("E") > -1:
-        vector[0] = 1
-    if direction.find("W") > -1:
-        vector[0] = -1
-    return vector

@@ -9,27 +9,10 @@ class Hero(Being):
     """
 
     def __init__(self, location, coordinates_, species):
-        #import key map
-        from data.keyMap import hero_
-
-        self.keyMap = hero_
 
         Being.__init__(self, location, coordinates_, species)
         #assign the view
         self.view = HeroView(self)
-
-    def chooseAction(self):
-        """
-        choose action basing on players input
-        """
-
-        actionKey = getKeyInput()
-        #wait for valid command
-        while not isSet(self.keyMap, actionKey):
-            self.log.warning('unknown action')
-            actionKey = getKeyInput()
-        #return corresponding method name
-        return self.keyMap[actionKey]
 
     @doc_inherit
     def performAction(self, actionName, *actionParameters_):
@@ -70,10 +53,10 @@ class Hero(Being):
         #return the original result
         return result
 
-    def move(self, direction):
+    def move(self, direction_):
         #move like other beings
         #if movement failed
-        if not Being.move(self, direction):
+        if not Being.move(self, direction_):
             #report failure of movement
             return False
         #if movement succeeded

@@ -11,6 +11,13 @@ class BeingView(EntityView):
         #parent constructor
         EntityView.__init__(self, model)
 
+    def chooseAction(self):
+        """
+        decide what to do
+        """
+        #pass by default
+        return ['wait']
+
     def callActionCollect(self, actionResult, collectedItems_=[]):
         """
         display information that the being collected some items

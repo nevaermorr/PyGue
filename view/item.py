@@ -11,4 +11,4 @@ class ItemView(View):
         """
         display item on the screen
         """
-        print('some item #' + str(self.model.id))
+        print('some item')

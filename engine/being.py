@@ -52,7 +52,7 @@ class Being(Entity, InventoryInterface):
         #if being is ready for action
         if self.isReadyToAct():
             #choose and try to perform some action until performed successfully
-            while not self.performAction(*self.chooseAction()):
+            while not self.performAction(*self.view.chooseAction()):
                 pass
 
     def decreaseCoolDown(self):
@@ -68,13 +68,6 @@ class Being(Entity, InventoryInterface):
         """
         if self.coolDown == 0:
             return True
-
-    def chooseAction(self):
-        """
-        decide what to do
-        """
-        #pass by default
-        return ['wait']
 
     def performAction(self, actionName, *actionParameters_):
         """

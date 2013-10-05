@@ -4,7 +4,7 @@ environment for testing purposes
 #general classes
 from engine.location import Location
 from engine.hero import Hero
-from engine.item import Item
+from data.item.testItem import TestItem
 
 #tailored test data
 from data.location.template.testLocation import grid_
@@ -17,10 +17,10 @@ def initEnvironment():
     currentLocation = locations_[0]
 
     hero = Hero(currentLocation, [0, 0], 'goblin')
-    stuff = Item(currentLocation, [2, 2])
-    moreStuff = Item(currentLocation, [2, 2])
+    stuff = TestItem(currentLocation, [2, 2])
+    moreStuff = TestItem(currentLocation, [2, 2])
 
     for i in range(52):
-        Item(currentLocation, [0, 1])
+        TestItem(currentLocation, [0, 1])
 
     return locations_
