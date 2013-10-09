@@ -1,8 +1,7 @@
-from generalFunctions import *
-from view.view import *
+from controller.controller import *
 
 
-class InventoryView(View):
+class InventoryController(Controller):
     """
     display of inventory
     """
@@ -20,4 +19,4 @@ class InventoryView(View):
         else:
             #display each item separately
             for item in self.model.getItems():
-                item.getView().display()
+                item.getController().display()

@@ -1,6 +1,5 @@
-from generalFunctions import *
 from engine.entity import *
-from view.item import *
+from controller.item import *
 
 
 class Item(Entity):
@@ -13,5 +12,5 @@ class Item(Entity):
         Entity.__init__(self, location, coordinates_)
         #inform tile about presence of new item
         self.getCurrentTile().addItems(self)
-        #assing view
-        self.view=ItemView(self)
+        #assing controller
+        self.controller=ItemController(self)

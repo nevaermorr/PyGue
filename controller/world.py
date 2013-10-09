@@ -1,10 +1,11 @@
-from generalFunctions import *
-from view.view import *
+import pygame
+
+from controller.controller import *
 
 
-class WorldView(View):
+class WorldController(Controller):
     """
-    main view for the game
+    main controller for the game
     """
 
     def __init__(self, model):
@@ -12,10 +13,10 @@ class WorldView(View):
         """
         :param model: world that will bo displayed
         """
-        View.__init__(self, model)
+        Controller.__init__(self, model)
 
     def callEndGame(self):
         """
-        inform the view about end of the game
+        inform the controller about end of the game
         """
         print(self.model.time.getCurrentTime())

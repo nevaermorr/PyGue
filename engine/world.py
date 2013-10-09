@@ -1,6 +1,6 @@
-from generalFunctions import *
 from engine.gear import *
-
+from engine.time import *
+from controller.world import *
 
 class World(Gear):
     """
@@ -13,15 +13,14 @@ class World(Gear):
         """
         creation of the world!
         """
-        from engine.time import Time
-        from view.world import WorldView
 
-        #link world with its view
-        self.view = WorldView(self)
+        Gear.__init__(self)
         #initialize some environment
         self.createEnvironment()
         #start the great clockWorld
         self.time = Time()
+        #link world with its controller
+        self.controller = WorldController(self)
 
     def run(self):
         """
@@ -44,8 +43,8 @@ class World(Gear):
         """
         manage everything that needs to be done once the game come to its end
         """
-        #notify the view about end of the game
-        self.view.callEndGame()
+        #notify the controller about end of the game
+        self.controller.callEndGame()
 
     def createEnvironment(self):
         """

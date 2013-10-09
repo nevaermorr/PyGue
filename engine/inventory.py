@@ -1,6 +1,5 @@
-from generalFunctions import *
 from engine.gear import *
-from view.inventory import *
+from controller.inventory import *
 
 
 class Inventory(Gear):
@@ -9,12 +8,13 @@ class Inventory(Gear):
     """
 
     def __init__(self, owner):
+        Gear.__init__(self)
         #list of items present in the inventory
         self.items_ = []
         #remember owner of this inventory
         self.owner = owner
-        #assign view
-        self.view = InventoryView(self)
+        #assign controller
+        self.controller = InventoryController(self)
 
     def add(self, *items_):
         """
@@ -91,4 +91,4 @@ class InventoryInterface:
         """
         request inspection of the inventory
         """
-        self.inventory.getView().callDisplayItems()
+        self.inventory.getController().callDisplayItems()

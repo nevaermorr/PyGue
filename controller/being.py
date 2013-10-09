@@ -1,15 +1,14 @@
-from generalFunctions import *
-from view.entity import *
+from controller.entity import *
 
 
-class BeingView(EntityView):
+class BeingController(EntityController):
     """
     display of being
     """
 
     def __init__(self, model):
         #parent constructor
-        EntityView.__init__(self, model)
+        EntityController.__init__(self, model)
 
     def chooseAction(self):
         """

@@ -1,6 +1,5 @@
-from generalFunctions import *
 from engine.gear import *
-from view.entity import *
+from controller.entity import *
 
 
 class Entity(Gear):
@@ -15,14 +14,15 @@ class Entity(Gear):
         :param coordinates_: coordinates depicting the position of entity in given location
         """
 
+        Gear.__init__(self)
         #pointer to the map, where this entity is currently present
         self.location = location
         #coordinates_ of the tile, on which this entity is located
         self.coordinates_ = coordinates_
         #size of entity (length of one side measured in tiles)
         self.size = 1
-        #assign the view
-        self.view = EntityView(self)
+        #assign the controller
+        self.controller = EntityController(self)
 
     def move(self, direction_):
         """
@@ -38,7 +38,7 @@ class Entity(Gear):
             #report successful movement
             return True
         else:
-            self.view.callActionMove(False)
+            self.controller.callActionMove(False)
             #report movement failure
             return False
 
@@ -57,7 +57,7 @@ class Entity(Gear):
         ):
             return True
         else:
-            self.view.callActionCanMoveTo(False, targetTile)
+            self.controller.callActionCanMoveTo(False, targetTile)
             return False
 
     def __str__(self):

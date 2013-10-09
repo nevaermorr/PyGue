@@ -1,4 +1,3 @@
-from generalFunctions import *
 from engine.gear import *
 
 
@@ -14,6 +13,7 @@ class Time(Gear):
         """
         start the great clock
         """
+        Gear.__init__(self)
         self.quantumCount = 0
         self.quantumOfHour = 0
         self.hourCount = 0

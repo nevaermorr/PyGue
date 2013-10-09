@@ -1,14 +1,11 @@
-from generalFunctions import *
-
-
-class View:
+class Controller:
     """
-    base class for all parts of view
+    base class for all parts of controller
     """
 
     def __init__(self, model):
         """
-        :param model: object to be displayed by this particular view
+        :param model: object to be displayed by this particular controller
         """
         self.model = model
         pass

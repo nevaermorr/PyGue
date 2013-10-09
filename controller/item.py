@@ -1,8 +1,7 @@
-from generalFunctions import *
-from view.view import *
+from controller.controller import *
 
 
-class ItemView(View):
+class ItemController(Controller):
     """
     display of item
     """

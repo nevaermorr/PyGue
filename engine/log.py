@@ -1,5 +1,4 @@
-from generalFunctions import *
-from view.log import *
+from controller.log import *
 
 
 class Log:
@@ -8,29 +7,29 @@ class Log:
     """
 
     def __init__(self):
-        #link log with its view
-        self.view = LogView(self)
+        #link log with its controller
+        self.controller = LogController(self)
 
     def actionLog(self, info):
         """
         information about course of events
         """
-        self.view.callActionLog(info)
+        self.controller.callActionLog(info)
 
     def warning(self, info):
         """
         not allowed action or wrong incoming instruction
         """
-        self.view.callWarning(info)
+        self.controller.callWarning(info)
 
     def error(self, info):
         """
         error which are not fatal
         """
-        self.view.callError(info);
+        self.controller.callError(info)
 
     def fatalError(self, info):
         """
         error which prevents game from further execution
         """
-        self.view.callFatalError(info)
+        self.controller.callFatalError(info)

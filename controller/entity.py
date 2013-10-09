@@ -1,15 +1,14 @@
-from generalFunctions import *
-from view.view import *
+from controller.controller import *
 
 
-class EntityView(View):
+class EntityController(Controller):
     """
     display of entity
     """
 
     def __init__(self, model):
         #parent constructor
-        View.__init__(self, model)
+        Controller.__init__(self, model)
         #ASCII character representing the entity
         self.character = ''
 

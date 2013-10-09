@@ -1,7 +1,5 @@
-from generalFunctions import *
 from engine.inventory import *
-from engine.gear import *
-from view.tile import *
+from controller.tile import *
 
 
 class Tile(Gear, InventoryInterface):
@@ -10,18 +8,19 @@ class Tile(Gear, InventoryInterface):
     """
     
     def __init__(self, coordinates_):
-        #coordinates of this tile in context of location
-        self.coordinates_ = coordinates_
+        Gear.__init__(self)
         #add inventory
         InventoryInterface.__init__(self)
+        #coordinates of this tile in context of location
+        self.coordinates_ = coordinates_
         #is it possible to step on this tile?
         self.isPassable = True
         #type of terrain
         self.terrain = ''
         #optional pointer to corresponding location, where this tile leads
         self.passage = None
-        #assign view
-        self.view = TileView(self)
+        #assign controller
+        self.controller = TileController(self)
 
     def getCoordinates(self):
         """

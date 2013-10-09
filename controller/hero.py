@@ -1,17 +1,17 @@
-from generalFunctions import *
-from view.being import *
+from utilities.generalFunctions import *
+from controller.being import *
 
 
-class HeroView(BeingView):
+class HeroController(BeingController):
     """
     display of hero
     """
 
     def __init__(self, model):
-        View.__init__(self, model)
+        Controller.__init__(self, model)
 
         #import key map
-        from data.keyMap import hero_
+        from controller.config.keyMap import hero_
         self.keyMap = hero_
 
         #notify about birth of Hero
@@ -34,7 +34,7 @@ class HeroView(BeingView):
         if actionResult:
             print('hero moved to', self.model.getCoordinates())
             #try to display items on newly stepped tile
-            self.model.getCurrentTile().getView().displayItems()
+            self.model.getCurrentTile().getController().displayItems()
         else:
             #this situation is managed by callActionCanMoveTo variant
             pass
@@ -76,7 +76,7 @@ class HeroView(BeingView):
                 print('dropped', len(droppedItems_), 'items')
 
     def callShowInventory(self):
-        self.model.getInventory().getView().callDisplayItems()
+        self.model.getInventory().getController().callDisplayItems()
 
     def chooseAction(self):
         """

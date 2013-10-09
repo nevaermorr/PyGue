@@ -1,4 +1,4 @@
-from generalFunctions import *
+from utilities.generalFunctions import *
 from engine.gear import *
 
 
@@ -11,6 +11,7 @@ class Location(Gear):
         """
         create location
         """
+        Gear.__init__(self)
         #assign defined grid
         self.grid_ = grid_
         #pointers to all beings in this map

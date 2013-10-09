@@ -1,8 +1,7 @@
-from generalFunctions import *
-from view.view import *
+from controller.controller import *
 
 
-class TileView(View):
+class TileController(Controller):
     """
     display of tile
     """
@@ -13,4 +12,4 @@ class TileView(View):
         """
         #if there are some items present on this tile
         if not self.model.hasEmptyInventory():
-            self.model.getInventory().getView().callDisplayItems()
+            self.model.getInventory().getController().callDisplayItems()

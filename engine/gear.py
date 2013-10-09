@@ -1,6 +1,4 @@
-from generalFunctions import *
 from engine.log import *
-from view.view import *
 
 
 class Gear:
@@ -10,11 +8,11 @@ class Gear:
     #channel of communication common for whole engine
     log = Log()
 
-    def getView(self):
+    def __init__(self):
+        self.controller = None
+
+    def getController(self):
         """
-        return view of this gear
+        return controller of this gear
         """
-        try:
-            return self.view
-        except AttributeError:
-            return None
+        return self.controller

@@ -1,7 +1,6 @@
-from generalFunctions import *
 from engine.entity import *
 from engine.inventory import *
-from view.being import *
+from controller.being import *
 
 
 class Being(Entity, InventoryInterface):
@@ -25,8 +24,8 @@ class Being(Entity, InventoryInterface):
         self.loadSpeciesDependencies(species)
         #announce that a new being has arrived
         location.checkIn(self)
-        #assign the view
-        self.view = BeingView(self)
+        #assign the controller
+        self.controller = BeingController(self)
 
     def loadSpeciesDependencies(self, species):
         """
@@ -52,7 +51,7 @@ class Being(Entity, InventoryInterface):
         #if being is ready for action
         if self.isReadyToAct():
             #choose and try to perform some action until performed successfully
-            while not self.performAction(*self.view.chooseAction()):
+            while not self.performAction(*self.controller.chooseAction()):
                 pass
 
     def decreaseCoolDown(self):
@@ -114,8 +113,8 @@ class Being(Entity, InventoryInterface):
         #if there is anything to pick up
         if collectedItems_:
             self.addItems(*collectedItems_)
-            #notify view
-            self.view.callActionCollect(True, collectedItems_)
+            #notify controller
+            self.controller.callActionCollect(True, collectedItems_)
             #collected successfully
             return True
         else:
@@ -129,6 +128,6 @@ class Being(Entity, InventoryInterface):
         #choose items to drop (as for now - all)
         droppedItems = self.getItemsFrom()
         self.getCurrentTile().addItems(*droppedItems)
-        #notify view
-        self.view.callActionDrop(True, droppedItems)
+        #notify controller
+        self.controller.callActionDrop(True, droppedItems)
         return True

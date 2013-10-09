@@ -1,6 +1,6 @@
-from generalFunctions import *
+from utilities.generalFunctions import *
 from engine.being import *
-from view.hero import *
+from controller.hero import *
 
 
 class Hero(Being):
@@ -11,8 +11,8 @@ class Hero(Being):
     def __init__(self, location, coordinates_, species):
 
         Being.__init__(self, location, coordinates_, species)
-        #assign the view
-        self.view = HeroView(self)
+        #assign the controller
+        self.controller = HeroController(self)
 
     @doc_inherit
     def performAction(self, actionName, *actionParameters_):
@@ -34,8 +34,8 @@ class Hero(Being):
 
         #notify the world about pointlessness of its existence
         World.gameOver = True
-        #notify the view about the situation
-        self.view.callActionQuit()
+        #notify the controller about the situation
+        self.controller.callActionQuit()
         #successful quit
         return True
 
@@ -49,7 +49,7 @@ class Hero(Being):
 
     def wait(self):
         result = Being.wait(self)
-        self.view.callActionWait()
+        self.controller.callActionWait()
         #return the original result
         return result
 
@@ -61,8 +61,8 @@ class Hero(Being):
             return False
         #if movement succeeded
         else:
-            #notify the view
-            self.view.callActionMove(True)
+            #notify the controller
+            self.controller.callActionMove(True)
             #report success of movement
             return True
 
@@ -85,8 +85,8 @@ class Hero(Being):
     def collect(self):
         #check if there is anything to take
         if self.getCurrentTile().getInventory().isEmpty():
-            #notify the view
-            self.view.callActionCollect(False)
+            #notify the controller
+            self.controller.callActionCollect(False)
             return False
         #if tile is not empty, proceed normally
         return Being.collect(self)
@@ -95,7 +95,7 @@ class Hero(Being):
     def drop(self):
         #check if there is anything to drop
         if self.inventory.isEmpty():
-            self.view.callActionDrop(False)
+            self.controller.callActionDrop(False)
             return False
         #if tile is not empty, proceed normally
         return Being.drop(self)
@@ -104,5 +104,5 @@ class Hero(Being):
         """
         display owned items
         """
-        self.view.callShowInventory()
+        self.controller.callShowInventory()
         return True

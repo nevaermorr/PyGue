@@ -1,4 +1,3 @@
-from generalFunctions import *
 from engine.item import *
 
 
@@ -13,14 +12,11 @@ class TestItem(Item):
         #assign unique id
         self.id = TestItem.__id
         TestItem.__id += 1
-        #assign view
-        self.view = TestItemView(self)
+        #assign controller
+        self.controller = TestItemView(self)
 
 
-from view.item import *
-
-
-class TestItemView(ItemView):
+class TestItemView(ItemController):
 
     def display(self):
         print('some item #' + str(self.model.id))

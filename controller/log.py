@@ -1,8 +1,7 @@
-from generalFunctions import *
-from view.view import *
+from controller.controller import *
 
 
-class LogView(View):
+class LogController(Controller):
     """
     display of logged information
     """
