@@ -13,8 +13,8 @@ class Inventory(Gear):
         self.items_ = []
         #remember owner of this inventory
         self.owner = owner
-        #assign controller
-        self.controller = InventoryController(self)
+        #assign switch
+        self.switch = InventorySwitch(self)
 
     def add(self, *items_):
         """
@@ -91,4 +91,4 @@ class InventoryInterface:
         """
         request inspection of the inventory
         """
-        self.inventory.getController().callDisplayItems()
+        self.inventory.getSwitch().callDisplayItems()

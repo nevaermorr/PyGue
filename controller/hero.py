@@ -2,13 +2,13 @@ from utilities.generalFunctions import *
 from controller.being import *
 
 
-class HeroController(BeingController):
+class HeroSwitch(BeingSwitch):
     """
-    display of hero
+    controller of hero
     """
 
-    def __init__(self, model):
-        Controller.__init__(self, model)
+    def __init__(self, gear):
+        Switch.__init__(self, gear)
 
         #import key map
         from controller.config.keyMap import hero_
@@ -32,9 +32,9 @@ class HeroController(BeingController):
     def callActionMove(self, actionResult):
         #for successful movement
         if actionResult:
-            print('hero moved to', self.model.getCoordinates())
+            print('hero moved to', self.gear.getCoordinates())
             #try to display items on newly stepped tile
-            self.model.getCurrentTile().getController().displayItems()
+            self.gear.getCurrentTile().getSwitch().displayItems()
         else:
             #this situation is managed by callActionCanMoveTo variant
             pass
@@ -76,7 +76,7 @@ class HeroController(BeingController):
                 print('dropped', len(droppedItems_), 'items')
 
     def callShowInventory(self):
-        self.model.getInventory().getController().callDisplayItems()
+        self.gear.getInventory().getSwitch().callDisplayItems()
 
     def chooseAction(self):
         """

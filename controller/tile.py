@@ -1,9 +1,10 @@
-from controller.controller import *
+from utilities.generalFunctions import *
+from controller.switch import *
 
 
-class TileController(Controller):
+class TileSwitch(Switch):
     """
-    display of tile
+    controller of tile
     """
 
     def displayItems(self):
@@ -11,5 +12,5 @@ class TileController(Controller):
         display items present on this tile. if any
         """
         #if there are some items present on this tile
-        if not self.model.hasEmptyInventory():
-            self.model.getInventory().getController().callDisplayItems()
+        if not self.gear.hasEmptyInventory():
+            self.gear.getInventory().getSwitch().callDisplayItems()

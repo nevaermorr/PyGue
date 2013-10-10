@@ -21,8 +21,8 @@ class Entity(Gear):
         self.coordinates_ = coordinates_
         #size of entity (length of one side measured in tiles)
         self.size = 1
-        #assign the controller
-        self.controller = EntityController(self)
+        #assign the switch
+        self.switch = EntitySwitch(self)
 
     def move(self, direction_):
         """
@@ -38,7 +38,7 @@ class Entity(Gear):
             #report successful movement
             return True
         else:
-            self.controller.callActionMove(False)
+            self.switch.callActionMove(False)
             #report movement failure
             return False
 
@@ -57,7 +57,7 @@ class Entity(Gear):
         ):
             return True
         else:
-            self.controller.callActionCanMoveTo(False, targetTile)
+            self.switch.callActionCanMoveTo(False, targetTile)
             return False
 
     def __str__(self):

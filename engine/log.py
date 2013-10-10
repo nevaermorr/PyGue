@@ -7,8 +7,8 @@ class Log:
     """
 
     def __init__(self):
-        #link log with its controller
-        self.controller = LogController(self)
+        #link log with its switch
+        self.controller = LogSwitch(self)
 
     def actionLog(self, info):
         """

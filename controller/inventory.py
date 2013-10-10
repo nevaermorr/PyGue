@@ -1,9 +1,10 @@
-from controller.controller import *
+from utilities.generalFunctions import *
+from controller.switch import *
 
 
-class InventoryController(Controller):
+class InventorySwitch(Switch):
     """
-    display of inventory
+    controller of inventory
     """
 
     def callDisplayItems(self):
@@ -12,11 +13,11 @@ class InventoryController(Controller):
         """
 
         #in case the inventory is empty
-        if self.model.isEmpty():
+        if self.gear.isEmpty():
             print('nothing here')
 
         #only if inventory have some items, display them
         else:
             #display each item separately
-            for item in self.model.getItems():
-                item.getController().display()
+            for item in self.gear.getItems():
+                item.getSwitch().display()

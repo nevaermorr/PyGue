@@ -1,14 +1,15 @@
-from controller.controller import *
+from utilities.generalFunctions import *
+from controller.switch import *
 
 
-class EntityController(Controller):
+class EntitySwitch(Switch):
     """
-    display of entity
+    controller of entity
     """
 
-    def __init__(self, model):
+    def __init__(self, gear):
         #parent constructor
-        Controller.__init__(self, model)
+        Switch.__init__(self, gear)
         #ASCII character representing the entity
         self.character = ''
 

@@ -19,8 +19,8 @@ class Tile(Gear, InventoryInterface):
         self.terrain = ''
         #optional pointer to corresponding location, where this tile leads
         self.passage = None
-        #assign controller
-        self.controller = TileController(self)
+        #assign switch
+        self.switch = TileSwitch(self)
 
     def getCoordinates(self):
         """

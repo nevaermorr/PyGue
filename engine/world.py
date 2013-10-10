@@ -19,8 +19,8 @@ class World(Gear):
         self.createEnvironment()
         #start the great clockWorld
         self.time = Time()
-        #link world with its controller
-        self.controller = WorldController(self)
+        #link world with its switch
+        self.switch = WorldSwitch(self)
 
     def run(self):
         """
@@ -43,8 +43,8 @@ class World(Gear):
         """
         manage everything that needs to be done once the game come to its end
         """
-        #notify the controller about end of the game
-        self.controller.callEndGame()
+        #notify the switch about end of the game
+        self.switch.callEndGame()
 
     def createEnvironment(self):
         """

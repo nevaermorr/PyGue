@@ -1,9 +1,10 @@
-from controller.controller import *
+from utilities.generalFunctions import *
+from controller.switch import *
 
 
-class LogController(Controller):
+class LogSwitch(Switch):
     """
-    display of logged information
+    controller of logged information
     """
 
     def callActionLog(self, info):

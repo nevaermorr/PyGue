@@ -1,9 +1,10 @@
-from controller.controller import *
+from utilities.generalFunctions import *
+from controller.switch import *
 
 
-class ItemController(Controller):
+class ItemSwitch(Switch):
     """
-    display of item
+    controller of item
     """
 
     def display(self):

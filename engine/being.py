@@ -24,8 +24,8 @@ class Being(Entity, InventoryInterface):
         self.loadSpeciesDependencies(species)
         #announce that a new being has arrived
         location.checkIn(self)
-        #assign the controller
-        self.controller = BeingController(self)
+        #assign the switch
+        self.switch = BeingSwitch(self)
 
     def loadSpeciesDependencies(self, species):
         """
@@ -51,7 +51,7 @@ class Being(Entity, InventoryInterface):
         #if being is ready for action
         if self.isReadyToAct():
             #choose and try to perform some action until performed successfully
-            while not self.performAction(*self.controller.chooseAction()):
+            while not self.performAction(*self.switch.chooseAction()):
                 pass
 
     def decreaseCoolDown(self):
@@ -113,8 +113,8 @@ class Being(Entity, InventoryInterface):
         #if there is anything to pick up
         if collectedItems_:
             self.addItems(*collectedItems_)
-            #notify controller
-            self.controller.callActionCollect(True, collectedItems_)
+            #notify switch
+            self.switch.callActionCollect(True, collectedItems_)
             #collected successfully
             return True
         else:
@@ -128,6 +128,6 @@ class Being(Entity, InventoryInterface):
         #choose items to drop (as for now - all)
         droppedItems = self.getItemsFrom()
         self.getCurrentTile().addItems(*droppedItems)
-        #notify controller
-        self.controller.callActionDrop(True, droppedItems)
+        #notify switch
+        self.switch.callActionDrop(True, droppedItems)
         return True

@@ -1,22 +1,21 @@
-import pygame
+from utilities.generalFunctions import *
+from controller.switch import *
 
-from controller.controller import *
 
-
-class WorldController(Controller):
+class WorldSwitch(Switch):
     """
     main controller for the game
     """
 
-    def __init__(self, model):
+    def __init__(self, gear):
         #call parent constructor
         """
-        :param model: world that will bo displayed
+        :param gear: world that will bo displayed
         """
-        Controller.__init__(self, model)
+        Switch.__init__(self, gear)
 
     def callEndGame(self):
         """
-        inform the controller about end of the game
+        inform the switch about end of the game
         """
-        print(self.model.time.getCurrentTime())
+        print(self.gear.time.getCurrentTime())

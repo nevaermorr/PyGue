@@ -12,11 +12,11 @@ class TestItem(Item):
         #assign unique id
         self.id = TestItem.__id
         TestItem.__id += 1
-        #assign controller
-        self.controller = TestItemView(self)
+        #assign switch
+        self.switch = TestItemView(self)
 
 
-class TestItemView(ItemController):
+class TestItemView(ItemSwitch):
 
     def display(self):
-        print('some item #' + str(self.model.id))
+        print('some item #' + str(self.gear.id))

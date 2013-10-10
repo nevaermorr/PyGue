@@ -1,13 +1,15 @@
-class Controller:
+from utilities.generalFunctions import *
+
+class Switch:
     """
     base class for all parts of controller
     """
 
-    def __init__(self, model):
+    def __init__(self, gear):
         """
-        :param model: object to be displayed by this particular controller
+        :param gear: object to be controlled by this particular switch
         """
-        self.model = model
+        self.gear = gear
         pass
 
     def display(self):

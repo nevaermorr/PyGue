@@ -9,10 +9,10 @@ class Gear:
     log = Log()
 
     def __init__(self):
-        self.controller = None
+        self.switch = None
 
-    def getController(self):
+    def getSwitch(self):
         """
-        return controller of this gear
+        return switch of this gear
         """
-        return self.controller
+        return self.switch

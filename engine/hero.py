@@ -11,8 +11,8 @@ class Hero(Being):
     def __init__(self, location, coordinates_, species):
 
         Being.__init__(self, location, coordinates_, species)
-        #assign the controller
-        self.controller = HeroController(self)
+        #assign the switch
+        self.switch = HeroSwitch(self)
 
     @doc_inherit
     def performAction(self, actionName, *actionParameters_):
@@ -34,8 +34,8 @@ class Hero(Being):
 
         #notify the world about pointlessness of its existence
         World.gameOver = True
-        #notify the controller about the situation
-        self.controller.callActionQuit()
+        #notify the switch about the situation
+        self.switch.callActionQuit()
         #successful quit
         return True
 
@@ -49,7 +49,7 @@ class Hero(Being):
 
     def wait(self):
         result = Being.wait(self)
-        self.controller.callActionWait()
+        self.switch.callActionWait()
         #return the original result
         return result
 
@@ -61,8 +61,8 @@ class Hero(Being):
             return False
         #if movement succeeded
         else:
-            #notify the controller
-            self.controller.callActionMove(True)
+            #notify the switch
+            self.switch.callActionMove(True)
             #report success of movement
             return True
 
@@ -85,8 +85,8 @@ class Hero(Being):
     def collect(self):
         #check if there is anything to take
         if self.getCurrentTile().getInventory().isEmpty():
-            #notify the controller
-            self.controller.callActionCollect(False)
+            #notify the switch
+            self.switch.callActionCollect(False)
             return False
         #if tile is not empty, proceed normally
         return Being.collect(self)
@@ -95,7 +95,7 @@ class Hero(Being):
     def drop(self):
         #check if there is anything to drop
         if self.inventory.isEmpty():
-            self.controller.callActionDrop(False)
+            self.switch.callActionDrop(False)
             return False
         #if tile is not empty, proceed normally
         return Being.drop(self)
@@ -104,5 +104,5 @@ class Hero(Being):
         """
         display owned items
         """
-        self.controller.callShowInventory()
+        self.switch.callShowInventory()
         return True

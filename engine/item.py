@@ -12,5 +12,5 @@ class Item(Entity):
         Entity.__init__(self, location, coordinates_)
         #inform tile about presence of new item
         self.getCurrentTile().addItems(self)
-        #assing controller
-        self.controller=ItemController(self)
+        #assing switch
+        self.switch=ItemSwitch(self)

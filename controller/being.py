@@ -1,14 +1,15 @@
+from utilities.generalFunctions import *
 from controller.entity import *
 
 
-class BeingController(EntityController):
+class BeingSwitch(EntitySwitch):
     """
-    display of being
+    controller of being
     """
 
-    def __init__(self, model):
+    def __init__(self, gear):
         #parent constructor
-        EntityController.__init__(self, model)
+        EntitySwitch.__init__(self, gear)
 
     def chooseAction(self):
         """
