@@ -1,3 +1,3 @@
 """
-directory for everything concerning displaying anything on the screen
+directory for elements connecting work of engine with displaying things on screen
 """

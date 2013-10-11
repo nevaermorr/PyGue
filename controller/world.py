@@ -10,7 +10,7 @@ class WorldSwitch(Switch):
     def __init__(self, gear):
         #call parent constructor
         """
-        :param gear: world that will bo displayed
+        :param gear: world that will be managed
         """
         Switch.__init__(self, gear)
 
