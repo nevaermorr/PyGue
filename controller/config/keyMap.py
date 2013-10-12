@@ -19,5 +19,5 @@ hero_ = {
     #equipment management
     '+': ['collect'],
     '-': ['drop'],
-    'i': ['showInventory'],
+    'i': ['show_inventory'],
 }

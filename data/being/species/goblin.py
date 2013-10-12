@@ -5,6 +5,6 @@ timeCosts_ = {
     'move': 100,
     'collect': 50,
     'drop': 50,
-    'showInventory': 0,
+    'show_inventory': 0,
 }
 

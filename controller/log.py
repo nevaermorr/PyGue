@@ -7,30 +7,30 @@ class LogSwitch(Switch):
     controller of logged information
     """
 
-    def callActionLog(self, info):
+    def call_action_log(self, info):
         """
         how to display information about undertaken actions
         """
-        #for now just put it on the screen
+        # for now just put it on the screen
         print(info)
 
-    def callWarning(self, info):
+    def call_warning(self, info):
         """
         how to display information about undertaken actions
         """
-        #for now just put it on the screen
+        # for now just put it on the screen
         print(info)
 
-    def callError(self, info):
+    def call_error(self, info):
         """
         how to display information about undertaken actions
         """
-        #for now just put it on the screen
+        # for now just put it on the screen
         print(info)
 
-    def callFatalError(self, info):
+    def call_fatal_error(self, info):
         """
         how to display information about undertaken actions
         """
-        #for now just put it on the screen
+        # for now just put it on the screen
         print(info)

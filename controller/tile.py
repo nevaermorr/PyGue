@@ -7,10 +7,10 @@ class TileSwitch(Switch):
     controller of tile
     """
 
-    def displayItems(self):
+    def display_items(self):
         """
         display items present on this tile. if any
         """
-        #if there are some items present on this tile
-        if not self.gear.hasEmptyInventory():
-            self.gear.getInventory().getSwitch().callDisplayItems()
+        # if there are some items present on this tile
+        if not self.gear.has_empty_inventory():
+            self.gear.get_inventory().get_switch().call_display_items()

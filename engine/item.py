@@ -8,9 +8,9 @@ class Item(Entity):
     """
 
     def __init__(self, location, coordinates_):
-        #inherited state
+        # inherited state
         Entity.__init__(self, location, coordinates_)
-        #inform tile about presence of new item
-        self.getCurrentTile().addItems(self)
-        #assing switch
+        # inform tile about presence of new item
+        self.get_current_tile().add_items(self)
+        # assign switch
         self.switch=ItemSwitch(self)

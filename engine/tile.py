@@ -9,20 +9,20 @@ class Tile(Gear, InventoryInterface):
     
     def __init__(self, coordinates_):
         Gear.__init__(self)
-        #add inventory
+        # add inventory
         InventoryInterface.__init__(self)
-        #coordinates of this tile in context of location
+        # coordinates of this tile in context of location
         self.coordinates_ = coordinates_
-        #is it possible to step on this tile?
-        self.isPassable = True
-        #type of terrain
+        # is it possible to step on this tile?
+        self.is_passable = True
+        # type of terrain
         self.terrain = ''
-        #optional pointer to corresponding location, where this tile leads
+        # optional pointer to corresponding location, where this tile leads
         self.passage = None
-        #assign switch
+        # assign switch
         self.switch = TileSwitch(self)
 
-    def getCoordinates(self):
+    def get_coordinates(self):
         """
         get coordinates of this tile
         """

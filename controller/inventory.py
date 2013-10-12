@@ -7,17 +7,17 @@ class InventorySwitch(Switch):
     controller of inventory
     """
 
-    def callDisplayItems(self):
+    def call_display_items(self):
         """
         display all items
         """
 
-        #in case the inventory is empty
-        if self.gear.isEmpty():
+        # in case the inventory is empty
+        if self.gear.is_empty():
             print('nothing here')
 
-        #only if inventory have some items, display them
+        # only if inventory have some items, display them
         else:
-            #display each item separately
-            for item in self.gear.getItems():
-                item.getSwitch().display()
+            # display each item separately
+            for item in self.gear.get_items():
+                item.get_switch().display()

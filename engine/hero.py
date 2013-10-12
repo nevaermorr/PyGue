@@ -11,20 +11,20 @@ class Hero(Being):
     def __init__(self, location, coordinates_, species):
 
         Being.__init__(self, location, coordinates_, species)
-        #assign the switch
+        # assign the switch
         self.switch = HeroSwitch(self)
 
     @doc_inherit
-    def performAction(self, actionName, *actionParameters_):
-        result = Being.performAction(self, actionName, *actionParameters_)
-        #return original result
+    def perform_action(self, action_name, *action_parameters_):
+        result = Being.perform_action(self, action_name, *action_parameters_)
+        # return original result
         return result
 
     @doc_inherit
-    def loadSpeciesDependencies(self, species):
-        Being.loadSpeciesDependencies(self, species)
-        #only heroes can quit
-        self.actionTimeCosts_['quit'] = 0
+    def load_species_dependencies(self, species):
+        Being.load_species_dependencies(self, species)
+        # only heroes can quit
+        self.action_tme_costs_['quit'] = 0
 
     def quit(self):
         """
@@ -32,11 +32,11 @@ class Hero(Being):
         """
         from engine.world import World
 
-        #notify the world about pointlessness of its existence
-        World.gameOver = True
-        #notify the switch about the situation
-        self.switch.callActionQuit()
-        #successful quit
+        # notify the world about pointlessness of its existence
+        World.game_over = True
+        # notify the switch about the situation
+        self.switch.call_action_quit()
+        # successful quit
         return True
 
     def die(self):
@@ -44,49 +44,49 @@ class Hero(Being):
         what happens when hero dies
         """
         Being.die(self)
-        #leave it all behind
+        # leave it all behind
         self.quit()
 
     def wait(self):
         result = Being.wait(self)
-        self.switch.callActionWait()
-        #return the original result
+        self.switch.call_action_wait()
+        # return the original result
         return result
 
     def move(self, direction_):
-        #move like other beings
-        #if movement failed
+        # move like other beings
+        # if movement failed
         if not Being.move(self, direction_):
-            #report failure of movement
+            # report failure of movement
             return False
-        #if movement succeeded
+        # if movement succeeded
         else:
-            #notify the switch
-            self.switch.callActionMove(True)
-            #report success of movement
+            # notify the switch
+            self.switch.call_action_move(True)
+            # report success of movement
             return True
 
     @doc_inherit
-    def addItems(self, *items_):
-        #add items normally
-        Being.addItems(self, *items_)
+    def add_items(self, *items_):
+        # add items normally
+        Being.add_items(self, *items_)
 
     @doc_inherit
-    def getItemsFrom(self, inventory=False):
-        #if no outer inventory is provided, assume own inventory is needed
+    def get_items_from(self, inventory=False):
+        # if no outer inventory is provided, assume own inventory is needed
         if not inventory:
             inventory = self.inventory
-        #get items normally
-        items_ = Being.getItemsFrom(self, inventory)
-        #return items in question
+        # get items normally
+        items_ = Being.get_items_from(self, inventory)
+        # return items in question
         return items_
 
     @doc_inherit
     def collect(self):
         #check if there is anything to take
-        if self.getCurrentTile().getInventory().isEmpty():
+        if self.get_current_tile().get_inventory().is_empty():
             #notify the switch
-            self.switch.callActionCollect(False)
+            self.switch.call_action_collect(False)
             return False
         #if tile is not empty, proceed normally
         return Being.collect(self)
@@ -94,15 +94,15 @@ class Hero(Being):
     @doc_inherit
     def drop(self):
         #check if there is anything to drop
-        if self.inventory.isEmpty():
-            self.switch.callActionDrop(False)
+        if self.inventory.is_empty():
+            self.switch.call_action_drop(False)
             return False
         #if tile is not empty, proceed normally
         return Being.drop(self)
 
-    def showInventory(self):
+    def show_inventory(self):
         """
         display owned items
         """
-        self.switch.callShowInventory()
+        self.switch.call_show_inventory()
         return True

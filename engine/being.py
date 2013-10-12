@@ -16,118 +16,116 @@ class Being(Entity, InventoryInterface):
         :param species: species of this being
         """
 
-        #inherited attributes from Entity
+        # inherited attributes from Entity
         Entity.__init__(self, location, coordinates_)
         #provide the being with space for its belongings
         InventoryInterface.__init__(self)
-        #load species-dependent features
-        self.loadSpeciesDependencies(species)
-        #announce that a new being has arrived
-        location.checkIn(self)
-        #assign the switch
+        # initialize species-dependent features
+        self.species = None
+        self.action_tme_costs_ = None
+        self.cool_down = 0
+        # load species-dependent features
+        self.load_species_dependencies(species)
+        # announce that a new being has arrived
+        location.check_in(self)
+        # assign the switch
         self.switch = BeingSwitch(self)
 
-    def loadSpeciesDependencies(self, species):
+
+    def load_species_dependencies(self, species):
         """
         load all species-dependent information
         :param species: species of this being
         """
-        #remember species, just in case
+        # remember species, just in case
         self.species = species
-        #import proper file
+        # import proper file
         module = __import__('data.being.species.' + species, fromlist=[])
-        speciesDependency = getattr(module.being.species, species)
+        species_dependency = getattr(module.being.species, species)
 
-        #time costs of different actions
-        self.actionTimeCosts_ = speciesDependency.timeCosts_
-        #time needed between creation and first action
-        self.coolDown = speciesDependency.summoningSickness
+        # time costs of different actions
+        self.action_tme_costs_ = species_dependency.timeCosts_
+        # time needed between creation and first action
+        self.cool_down = species_dependency.summoningSickness
 
     def act(self):
         """
         combination of all elements required to act
         """
-        self.decreaseCoolDown()
-        #if being is ready for action
-        if self.isReadyToAct():
-            #choose and try to perform some action until performed successfully
-            while not self.performAction(*self.switch.chooseAction()):
+        self.decrease_cool_down()
+        # if being is ready for action
+        if self.is_ready_to_act():
+            # choose and try to perform some action until performed successfully
+            while not self.perform_action(*self.switch.choose_action()):
                 pass
 
-    def decreaseCoolDown(self):
+    def decrease_cool_down(self):
         """
         decrease cool-down every time quantum
         """
-        if self.coolDown > 0:
-            self.coolDown -= 1
+        if self.cool_down > 0:
+            self.cool_down -= 1
 
-    def isReadyToAct(self):
+    def is_ready_to_act(self):
         """
         check if the state of the being allows it to act
         """
-        if self.coolDown == 0:
+        if self.cool_down == 0:
             return True
 
-    def performAction(self, actionName, *actionParameters_):
+    def perform_action(self, action_name, *action_parameters_):
         """
         call proper methods resolving certain actions
-        :param actionName: name of desired action
-        :param actionParameters_: list of parameters for action
+        :param action_name: name of desired action
+        :param action_parameters_: list of parameters for action
         """
-        #perform desired action
-        actionResult = getattr(self, actionName)(*actionParameters_)
-        #if action performed successfully
-        if actionResult:
-            #set cool-down to time cost of chosen action
-            self.coolDown += self.actionTimeCosts_[actionName]
-        #report success or failure of action
-        return actionResult
-
-    def react(self, action):
-        """
-        react to certain action
-        :param action: list containing external action name and parameters
-        """
-        pass
+        # perform desired action
+        action_result = getattr(self, action_name)(*action_parameters_)
+        # if action performed successfully
+        if action_result:
+            # set cool-down to time cost of chosen action
+            self.cool_down += self.action_tme_costs_[action_name]
+        # report success or failure of action
+        return action_result
 
     def die(self):
         """
         trigger all death effects
         """
-        #this being is no more
-        self.location.checkOut(self)
+        # this being is no more
+        self.location.check_out(self)
 
     def wait(self):
         """
         pass one turn
         """
-        #wait is always successful
+        # wait is always successful
         return True
 
     def collect(self):
         """
         collect some items
         """
-        #add items chosen from current tile's inventory
-        collectedItems_ = self.getItemsFrom(self.getCurrentTile().getInventory())
-        #if there is anything to pick up
-        if collectedItems_:
-            self.addItems(*collectedItems_)
-            #notify switch
-            self.switch.callActionCollect(True, collectedItems_)
-            #collected successfully
+        # add items chosen from current tile's inventory
+        collected_items_ = self.get_items_from(self.get_current_tile().get_inventory())
+        # if there is anything to pick up
+        if collected_items_:
+            self.add_items(*collected_items_)
+            # notify switch
+            self.switch.call_action_collect(True, collected_items_)
+            # collected successfully
             return True
         else:
-            #failed to collect
+            # failed to collect
             return False
 
     def drop(self):
         """
         drop some items
         """
-        #choose items to drop (as for now - all)
-        droppedItems = self.getItemsFrom()
-        self.getCurrentTile().addItems(*droppedItems)
-        #notify switch
-        self.switch.callActionDrop(True, droppedItems)
+        # choose items to drop (as for now - all)
+        dropped_items = self.get_items_from()
+        self.get_current_tile().add_items(*dropped_items)
+        # notify switch
+        self.switch.call_action_drop(True, dropped_items)
         return True

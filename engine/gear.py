@@ -5,13 +5,13 @@ class Gear:
     """
     any element of the engine
     """
-    #channel of communication common for whole engine
+    # channel of communication common for whole engine
     log = Log()
 
     def __init__(self):
         self.switch = None
 
-    def getSwitch(self):
+    def get_switch(self):
         """
         return switch of this gear
         """

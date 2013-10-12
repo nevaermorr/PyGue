@@ -8,23 +8,23 @@ class BeingSwitch(EntitySwitch):
     """
 
     def __init__(self, gear):
-        #parent constructor
+        # parent constructor
         EntitySwitch.__init__(self, gear)
 
-    def chooseAction(self):
+    def choose_action(self):
         """
         decide what to do
         """
-        #pass by default
+        # pass by default
         return ['wait']
 
-    def callActionCollect(self, actionResult, collectedItems_=[]):
+    def call_action_collect(self, action_result, collected_items_=[]):
         """
         display information that the being collected some items
         """
         pass
 
-    def callActionDrop(self, actionResult, droppedItems_=[]):
+    def call_action_drop(self, action_result, dropped_items_=[]):
         """
         display information that the being collected some items
         """

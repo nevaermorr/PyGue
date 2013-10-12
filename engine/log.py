@@ -7,29 +7,29 @@ class Log:
     """
 
     def __init__(self):
-        #link log with its switch
+        # link log with its switch
         self.controller = LogSwitch(self)
 
-    def actionLog(self, info):
+    def action_log(self, info):
         """
         information about course of events
         """
-        self.controller.callActionLog(info)
+        self.controller.call_action_log(info)
 
     def warning(self, info):
         """
         not allowed action or wrong incoming instruction
         """
-        self.controller.callWarning(info)
+        self.controller.call_warning(info)
 
     def error(self, info):
         """
         error which are not fatal
         """
-        self.controller.callError(info)
+        self.controller.call_error(info)
 
-    def fatalError(self, info):
+    def fatal_error(self, info):
         """
         error which prevents game from further execution
         """
-        self.controller.callFatalError(info)
+        self.controller.call_fatal_error(info)

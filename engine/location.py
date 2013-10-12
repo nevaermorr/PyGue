@@ -12,37 +12,37 @@ class Location(Gear):
         create location
         """
         Gear.__init__(self)
-        #assign defined grid
+        # assign defined grid
         self.grid_ = grid_
-        #pointers to all beings in this map
+        # pointers to all beings in this map
         self.beings_ = []
     
-    def getTileByCoordinates(self, coordinates):
+    def get_tile_by_coordinates(self, coordinates_):
         """
-        return tile corresponding to given coordinates_
+        return tile corresponding to given coordinates
         """
-        #negative coordinates_ not allowed
-        if coordinates[0] < 0 or coordinates[1] < 0:
+        # negative coordinates not allowed
+        if coordinates_[0] < 0 or coordinates_[1] < 0:
             return False
-        elif isSet(self.grid_, *coordinates):
-            return self.grid_[coordinates[0]][coordinates[1]]
+        elif is_set(self.grid_, *coordinates_):
+            return self.grid_[coordinates_[0]][coordinates_[1]]
         else:
             return False
         
-    def getBeings(self):
+    def get_beings(self):
         """
         return all beings present in the location
         """
         return self.beings_
 
-    def checkIn(self, being):
+    def check_in(self, being):
         """
         notice presence of being in this location
         """
         self.beings_.append(being)
 
-    def checkOut(self, exBeing):
+    def check_out(self, being):
         """
         when being leaves the location, forget it
         """
-        self.beings_.remove(exBeing)
+        self.beings_.remove(being)

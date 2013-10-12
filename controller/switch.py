@@ -1,5 +1,6 @@
 from utilities.generalFunctions import *
 
+
 class Switch:
     """
     base class for all parts of controller
@@ -16,5 +17,5 @@ class Switch:
         """
         present element on the screen
         """
-        #to be implemented by inheriting views
+        # to be implemented by inheriting views
         pass

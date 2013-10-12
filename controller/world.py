@@ -14,8 +14,8 @@ class WorldSwitch(Switch):
         """
         Switch.__init__(self, gear)
 
-    def callEndGame(self):
+    def call_end_game(self):
         """
         inform the switch about end of the game
         """
-        print(self.gear.time.getCurrentTime())
+        print(self.gear.time.get_current_time())
