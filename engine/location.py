@@ -1,5 +1,6 @@
 from utilities.generalFunctions import *
 from engine.gear import *
+from controller.location import *
 
 
 class Location(Gear):
@@ -16,7 +17,9 @@ class Location(Gear):
         self.grid_ = grid_
         # pointers to all beings in this map
         self.beings_ = []
-    
+        # link location with its switch
+        self.switch = LocationSwitch(self)
+
     def get_tile_by_coordinates(self, coordinates_):
         """
         return tile corresponding to given coordinates

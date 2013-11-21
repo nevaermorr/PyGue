@@ -1,5 +1,5 @@
 from engine.gear import *
-from engine.time import *
+from engine.clock import *
 from controller.world import *
 
 
@@ -19,12 +19,12 @@ class World(Gear):
         # initialize locations
         self.locations_ = None
         self.current_location = None
-        # initialize some environment
-        self.create_environment()
-        # start the great clockWorld
-        self.time = Time()
+        # start the great clock
+        self.clock = Clock()
         # link world with its switch
         self.switch = WorldSwitch(self)
+        # initialize some environment
+        self.create_environment()
 
     def run(self):
         """
@@ -32,7 +32,7 @@ class World(Gear):
         """
         while not World.game_over:
             # time flies
-            self.time.pass_time()
+            self.clock.pass_time()
             # give a chance to act for everything that is eligible for acting
             for being in self.current_location.get_beings():
                 being.act()
@@ -56,7 +56,21 @@ class World(Gear):
         """
         from data.environment.testEnvironment import initEnvironment
 
-        #a single map will do for now
+        # a single map will do for now
         self.locations_ = initEnvironment()
-        #pointer to current location
-        self.current_location = self.locations_[0]
+        # pointer to current location
+        self.set_current_location(self.locations_[0])
+
+    def set_current_location(self, location):
+        """
+        change current location to another
+        """
+        self.current_location = location
+        # inform the switch
+        self.switch.call_set_current_location(location)
+
+    def get_clock(self):
+        """
+        access the clock
+        """
+        return self.clock

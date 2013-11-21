@@ -106,3 +106,10 @@ class Hero(Being):
         """
         self.switch.call_show_inventory()
         return True
+
+    def is_ready_to_act(self):
+        # try inherited method
+        result = Being.is_ready_to_act(self)
+        if result:
+            self.switch.call_is_ready_to_act()
+        return result

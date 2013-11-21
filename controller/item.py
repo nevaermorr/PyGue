@@ -9,6 +9,6 @@ class ItemSwitch(Switch):
 
     def display(self):
         """
-        display item on the screen
+        display item on the reel
         """
         print('some item')

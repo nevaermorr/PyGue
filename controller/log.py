@@ -11,26 +11,26 @@ class LogSwitch(Switch):
         """
         how to display information about undertaken actions
         """
-        # for now just put it on the screen
+        # for now just put it on the reel
         print(info)
 
     def call_warning(self, info):
         """
         how to display information about undertaken actions
         """
-        # for now just put it on the screen
+        # for now just put it on the reel
         print(info)
 
     def call_error(self, info):
         """
         how to display information about undertaken actions
         """
-        # for now just put it on the screen
+        # for now just put it on the reel
         print(info)
 
     def call_fatal_error(self, info):
         """
         how to display information about undertaken actions
         """
-        # for now just put it on the screen
+        # for now just put it on the reel
         print(info)

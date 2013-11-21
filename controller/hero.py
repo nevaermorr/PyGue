@@ -1,5 +1,6 @@
 from utilities.generalFunctions import *
 from controller.being import *
+from view.hero import *
 
 
 class HeroSwitch(BeingSwitch):
@@ -13,6 +14,9 @@ class HeroSwitch(BeingSwitch):
         # import key map
         from controller.config.keyMap import hero_
         self.key_map = hero_
+
+        # assign proper view
+        self.panel = HeroPanel(self)
 
         # notify about birth of Hero
         print('a Hero is born')
@@ -77,6 +81,10 @@ class HeroSwitch(BeingSwitch):
 
     def call_show_inventory(self):
         self.gear.get_inventory().get_switch().call_display_items()
+
+    def call_is_ready_to_act(self):
+        # if hero is ready to act
+        self.panel.call_is_ready_to_act()
 
     def choose_action(self):
         """
