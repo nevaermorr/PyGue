@@ -9,9 +9,13 @@ class ClockPanel(Panel):
     """
 
     def __init__(self, clock_switch):
-        Panel.__init__(self, clock_switch)
+        Panel.__init__(self, clock_switch, 100, 0)
 
     def compose_reel(self):
+
+        # inherited routine
+        Panel.compose_reel(self)
+
         time = self.switch.get_time()
 
         time_string = str(time[2]) + '.' + str(time[3]) + '.' + str(time[4])+', '\

@@ -18,6 +18,8 @@ class Panel:
         self.font = pygame.font.SysFont('ubuntumono.ttf', 24)
         # default font color
         self.font_color = pygame.Color(255, 255, 255)
+        # default background color
+        self.background_color = pygame.Color(0, 0, 0)
 
     def get_reel(self, recompose=True):
         """
@@ -35,4 +37,5 @@ class Panel:
         combine all the elements that are to be displayed on this layer
         """
         # to be implemented by inheriting panel
+        # TODO automatically clear the background
         pass

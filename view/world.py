@@ -23,13 +23,11 @@ class WorldPanel(Panel):
         # reference to the panel of current location
         self.location_panel = None
         # position of location panel
-        self.location_position = (100, 100)
+        self.location_position = (100, 0)
         # reference to the panel of the clock
         self.clock_panel = self.switch.get_clock_switch().get_panel()
         # position of clock panel
         self.clock_position = (0, 0)
-        # color of background
-        self.background_color = pygame.Color(0, 0, 0)
 
         # reference to the world object is stored to the class
         # in order to provide easy access for displaying purposes (via flash())
@@ -43,8 +41,8 @@ class WorldPanel(Panel):
         return 1000, 600
 
     def compose_reel(self):
-        # clear everything
-        self.reel.fill(self.background_color)
+        # inherited routines
+        Panel.compose_reel(self)
         # map occupies main part of the game interface
         #self.reel.blit(self.location_panel.get_reel())
         # display the clock

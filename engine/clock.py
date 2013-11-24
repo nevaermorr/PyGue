@@ -3,7 +3,6 @@ from engine.gear import *
 from controller.clock import *
 
 
-
 class Clock(Gear):
     """
     class representing time passing in the game's world
