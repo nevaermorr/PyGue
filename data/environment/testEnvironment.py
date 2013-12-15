@@ -3,7 +3,7 @@ environment for testing purposes
 """
 #general classes
 from engine.location import Location
-from engine.hero import Hero
+from machine.hero import MetaHero
 from data.item.testItem import TestItem
 
 #tailored test data
@@ -16,7 +16,7 @@ def initEnvironment():
     #pointer to current location
     currentLocation = locations_[0]
 
-    hero = Hero(currentLocation, [0, 0], 'goblin')
+    hero = MetaHero(currentLocation, [0, 0], 'goblin')
     stuff = TestItem(currentLocation, [2, 2])
     moreStuff = TestItem(currentLocation, [2, 2])
 

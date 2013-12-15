@@ -1,8 +1,8 @@
-from engine.gear import *
-from controller.entity import *
+from utilities.generalFunctions import *
+from machine.gear import *
 
 
-class Entity(Gear):
+class Entity(MetaGear):
     """
     any entity present in the in-game world
     """
@@ -14,23 +14,22 @@ class Entity(Gear):
         :param coordinates_: coordinates depicting the position of entity in given location
         """
 
-        Gear.__init__(self)
+        MetaGear.__init__(self)
         # pointer to the map, where this entity is currently present
         self.location = location
         # coordinates_ of the tile, on which this entity is located
         self.coordinates_ = coordinates_
         # size of entity (length of one side measured in tiles)
         self.size = 1
-        # assign the switch
-        self.switch = EntitySwitch(self)
 
     def move(self, direction_):
         """
         what happens when some force moves the entity
-        :param direction_: direction of the movement given as literal geographic direction
+        :param direction_: direction of the movement given as [x,y] vector
         """
         # evaluate desired position
-        new_coordinates_ = [self.coordinates_[0] + direction_[0], self.coordinates_[1] + direction_[1]]
+        new_coordinates_ = [self.coordinates_[0] + direction_[0],
+                            self.coordinates_[1] + direction_[1]]
         # check if new position is available
         if self.can_move_to(new_coordinates_):
             # move to new position
@@ -38,7 +37,6 @@ class Entity(Gear):
             # report successful movement
             return True
         else:
-            self.switch.call_action_move(False)
             # report movement failure
             return False
 
@@ -57,7 +55,6 @@ class Entity(Gear):
         ):
             return True
         else:
-            self.switch.call_action_can_move_to(False, target_tile)
             return False
 
     def __str__(self):

@@ -1,16 +1,17 @@
-from engine.inventory import *
-from controller.tile import *
+from utilities.generalFunctions import *
+from machine.gear import *
+from machine.inventory import *
 
 
-class Tile(Gear, InventoryInterface):
+class Tile(MetaGear, MetaInventoryInterface):
     """
     quantum of space
     """
     
     def __init__(self, coordinates_):
-        Gear.__init__(self)
+        MetaGear.__init__(self)
         # add inventory
-        InventoryInterface.__init__(self)
+        MetaInventoryInterface.__init__(self)
         # coordinates of this tile in context of location
         self.coordinates_ = coordinates_
         # is it possible to step on this tile?
@@ -19,8 +20,6 @@ class Tile(Gear, InventoryInterface):
         self.terrain = ''
         # optional pointer to corresponding location, where this tile leads
         self.passage = None
-        # assign switch
-        self.switch = TileSwitch(self)
 
     def get_coordinates(self):
         """

@@ -1,9 +1,8 @@
 from utilities.generalFunctions import *
-from engine.gear import *
-from controller.location import *
+from machine.gear import *
 
 
-class Location(Gear):
+class Location(MetaGear):
     """
     single location in the game
     """
@@ -12,13 +11,11 @@ class Location(Gear):
         """
         create location
         """
-        Gear.__init__(self)
+        MetaGear.__init__(self)
         # assign defined grid
         self.grid_ = grid_
         # pointers to all beings in this map
         self.beings_ = []
-        # link location with its switch
-        self.switch = LocationSwitch(self)
 
     def get_tile_by_coordinates(self, coordinates_):
         """

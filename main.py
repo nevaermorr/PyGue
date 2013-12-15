@@ -2,8 +2,8 @@
 main script running the game
 """
 
-from engine.world import World
+from machine.world import MetaWorld
 
 #let there be a new world...
-realm = World()
+realm = MetaWorld()
 realm.run()

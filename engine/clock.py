@@ -1,9 +1,8 @@
 from utilities.generalFunctions import *
-from engine.gear import *
-from controller.clock import *
+from machine.gear import *
 
 
-class Clock(Gear):
+class Clock(MetaGear):
     """
     class representing time passing in the game's world
     """
@@ -18,16 +17,13 @@ class Clock(Gear):
         """
         start the great clock
         """
-        Gear.__init__(self)
+        MetaGear.__init__(self)
         # minimal quantum of time
         self.quantum = 0
         self.hour = 0
         self.day = 0
         self.moon = 0
         self.year = 0
-
-        # link clock with its switch
-        self.switch = ClockSwitch(self)
         
     def pass_time(self):
         """
@@ -80,6 +76,8 @@ class Clock(Gear):
         increment number of years
         """
         # next year resets counter of moons in year
+        self.moon = 0
+        # increment passed years
         self.year += 1
 
     def get_time(self):

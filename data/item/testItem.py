@@ -1,7 +1,7 @@
-from engine.item import *
+from machine.item import *
 
 
-class TestItem(Item):
+class TestItem(MetaItem):
     """
     primitive item for testing purposes
     """
@@ -12,11 +12,4 @@ class TestItem(Item):
         #assign unique id
         self.id = TestItem.__id
         TestItem.__id += 1
-        #assign switch
-        self.switch = TestItemView(self)
 
-
-class TestItemView(ItemSwitch):
-
-    def display(self):
-        print('some item #' + str(self.gear.id))

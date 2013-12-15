@@ -1,16 +1,14 @@
-from engine.entity import *
-from controller.item import *
+from utilities.generalFunctions import *
+from machine.entity import *
 
 
-class Item(Entity):
+class Item(MetaEntity):
     """
     usable item
     """
 
     def __init__(self, location, coordinates_):
         # inherited state
-        Entity.__init__(self, location, coordinates_)
+        MetaEntity.__init__(self, location, coordinates_)
         # inform tile about presence of new item
         self.get_current_tile().add_items(self)
-        # assign switch
-        self.switch=ItemSwitch(self)

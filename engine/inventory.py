@@ -1,20 +1,18 @@
-from engine.gear import *
-from controller.inventory import *
+from utilities.generalFunctions import *
+from machine.gear import *
 
 
-class Inventory(Gear):
+class Inventory(MetaGear):
     """
     set of items connected with some entity or place
     """
 
     def __init__(self, owner):
-        Gear.__init__(self)
+        MetaGear.__init__(self)
         # list of items present in the inventory
         self.items_ = []
         # remember owner of this inventory
         self.owner = owner
-        # assign switch
-        self.switch = InventorySwitch(self)
 
     def add(self, *items_):
         """
@@ -57,7 +55,8 @@ class InventoryInterface:
 
     def __init__(self):
         # inventory is obligatory
-        self.inventory = Inventory(self)
+        from machine.inventory import MetaInventory
+        self.inventory = MetaInventory(self)
 
     def get_inventory(self):
         """
@@ -86,9 +85,3 @@ class InventoryInterface:
         is the inventory of this object empty?
         """
         return self.inventory.is_empty()
-
-    def show_inventory(self):
-        """
-        request inspection of the inventory
-        """
-        self.inventory.get_switch().call_display_items()

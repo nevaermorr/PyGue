@@ -1,16 +1,15 @@
 from utilities.generalFunctions import *
 import pygame
+from engine.gear import *
 
 
-class Panel:
+class MetaGear(Gear):
     """
-    every element of the view
+    every element of the machine
     """
 
-    def __init__(self, switch, height=1, width=1):
-        # switch corresponding to this panel
-        self.switch = switch
-        # set resolution of this panel
+    def __init__(self, height=1, width=1):
+        # set resolution of this element
         self.resolution = [height, width]
         # personal reel exclusive for this element
         self.reel = None
@@ -20,6 +19,18 @@ class Panel:
         self.font_color = pygame.Color(255, 255, 255)
         # default background color
         self.background_color = pygame.Color(0, 0, 0)
+
+    def _get_key(self):
+        """
+        obtain pressed key
+        """
+        # ignore existing cue
+        pygame.event.clear()
+        # pay attention only to keys and quits
+        pygame.event.set_allowed(None)
+        pygame.event.set_allowed((pygame.KEYDOWN, pygame.QUIT))
+        # read the actual key
+        return pygame.event.wait()
 
     def get_reel(self, recompose=True):
         """
@@ -36,6 +47,6 @@ class Panel:
         """
         combine all the elements that are to be displayed on this layer
         """
-        # to be implemented by inheriting panel
+        # to be implemented by inheriting element
         # TODO automatically clear the background
         pass

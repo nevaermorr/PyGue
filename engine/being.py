@@ -1,9 +1,9 @@
-from engine.entity import *
-from engine.inventory import *
-from controller.being import *
+from utilities.generalFunctions import *
+from machine.entity import *
+from machine.inventory import *
 
 
-class Being(Entity, InventoryInterface):
+class Being(MetaEntity, MetaInventoryInterface):
     """
     entity capable of taking actions
     """
@@ -17,20 +17,17 @@ class Being(Entity, InventoryInterface):
         """
 
         # inherited attributes from Entity
-        Entity.__init__(self, location, coordinates_)
+        MetaEntity.__init__(self, location, coordinates_)
         #provide the being with space for its belongings
-        InventoryInterface.__init__(self)
+        MetaInventoryInterface.__init__(self)
         # initialize species-dependent features
         self.species = None
-        self.action_tme_costs_ = None
+        self.action_time_costs_ = None
         self.cool_down = 0
         # load species-dependent features
         self.load_species_dependencies(species)
         # announce that a new being has arrived
         location.check_in(self)
-        # assign the switch
-        self.switch = BeingSwitch(self)
-
 
     def load_species_dependencies(self, species):
         """
@@ -44,7 +41,7 @@ class Being(Entity, InventoryInterface):
         species_dependency = getattr(module.being.species, species)
 
         # time costs of different actions
-        self.action_tme_costs_ = species_dependency.timeCosts_
+        self.action_time_costs_ = species_dependency.timeCosts_
         # time needed between creation and first action
         self.cool_down = species_dependency.summoningSickness
 
@@ -56,8 +53,14 @@ class Being(Entity, InventoryInterface):
         # if being is ready for action
         if self.is_ready_to_act():
             # choose and try to perform some action until performed successfully
-            while not self.perform_action(*self.switch.choose_action()):
+            while not self.perform_action(*self.choose_action()):
                 pass
+
+    def choose_action(self):
+        """
+        choose what action will the being undertake
+        """
+        return ['wait']
 
     def decrease_cool_down(self):
         """
@@ -84,7 +87,7 @@ class Being(Entity, InventoryInterface):
         # if action performed successfully
         if action_result:
             # set cool-down to time cost of chosen action
-            self.cool_down += self.action_tme_costs_[action_name]
+            self.cool_down += self.action_time_costs_[action_name]
         # report success or failure of action
         return action_result
 
@@ -111,8 +114,6 @@ class Being(Entity, InventoryInterface):
         # if there is anything to pick up
         if collected_items_:
             self.add_items(*collected_items_)
-            # notify switch
-            self.switch.call_action_collect(True, collected_items_)
             # collected successfully
             return True
         else:
@@ -126,6 +127,4 @@ class Being(Entity, InventoryInterface):
         # choose items to drop (as for now - all)
         dropped_items = self.get_items_from()
         self.get_current_tile().add_items(*dropped_items)
-        # notify switch
-        self.switch.call_action_drop(True, dropped_items)
         return True

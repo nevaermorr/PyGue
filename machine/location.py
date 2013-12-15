@@ -1,12 +1,12 @@
 from utilities.generalFunctions import *
-from view.panel import *
+from machine.gear import *
 
 
-class LocationPanel(Panel):
+class MetaLocation(MetaGear):
     """
     appearance of location
     """
 
     def __init__(self, switch):
-        Panel.__init__(self, switch, 800, 600)
+        MetaGear.__init__(self, switch, 800, 600)
         self.background_color = pygame.Color(20, 20, 20)

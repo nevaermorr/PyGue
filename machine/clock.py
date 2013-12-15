@@ -1,20 +1,17 @@
 from utilities.generalFunctions import *
-from view.panel import *
 import pygame
+from engine.clock import *
 
 
-class ClockPanel(Panel):
+class MetaClock(Clock):
     """
     appearance of clock
     """
 
-    def __init__(self, clock_switch):
-        Panel.__init__(self, clock_switch, 100, 0)
-
     def compose_reel(self):
 
         # inherited routine
-        Panel.compose_reel(self)
+        Clock.compose_reel(self)
 
         time = self.switch.get_time()
 

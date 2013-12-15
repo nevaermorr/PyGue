@@ -1,9 +1,9 @@
-from engine.gear import *
-from engine.clock import *
-from controller.world import *
+from utilities.generalFunctions import *
+from machine.gear import *
+from machine.clock import *
 
 
-class World(Gear):
+class World(MetaGear):
     """
     the game universe
     """
@@ -15,14 +15,12 @@ class World(Gear):
         creation of the world!
         """
 
-        Gear.__init__(self)
+        MetaGear.__init__(self)
         # initialize locations
         self.locations_ = None
         self.current_location = None
         # start the great clock
-        self.clock = Clock()
-        # link world with its switch
-        self.switch = WorldSwitch(self)
+        self.clock = MetaClock()
         # initialize some environment
         self.create_environment()
 
@@ -39,16 +37,13 @@ class World(Gear):
                 # no point in letting anyone act if the game is over
                 if World.game_over:
                     break
-        # game over here
-        else:
-            self.end_game()
 
-    def end_game(self):
+    @staticmethod
+    def end_game():
         """
-        manage everything that needs to be done once the game come to its end
+        manage everything that needs to be done once the game comes to its end
         """
-        # notify the switch about end of the game
-        self.switch.call_end_game()
+        World.game_over = True
 
     def create_environment(self):
         """
@@ -66,8 +61,6 @@ class World(Gear):
         change current location to another
         """
         self.current_location = location
-        # inform the switch
-        self.switch.call_set_current_location(location)
 
     def get_clock(self):
         """

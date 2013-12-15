@@ -1,19 +1,19 @@
 from utilities.generalFunctions import *
-from view.panel import *
+from engine.world import *
 import pygame
 
 
-class WorldPanel(Panel):
+class MetaWorld(World):
     """
-    main view of the game
+    main machine of the game
     """
 
-    # link to the view of the world necessary for other views that do not posses direct connection
+    # link to the machine of the world necessary for other views that do not posses direct connection
     link = None
 
-    def __init__(self, switch):
+    def __init__(self):
         # inherited constructor
-        Panel.__init__(self, switch)
+        World.__init__(self)
         # pygame's clock for controlling time
         self.pygame_clock = pygame.time.Clock()
         # create reel for this panel
@@ -24,14 +24,10 @@ class WorldPanel(Panel):
         self.location_panel = None
         # position of location panel
         self.location_position = (100, 0)
-        # reference to the panel of the clock
-        self.clock_panel = self.switch.get_clock_switch().get_panel()
-        # position of clock panel
-        self.clock_position = (0, 0)
 
         # reference to the world object is stored to the class
         # in order to provide easy access for displaying purposes (via flash())
-        WorldPanel.link = self
+        MetaWorld.link = self
 
     def _determine_resolution(self):
         """
@@ -42,17 +38,11 @@ class WorldPanel(Panel):
 
     def compose_reel(self):
         # inherited routines
-        Panel.compose_reel(self)
+        MetaGear.compose_reel(self)
         # map occupies main part of the game interface
         #self.reel.blit(self.location_panel.get_reel())
         # display the clock
-        self.reel.blit(self.clock_panel.get_reel(), self.clock_position)
-
-    def set_location_panel(self, location_panel):
-        """
-        assign information about current location
-        """
-        self.location_panel = location_panel
+        #self.reel.blit(self.clock_panel.get_reel(), self.clock_
 
     def display(self):
         """
@@ -66,3 +56,9 @@ class WorldPanel(Panel):
     @staticmethod
     def flash():
         pygame.display.update()
+
+    # methods operating on the engine
+
+    @staticmethod
+    def end_game():
+        World.game_over = True
