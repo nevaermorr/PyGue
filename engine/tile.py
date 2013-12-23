@@ -18,7 +18,7 @@ class Tile(MetaGear, MetaInventoryInterface):
         self.is_passable = True
         # type of terrain
         self.terrain = ''
-        # optional pointer to corresponding location, where this tile leads
+        # optional pointer to corresponding location, to where this tile leads
         self.passage = None
 
     def get_coordinates(self):
@@ -26,3 +26,15 @@ class Tile(MetaGear, MetaInventoryInterface):
         get coordinates of this tile
         """
         return self.coordinates_
+
+    def get_x(self):
+        """
+        get coordinate from x-axis
+        """
+        return self.coordinates_[0]
+
+    def get_y(self):
+        """
+        get coordinate from x-axis
+        """
+        return self.coordinates_[1]

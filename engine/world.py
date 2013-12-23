@@ -38,6 +38,15 @@ class World(MetaGear):
                 if World.game_over:
                     break
 
+        #once the game is over make sure to clean up after it
+        self.clean_up()
+
+    def clean_up(self):
+        """
+        clean up everything before exiting the program
+        """
+        pass
+
     @staticmethod
     def end_game():
         """

@@ -13,7 +13,7 @@ class MetaClock(Clock):
         # inherited routine
         Clock.compose_reel(self)
 
-        time = self.switch.get_time()
+        time = self.get_time()
 
         time_string = str(time[2]) + '.' + str(time[3]) + '.' + str(time[4])+', '\
             + str(time[1]) + ':' + str(time[0])

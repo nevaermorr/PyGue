@@ -7,13 +7,13 @@ class Location(MetaGear):
     single location in the game
     """
     
-    def __init__(self, grid_):
+    def __init__(self, tiles_):
         """
         create location
         """
         MetaGear.__init__(self)
         # assign defined grid
-        self.grid_ = grid_
+        self.tiles_ = tiles_
         # pointers to all beings in this map
         self.beings_ = []
 
@@ -24,8 +24,8 @@ class Location(MetaGear):
         # negative coordinates not allowed
         if coordinates_[0] < 0 or coordinates_[1] < 0:
             return False
-        elif is_set(self.grid_, *coordinates_):
-            return self.grid_[coordinates_[0]][coordinates_[1]]
+        elif is_set(self.tiles_, *coordinates_):
+            return self.tiles_[coordinates_[0]][coordinates_[1]]
         else:
             return False
         

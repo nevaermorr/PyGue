@@ -2,17 +2,17 @@
 environment for testing purposes
 """
 #general classes
-from engine.location import Location
+from machine.location import MetaLocation
 from machine.hero import MetaHero
 from data.item.testItem import TestItem
 
 #tailored test data
-from data.location.template.testLocation import grid_
+from data.location.template.testLocation import tiles_
 
 
 def initEnvironment():
     #a single map will do for now
-    locations_ = [Location(grid_)]
+    locations_ = [MetaLocation(tiles_)]
     #pointer to current location
     currentLocation = locations_[0]
 

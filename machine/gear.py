@@ -8,17 +8,19 @@ class MetaGear(Gear):
     every element of the machine
     """
 
-    def __init__(self, height=1, width=1):
+    def __init__(self, height=25, width=25):
         # set resolution of this element
         self.resolution = [height, width]
         # personal reel exclusive for this element
-        self.reel = None
+        self.reel = pygame.Surface((width, height))
         # default font
-        self.font = pygame.font.SysFont('ubuntumono.ttf', 24)
+        self.font = pygame.font.SysFont('ubuntumono.ttf', 48)
         # default font color
         self.font_color = pygame.Color(255, 255, 255)
         # default background color
         self.background_color = pygame.Color(0, 0, 0)
+        # ascii symbol of the gear
+        self.ascii = ''
 
     def _get_key(self):
         """
@@ -31,6 +33,11 @@ class MetaGear(Gear):
         pygame.event.set_allowed((pygame.KEYDOWN, pygame.QUIT))
         # read the actual key
         return pygame.event.wait()
+
+    def force_display(self):
+
+        from machine.world import MetaWorld
+        MetaWorld.link.display()
 
     def get_reel(self, recompose=True):
         """
@@ -48,5 +55,6 @@ class MetaGear(Gear):
         combine all the elements that are to be displayed on this layer
         """
         # to be implemented by inheriting element
-        # TODO automatically clear the background
-        pass
+        # by default clear the whole reel
+        if self.reel:
+            self.reel.fill(self.background_color)

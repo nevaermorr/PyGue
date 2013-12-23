@@ -76,3 +76,15 @@ class Entity(MetaGear):
         accessor for coordinates
         """
         return self.coordinates_
+
+    def get_x(self):
+        """
+        get coordinate from x-axis
+        """
+        return self.coordinates_[0]
+
+    def get_y(self):
+        """
+        get coordinate from x-axis
+        """
+        return self.coordinates_[1]

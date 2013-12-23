@@ -15,6 +15,11 @@ class MetaHero(Hero):
         from config.keyMap import hero_
         self.key_map = hero_
 
+        # visuals
+        self.ascii = '@'
+        self.font_color = pygame.Color(20, 255, 20)
+        self.font = pygame.font.SysFont('ubuntumono.ttf', 40)
+
         self.log.message('A hero is born')
 
     def choose_action(self):
@@ -72,3 +77,11 @@ class MetaHero(Hero):
         # return the original result
         return result
 
+    def is_ready_to_act(self):
+        # original result
+        result = Hero.is_ready_to_act(self)
+        if result:
+            # display current state of the world
+            self.force_display()
+        # return the original result
+        return result

@@ -8,7 +8,8 @@ class MetaWorld(World):
     main machine of the game
     """
 
-    # link to the machine of the world necessary for other views that do not posses direct connection
+    # link to the machine of the world necessary for other views
+    # that do not posses direct connection
     link = None
 
     def __init__(self):
@@ -20,13 +21,13 @@ class MetaWorld(World):
         self.reel = pygame.display.set_mode(self._determine_resolution())
         # the name of the game
         pygame.display.set_caption('PyGue')
-        # reference to the panel of current location
-        self.location_panel = None
         # position of location panel
-        self.location_position = (100, 0)
+        self.location_position = [100, 50]
+        # position of clock panel
+        self.clock_position = [0, 0]
 
         # reference to the world object is stored to the class
-        # in order to provide easy access for displaying purposes (via flash())
+        # in order to provide easy access for displaying purposes
         MetaWorld.link = self
 
     def _determine_resolution(self):
@@ -40,9 +41,9 @@ class MetaWorld(World):
         # inherited routines
         MetaGear.compose_reel(self)
         # map occupies main part of the game interface
-        #self.reel.blit(self.location_panel.get_reel())
+        self.reel.blit(self.current_location.get_reel(), self.location_position)
         # display the clock
-        #self.reel.blit(self.clock_panel.get_reel(), self.clock_
+        self.reel.blit(self.clock.get_reel(), self.clock_position)
 
     def display(self):
         """
@@ -53,12 +54,13 @@ class MetaWorld(World):
         # display the whole world
         pygame.display.update()
 
-    @staticmethod
-    def flash():
-        pygame.display.update()
-
     # methods operating on the engine
 
     @staticmethod
     def end_game():
         World.game_over = True
+
+    def clean_up(self):
+        # quit pygame
+        pygame.quit()
+        #pass
