@@ -8,6 +8,11 @@ class MetaClock(Clock):
     appearance of clock
     """
 
+    def __init__(self):
+        # inherited constructor
+        Clock.__init__(self)
+        self.font = pygame.font.Font('utilities/fonts/veteran_typewriter.ttf', 25)
+
     def compose_reel(self):
 
         # inherited routine

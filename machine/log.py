@@ -8,7 +8,20 @@ class MetaLog(Log):
     appearance of log
     """
 
-    def action_log(self, *info):
+    def __init__(self):
+        Log.__init__(self)
+
+        self.action_log_ = []
+        self.message_log_ = []
+        self.warning_log_ = []
+        self.error_log_ = []
+        self.fatal_error_log = []
+
+        # visuals
+        self.font_color = pygame.Color(255, 255, 255)
+        self.font = pygame.font.Font('utilities/fonts/rough_typewriter.otf', 30)
+
+    def action(self, *info):
         """
         information about course of events
         """

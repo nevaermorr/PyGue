@@ -1,15 +1,13 @@
 from utilities.generalFunctions import *
-from machine.gear import *
 from machine.inventory import *
 
 
-class Tile(MetaGear, MetaInventoryInterface):
+class Tile(MetaInventoryInterface):
     """
     quantum of space
     """
     
     def __init__(self, coordinates_):
-        MetaGear.__init__(self)
         # add inventory
         MetaInventoryInterface.__init__(self)
         # coordinates of this tile in context of location
@@ -35,6 +33,6 @@ class Tile(MetaGear, MetaInventoryInterface):
 
     def get_y(self):
         """
-        get coordinate from x-axis
+        get coordinate from y-axis
         """
         return self.coordinates_[1]

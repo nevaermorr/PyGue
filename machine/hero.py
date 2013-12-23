@@ -18,6 +18,7 @@ class MetaHero(Hero):
         # visuals
         self.ascii = '@'
         self.font_color = pygame.Color(20, 255, 20)
+        #self.font = pygame.font.Font('utilities/fonts/rough_typewriter.otf', 30)
         self.font = pygame.font.SysFont('ubuntumono.ttf', 40)
 
         self.log.message('A hero is born')
@@ -64,7 +65,7 @@ class MetaHero(Hero):
         result = Hero.move(self, direction_)
         # for successful movement
         if result:
-            self.log.message('Hero moved to', self.coordinates_)
+            self.log.action('Hero moved to', self.coordinates_)
         # return the original result
         return result
 
@@ -73,7 +74,7 @@ class MetaHero(Hero):
         result = Hero.can_move_to(self, coordinates_)
         # if movement is not possible
         if not result:
-            self.log.message('unable to move there')
+            self.log.warning('unable to move there')
         # return the original result
         return result
 
