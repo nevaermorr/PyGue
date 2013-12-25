@@ -9,6 +9,7 @@ class MetaHero(Hero):
     """
 
     def __init__(self, location, coordinates_, species):
+
         Hero.__init__(self, location, coordinates_, species)
 
         # import key map
@@ -17,8 +18,11 @@ class MetaHero(Hero):
 
         # visuals
         self.ascii = '@'
-        self.font_color = pygame.Color(20, 255, 20)
-        #self.font = pygame.font.Font('utilities/fonts/rough_typewriter.otf', 30)
+        self.set_panel_options(
+            background_color=None,
+            font_color=pygame.Color(20, 255, 20),
+        )
+        # font temporarily defined directly
         self.font = pygame.font.SysFont('ubuntumono.ttf', 40)
 
         self.log.message('A hero is born')
@@ -26,6 +30,10 @@ class MetaHero(Hero):
     def choose_action(self):
         # repeat reading keyboard input until an action is undertaken
         while 1:
+            # make sure that visible situation is up to date
+            self.force_display()
+            # clear log buffer once it is displayed
+            self.log.clear_buffer()
             key = self._get_key()
             # for closing game in an old fashioned manner - clicking X or alt+F4
             if key.type == pygame.QUIT:
@@ -81,8 +89,11 @@ class MetaHero(Hero):
     def is_ready_to_act(self):
         # original result
         result = Hero.is_ready_to_act(self)
-        if result:
-            # display current state of the world
-            self.force_display()
+        #if result:
+        #    # display current state of the world
+        #    self.force_display()
         # return the original result
         return result
+
+    def compose_reel(self):
+        SymbolicPanel.compose_reel(self)

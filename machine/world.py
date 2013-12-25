@@ -25,6 +25,8 @@ class MetaWorld(World):
         self.location_position = [100, 50]
         # position of clock panel
         self.clock_position = [0, 0]
+        # position of log panel
+        self.log_position = [150, 0]
 
         # reference to the world object is stored to the class
         # in order to provide easy access for displaying purposes
@@ -44,6 +46,8 @@ class MetaWorld(World):
         self.reel.blit(self.current_location.get_reel(), self.location_position)
         # display the clock
         self.reel.blit(self.clock.get_reel(), self.clock_position)
+        # display the log
+        self.reel.blit(self.log.get_reel(), self.log_position)
 
     def display(self):
         """
@@ -63,4 +67,3 @@ class MetaWorld(World):
     def clean_up(self):
         # quit pygame
         pygame.quit()
-        #pass

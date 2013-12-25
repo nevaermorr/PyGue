@@ -1,25 +1,37 @@
 from utilities.generalFunctions import *
 import pygame
 from engine.log import *
+from machine.panel import *
 
 
-class MetaLog(Log):
+class MetaLog(Log, Panel):
     """
     appearance of log
     """
 
     def __init__(self):
         Log.__init__(self)
+        Panel.__init__(self, 600, 50)
 
+        # logs - for storing all the information
         self.action_log_ = []
         self.message_log_ = []
         self.warning_log_ = []
         self.error_log_ = []
-        self.fatal_error_log = []
+        self.fatal_error_log_ = []
 
-        # visuals
+        # buffers - for temporarily storing information that has not yet been displayed
+        self.action_buffer_ = []
+        self.message_buffer_ = []
+        self.warning_buffer_ = []
+        self.error_buffer_ = []
+        self.fatal_error_buffer_ = []
+
+        # visuals from panel
         self.font_color = pygame.Color(255, 255, 255)
-        self.font = pygame.font.Font('utilities/fonts/rough_typewriter.otf', 30)
+        self.font = pygame.font.Font('utilities/fonts/rough_typewriter.otf', 20)
+        # additional visuals
+        self.font_color_error = pygame.Color(255, 10, 10)
 
     def action(self, *info):
         """
@@ -33,13 +45,13 @@ class MetaLog(Log):
         """
         information to be displayed to the player
         """
-        print(*info)
+        self.message_buffer_.append(*info)
 
     def warning(self, *info):
         """
         action not allowed or wrong incoming instruction
         """
-        print(*info)
+        self.warning_buffer_.append(*info)
 
     def error(self, *info):
         """
@@ -52,3 +64,27 @@ class MetaLog(Log):
         error which prevents game from further execution
         """
         print(*info)
+
+    def compose_reel(self):
+        # inherited routine
+        Panel.compose_reel(self)
+
+        # compose string with information from buffers
+        info = ''
+        if self.warning_buffer_:
+            info += '\n'.join(self.warning_buffer_)
+        if self.message_buffer_:
+            info += '\n'.join(self.message_buffer_)
+        # take information from the buffer and clear it afterwards
+        text = self.font.render(info, True, self.font_color)
+
+        self.reel.blit(text, [0, 0])
+
+    def clear_buffer(self):
+        # TODO move all buffered information to the log
+        # clear the buffer
+        self.action_buffer_ = []
+        self.message_buffer_ = []
+        self.warning_buffer_ = []
+        self.error_buffer_ = []
+        self.fatal_error_buffer_ = []

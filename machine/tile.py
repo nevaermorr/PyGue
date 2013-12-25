@@ -1,10 +1,10 @@
 from utilities.generalFunctions import *
 import pygame
 from engine.tile import *
-from machine.panel import *
+from machine.symbolicPanel import *
 
 
-class MetaTile(Tile, Panel):
+class MetaTile(Tile, SymbolicPanel):
     """
     appearance of tile
     """
@@ -14,7 +14,7 @@ class MetaTile(Tile, Panel):
     def __init__(self, coordinates_):
         # inherited constructor
         Tile.__init__(self, coordinates_)
-        Panel.__init__(self, MetaTile.width, MetaTile.height)
+        SymbolicPanel.__init__(self, MetaTile.width, MetaTile.height)
         #visual aspects
         self.ascii = '#'
         self.font_color = pygame.Color(0, 0, 0)
@@ -23,12 +23,3 @@ class MetaTile(Tile, Panel):
 
         # create the reel
         self.reel = self.font.render(self.ascii, True, self.font_color)
-
-    def compose_reel(self):
-        Panel.compose_reel(self)
-        font = self.font.render(self.ascii, True, self.font_color)
-        # print centered
-        self.reel.blit(font,
-                       ((MetaTile.width - font.get_width()) / 2,
-                        (MetaTile.height - font.get_height()) / 2)
-        )

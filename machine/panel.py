@@ -7,25 +7,79 @@ class Panel:
     common class for elements with visualisation on the screen
     """
 
-    def __init__(self, width, height):
+    def __init__(
+            self, width, height,
+            background_color=pygame.Color(0, 0, 0),
+            font_path='utilities/fonts/veteran_typewriter.ttf',
+            font_color=pygame.Color(255, 255, 255),
+            font_size=45
+    ):
+        # initialize visual options
 
-        # set resolution of this element
-        self.resolution = [width, height]
+        # resolution of this panel
+        self.width = 0
+        self.height = 0
         # personal reel exclusive for this element
-        self.reel = pygame.Surface((width, height))
-        # default font
-        #self.font = pygame.font.SysFont('ubuntumono.ttf', 48)
-        #self.font = pygame.font.Font('utilities/fonts/rough_typewriter.otf', 30)
-        self.font = pygame.font.Font('utilities/fonts/veteran_typewriter.ttf', 45)
+        self.reel = None
+        # path to the font file
+        self.font_path = None
+        # size of the font
+        self.font_size = None
+        # font object
+        self.font = None
+        # color of text
+        self.font_color = None
+        # color of the background;
+        # None for transparent background
+        self.background_color = None
+
+        # set visual options
+        self.set_panel_options(
+            width, height, font_path, font_size, font_color, background_color
+        )
+
+    def set_panel_options(
+            self,
+            width=None,
+            height=None,
+            font_path=None,
+            font_size=None,
+            font_color=None,
+            # little workaround - "None" stands for transparent background
+            # thus cannot be used as default
+            background_color='x',
+    ):
+        """
+        set visual options for the panel
+        """
+
+        if width:
+            self.width = width
+        if height:
+            self.height = height
+        # re-form the reel if necessary
+        if width or height:
+            self.reel = pygame.Surface((width, height), pygame.SRCALPHA, 32)
+
+        if font_path:
+            self.font_path = font_path
+        if font_size:
+            self.font_size = font_size
+        # re-form the font object if necessary
+        if font_path or font_size:
+            self.font = pygame.font.Font(font_path, font_size)
+
         # default font color
-        self.font_color = pygame.Color(255, 255, 255)
+        if font_color:
+            self.font_color = font_color
         # default background color
-        self.background_color = pygame.Color(0, 0, 0)
-        # ascii symbol of the gear
-        self.ascii = ''
+        if background_color != 'x':
+            self.background_color = background_color
 
     def force_display(self):
-
+        """
+        display current state of the game on the screen
+        """
         from machine.world import MetaWorld
         MetaWorld.link.display()
 
@@ -47,4 +101,9 @@ class Panel:
         # to be implemented by inheriting element
         # by default clear the whole reel
         if self.reel:
-            self.reel.fill(self.background_color)
+            # if the element has opaque background
+            if self.background_color:
+                self.reel.fill(self.background_color)
+            # if the element has transparent background
+            else:
+                self.reel.fill(pygame.Color(0, 0, 0, 0))
