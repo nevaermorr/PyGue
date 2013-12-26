@@ -86,14 +86,5 @@ class MetaHero(Hero):
         # return the original result
         return result
 
-    def is_ready_to_act(self):
-        # original result
-        result = Hero.is_ready_to_act(self)
-        #if result:
-        #    # display current state of the world
-        #    self.force_display()
-        # return the original result
-        return result
-
     def compose_reel(self):
         SymbolicPanel.compose_reel(self)

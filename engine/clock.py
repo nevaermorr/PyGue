@@ -8,7 +8,7 @@ class Clock(MetaGear):
     """
     
     # equivalence of time units
-    quanta_per_hour = 1000
+    quanta_per_hour = 5000
     hour_per_day = 24
     days_per_moon = 30
     moons_per_year = 12
@@ -80,8 +80,20 @@ class Clock(MetaGear):
         # increment passed years
         self.year += 1
 
-    def get_time(self):
+    def get_full_datetime(self):
         """
-        compose string with formatted game-time
+        get all numbers denoting game-time
         """
         return self.quantum, self.hour, self.day, self.moon, self.year
+
+    def get_simplified_time(self):
+        """
+        get current game time in format hh:mm
+        """
+        return '{:02.0f}:{:02.0f}'.format(self.hour, (60 * self.quantum / self.quanta_per_hour))
+
+    def get_simplified_date(self):
+        """
+        get current date in format dd/mm/yyyy
+        """
+        return '{:02.0f}/{:02.0f}/{:04.0f}'.format(self.day, self.moon, self.year)
