@@ -8,7 +8,7 @@ class Clock(MetaGear):
     """
     
     # equivalence of time units
-    quanta_per_hour = 5000
+    quanta_per_hour = 10000
     hour_per_day = 24
     days_per_moon = 30
     moons_per_year = 12

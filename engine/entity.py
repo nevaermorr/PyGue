@@ -51,7 +51,7 @@ class Entity(MetaGear):
         # check if tile exists and is accessible
         if (
             target_tile
-            and target_tile.is_passable
+            and target_tile.is_passable()
         ):
             return True
         else:

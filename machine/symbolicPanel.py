@@ -22,9 +22,17 @@ class SymbolicPanel(Panel):
 
     def compose_reel(self):
         Panel.compose_reel(self)
-        font = self.font.render(self.ascii, True, self.font_color)
+        font = self.font.render(self.ascii, True, self.get_font_color())
         # print centered
-        self.reel.blit(font,
-                       ((self.width - font.get_width()) / 2,
-                        (self.height - font.get_height()) / 2)
+        self.reel.blit(
+            font,
+            ((self.width - font.get_width()) / 2,
+             (self.height - font.get_height()) / 2)
         )
+
+    def get_font_color(self):
+        """
+        obtain proper color for the font
+        """
+        # by default the color is invariable
+        return self.font_color

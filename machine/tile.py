@@ -17,9 +17,17 @@ class MetaTile(Tile, SymbolicPanel):
         SymbolicPanel.__init__(self, MetaTile.width, MetaTile.height)
         #visual aspects
         self.ascii = '#'
+        # the font color varies depending on whether it is a floor or a wall
         self.font_color = pygame.Color(0, 0, 0)
         self.background_color = pygame.Color(20, 20, 20)
         self.font = pygame.font.Font('utilities/fonts/veteran_typewriter.ttf', 50)
 
         # create the reel
-        self.reel = self.font.render(self.ascii, True, self.font_color)
+        self.reel = pygame.Surface((MetaTile.width, MetaTile.height))
+
+    def get_font_color(self):
+
+        if self.construction:
+            return self.construction.font_color
+        else:
+            return self.font_color
