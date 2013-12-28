@@ -17,12 +17,9 @@ class SymbolicPanel(Panel):
         # inherited constructor
         Panel.__init__(self, width, height, background_color, font_path, font_color, font_size)
 
-        #ascii symbol of the element
-        self.ascii = ''
-
     def compose_reel(self):
         Panel.compose_reel(self)
-        font = self.font.render(self.ascii, True, self.get_font_color())
+        font = self.font.render(self.get_ascii(), True, self.get_font_color())
         # print centered
         self.reel.blit(
             font,
@@ -36,3 +33,9 @@ class SymbolicPanel(Panel):
         """
         # by default the color is invariable
         return self.font_color
+
+    def get_ascii(self):
+        """
+        obtain symbol of this element
+        """
+        return ''

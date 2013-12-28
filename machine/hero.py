@@ -23,7 +23,8 @@ class MetaHero(Hero):
             font_color=pygame.Color(20, 255, 20),
         )
         # font temporarily defined directly
-        self.font = pygame.font.SysFont('ubuntumono.ttf', 40)
+        #self.font = pygame.font.Font('utilities/fonts/linowrite.ttf', 30)
+        self.font = pygame.font.Font('utilities/fonts/veteran_typewriter.ttf', 25)
 
         self.log.message('A hero is born')
 
@@ -88,3 +89,6 @@ class MetaHero(Hero):
 
     def compose_reel(self):
         SymbolicPanel.compose_reel(self)
+
+    def get_ascii(self):
+        return self.ascii

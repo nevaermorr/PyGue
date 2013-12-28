@@ -15,8 +15,6 @@ class MetaTile(Tile, SymbolicPanel):
         # inherited constructor
         Tile.__init__(self, coordinates_)
         SymbolicPanel.__init__(self, MetaTile.width, MetaTile.height)
-        #visual aspects
-        self.ascii = '#'
         # the font color varies depending on whether it is a floor or a wall
         self.font_color = pygame.Color(0, 0, 0)
         self.background_color = pygame.Color(20, 20, 20)
@@ -28,6 +26,11 @@ class MetaTile(Tile, SymbolicPanel):
     def get_font_color(self):
 
         if self.construction:
-            return self.construction.font_color
+            return self.construction.get_font_color()
         else:
             return self.font_color
+
+    def get_ascii(self):
+        if self.construction:
+            return self.construction.get_ascii()
+        return '#'

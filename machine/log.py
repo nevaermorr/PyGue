@@ -29,7 +29,7 @@ class MetaLog(Log, Panel):
 
         # visuals from panel
         self.font_color = pygame.Color(255, 255, 255)
-        self.font = pygame.font.Font('utilities/fonts/rough_typewriter.otf', 20)
+        self.font = pygame.font.Font('utilities/fonts/linowrite.ttf', 20)
         # additional visuals
         self.font_color_error = pygame.Color(255, 10, 10)
 

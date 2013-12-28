@@ -12,7 +12,8 @@ class MetaConstruction(Construction):
         # inherited constructor
         Construction.__init__(self)
 
-        # ascii symbol for the construction
-        self.ascii = None
-        # color of the construction
-        self.font_color = None
+    def get_font_color(self):
+        return None
+
+    def get_ascii(self):
+        return ''
