@@ -14,6 +14,9 @@ class Panel:
             font_color=pygame.Color(255, 255, 255),
             font_size=45
     ):
+        """
+        creation of the panel
+        """
         # initialize visual options
 
         # resolution of this panel
@@ -81,6 +84,7 @@ class Panel:
         display current state of the game on the screen
         """
         from machine.world import MetaWorld
+
         MetaWorld.link.display()
 
     def get_reel(self, recompose=True):

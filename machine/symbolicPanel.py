@@ -5,7 +5,7 @@ from machine.panel import *
 
 class SymbolicPanel(Panel):
     """
-    common class for elements with visualisation on the screen
+    common class for elements with symbolic (one character) visualisation on the screen
     """
 
     def __init__(
@@ -14,10 +14,16 @@ class SymbolicPanel(Panel):
             font_path='utilities/fonts/veteran_typewriter.ttf',
             font_color=pygame.Color(255, 255, 255),
             font_size=45):
+        """
+        creation of the symbolic panel
+        """
         # inherited constructor
         Panel.__init__(self, width, height, background_color, font_path, font_color, font_size)
 
     def compose_reel(self):
+        """
+        combine all the elements that are to be displayed on this layer
+        """
         Panel.compose_reel(self)
         font = self.font.render(self.get_ascii(), True, self.get_font_color())
         # print centered
@@ -38,4 +44,5 @@ class SymbolicPanel(Panel):
         """
         obtain symbol of this element
         """
+        # nothing by default
         return ''

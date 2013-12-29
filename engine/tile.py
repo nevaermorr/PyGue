@@ -8,6 +8,10 @@ class Tile(MetaInventoryInterface):
     """
 
     def __init__(self, coordinates_):
+        """
+        creation of tile
+        :param coordinates_: coordinates of the tile relative to the location
+        """
         # add inventory
         MetaInventoryInterface.__init__(self)
         # coordinates of this tile in context of location
@@ -21,7 +25,7 @@ class Tile(MetaInventoryInterface):
 
     def is_passable(self):
         """
-        check if anything can be placed on this tile
+        check if it is possible to pass through this tile
         """
         # if there is some constructional element it determines the passability of the tile
         if self.construction:

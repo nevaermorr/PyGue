@@ -5,10 +5,13 @@ from engine.location import *
 
 class MetaLocation(Location):
     """
-    appearance of location
+    complement of location
     """
 
     def __init__(self, tiles_):
+        """
+        creation of the location
+        """
         # inherited constructor
         Location.__init__(self, tiles_)
         # specific background for location
@@ -17,6 +20,9 @@ class MetaLocation(Location):
         self.reel = pygame.Surface((800, 500))
 
     def compose_reel(self):
+        """
+        combine all the elements that are to be displayed on this layer
+        """
         # inherited routine
         Location.compose_reel(self)
 

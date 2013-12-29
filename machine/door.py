@@ -5,10 +5,13 @@ from engine.door import *
 
 class MetaDoor(Door):
     """
-    appearance of wall
+    complement of wall
     """
 
     def __init__(self, closed=True):
+        """
+        creation of door
+        """
         # inherited constructor
         Door.__init__(self, closed)
         # default color of the door
@@ -18,6 +21,10 @@ class MetaDoor(Door):
         self.ascii_closed = '+'
 
     def get_ascii(self):
+        """
+        obtain symbol of the wall
+        """
+        # symbol of the door depends whether it is open or closed
         if self.closed:
             return self.ascii_closed
         else:
@@ -27,4 +34,5 @@ class MetaDoor(Door):
         """
         obtain color of the wall
         """
+        # return default color
         return self.font_color

@@ -5,10 +5,13 @@ from engine.wall import *
 
 class MetaWall(Wall):
     """
-    appearance of wall
+    complement of wall
     """
 
     def __init__(self):
+        """
+        creation of the wall
+        """
         # inherited constructor
         Wall.__init__(self)
         # default color of the wall

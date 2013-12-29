@@ -15,8 +15,7 @@ class Being(MetaEntity, MetaInventoryInterface):
         :param coordinates_: coordinates depicting the position of being in given location
         :param species: species of this being
         """
-
-        # inherited attributes from Entity
+        # inherited constructor
         MetaEntity.__init__(self, location, coordinates_)
         #provide the being with space for its belongings
         MetaInventoryInterface.__init__(self)
@@ -60,6 +59,7 @@ class Being(MetaEntity, MetaInventoryInterface):
         """
         choose what action will the being undertake
         """
+        # wait by default
         return ['wait']
 
     def decrease_cool_down(self):

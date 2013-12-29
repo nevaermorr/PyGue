@@ -5,11 +5,14 @@ from engine.hero import *
 
 class MetaHero(Hero):
     """
-    appearance of hero
+    complement of hero
     """
 
     def __init__(self, location, coordinates_, species):
-
+        """
+        creation of the hero
+        """
+        # inherited constructors
         Hero.__init__(self, location, coordinates_, species)
 
         # import key map
@@ -29,6 +32,9 @@ class MetaHero(Hero):
         self.log.message('A hero is born')
 
     def choose_action(self):
+        """
+        choose what action will the being undertake
+        """
         # repeat reading keyboard input until an action is undertaken
         while 1:
             # make sure that visible situation is up to date
@@ -49,6 +55,9 @@ class MetaHero(Hero):
                 self.log.warning('unknown action \'' + key.unicode + '\'')
 
     def wait(self):
+        """
+        pass one turn
+        """
         # original action
         result = Hero.wait(self)
         self.log.message('Hero waits')
@@ -56,6 +65,9 @@ class MetaHero(Hero):
         return result
 
     def quit(self):
+        """
+        quit the game
+        """
         # original action
         result = Hero.quit(self)
         self.log.message('Nothing to do here...')
@@ -63,6 +75,9 @@ class MetaHero(Hero):
         return result
 
     def die(self):
+        """
+        what happens when hero dies
+        """
         # original action
         result = Hero.die(self)
         self.log.message('Hero have fallen during his quest')
@@ -70,6 +85,10 @@ class MetaHero(Hero):
         return result
 
     def move(self, direction_):
+        """
+        what happens when some force moves the entity
+        :param direction_: direction of the movement given as [x,y] vector
+        """
         # original action
         result = Hero.move(self, direction_)
         # for successful movement
@@ -79,6 +98,10 @@ class MetaHero(Hero):
         return result
 
     def can_move_to(self, coordinates_):
+        """
+        check if certain position in the location is accessible for this entity
+        :param coordinates_: coordinates of desired position
+        """
         # original action
         result = Hero.can_move_to(self, coordinates_)
         # if movement is not possible
@@ -87,8 +110,8 @@ class MetaHero(Hero):
         # return the original result
         return result
 
-    def compose_reel(self):
-        SymbolicPanel.compose_reel(self)
-
     def get_ascii(self):
+        """
+        obtain symbol of this element
+        """
         return self.ascii

@@ -17,6 +17,7 @@ class Clock(MetaGear):
         """
         start the great clock
         """
+        # inherited constructors
         MetaGear.__init__(self)
         # minimal quantum of time
         self.quantum = 0
@@ -85,15 +86,3 @@ class Clock(MetaGear):
         get all numbers denoting game-time
         """
         return self.quantum, self.hour, self.day, self.moon, self.year
-
-    def get_simplified_time(self):
-        """
-        get current game time in format hh:mm
-        """
-        return '{:02.0f}:{:02.0f}'.format(self.hour, (60 * self.quantum / self.quanta_per_hour))
-
-    def get_simplified_date(self):
-        """
-        get current date in format dd/mm/yyyy
-        """
-        return '{:02.0f}/{:02.0f}/{:04.0f}'.format(self.day, self.moon, self.year)

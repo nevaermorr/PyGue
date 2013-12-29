@@ -8,6 +8,9 @@ class Item(MetaEntity):
     """
 
     def __init__(self, location, coordinates_):
+        """
+        creation of item
+        """
         # inherited state
         MetaEntity.__init__(self, location, coordinates_)
         # inform tile about presence of new item

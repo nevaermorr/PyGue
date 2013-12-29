@@ -8,6 +8,7 @@ class Inventory(MetaGear):
     """
 
     def __init__(self, owner):
+        # inherited constructor
         MetaGear.__init__(self)
         # list of items present in the inventory
         self.items_ = []
@@ -54,6 +55,9 @@ class InventoryInterface:
     """
 
     def __init__(self):
+        """
+        creation of inventory-related interface
+        """
         # inventory is obligatory
         from machine.inventory import MetaInventory
         self.inventory = MetaInventory(self)

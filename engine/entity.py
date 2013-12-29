@@ -14,6 +14,7 @@ class Entity(MetaGear):
         :param coordinates_: coordinates depicting the position of entity in given location
         """
 
+        # inherited constructor
         MetaGear.__init__(self)
         # pointer to the map, where this entity is currently present
         self.location = location

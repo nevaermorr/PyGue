@@ -5,11 +5,11 @@ from engine.inventory import *
 
 class MetaInventory(Inventory):
     """
-    appearance of inventory
+    complement of inventory
     """
 
 
 class MetaInventoryInterface(InventoryInterface):
     """
-    appearance of element containing an inventory
+    complement of element containing an inventory
     """

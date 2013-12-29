@@ -14,7 +14,6 @@ class World(MetaGear):
         """
         creation of the world!
         """
-
         MetaGear.__init__(self)
         # initialize locations
         self.locations_ = None

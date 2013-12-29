@@ -5,5 +5,5 @@ from engine.being import *
 
 class MetaBeing(Being):
     """
-    appearance of being
+    complement of being
     """

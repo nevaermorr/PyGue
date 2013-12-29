@@ -6,10 +6,14 @@ from machine.panel import *
 
 class MetaLog(Log, Panel):
     """
-    appearance of log
+    complement of log
     """
 
     def __init__(self):
+        """
+        creation of the log
+        """
+        # inherited constructors
         Log.__init__(self)
         Panel.__init__(self, 600, 50)
 
@@ -45,27 +49,34 @@ class MetaLog(Log, Panel):
         """
         information to be displayed to the player
         """
+        # add the information to the message buffer
         self.message_buffer_.append(*info)
 
     def warning(self, *info):
         """
         action not allowed or wrong incoming instruction
         """
+        # add the information to the warning buffer
         self.warning_buffer_.append(*info)
 
     def error(self, *info):
         """
         error which is not fatal
         """
+        # for now print it to the console
         print(*info)
 
     def fatal_error(self, *info):
         """
         error which prevents game from further execution
         """
+        # for now print ot to the console
         print(*info)
 
     def compose_reel(self):
+        """
+        combine all the elements that are to be displayed on this layer
+        """
         # inherited routine
         Panel.compose_reel(self)
 
@@ -81,6 +92,9 @@ class MetaLog(Log, Panel):
         self.reel.blit(text, [0, 0])
 
     def clear_buffer(self):
+        """
+        delete all information from all buffers
+        """
         # TODO move all buffered information to the log
         # clear the buffer
         self.action_buffer_ = []

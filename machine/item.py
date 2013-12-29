@@ -5,5 +5,5 @@ from engine.item import *
 
 class MetaItem(Item):
     """
-    appearance of entity
+    complement of entity
     """

@@ -5,7 +5,7 @@ import pygame
 
 class MetaWorld(World):
     """
-    main machine of the game
+    complement of the main machine of the game
     """
 
     # link to the machine of the world necessary for other views
@@ -13,6 +13,9 @@ class MetaWorld(World):
     link = None
 
     def __init__(self):
+        """
+        create the world
+        """
         # inherited constructor
         World.__init__(self)
         # pygame's clock for controlling time
@@ -40,6 +43,9 @@ class MetaWorld(World):
         return 1000, 600
 
     def compose_reel(self):
+        """
+        combine all the elements that are to be displayed on this layer
+        """
         # inherited routines
         MetaGear.compose_reel(self)
         # map occupies main part of the game interface
@@ -62,8 +68,14 @@ class MetaWorld(World):
 
     @staticmethod
     def end_game():
+        """
+        manage everything that needs to be done once the game comes to its end
+        """
         World.game_over = True
 
     def clean_up(self):
+        """
+        clean up everything before exiting the program
+        """
         # quit pygame
         pygame.quit()
