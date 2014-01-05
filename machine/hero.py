@@ -37,10 +37,6 @@ class MetaHero(Hero):
         """
         # repeat reading keyboard input until an action is undertaken
         while 1:
-            # make sure that visible situation is up to date
-            self.force_display()
-            # clear log buffer once it is displayed
-            self.log.clear_buffer()
             key = self._get_key()
             # for closing game in an old fashioned manner - clicking X or alt+F4
             if key.type == pygame.QUIT:
@@ -115,3 +111,29 @@ class MetaHero(Hero):
         obtain symbol of this element
         """
         return self.ascii
+
+    def manipulate_door(self, door=None):
+        # if the door is unspecified - ask
+        if not door:
+            # if the door are not specified, ask for it
+            self.log.message('Which direction?')
+            direction_ = self._get_direction()
+
+            target_tile = self.location.get_tile_by_coordinates(
+                # sum the vectors to find coordinates of potential door
+                [a+self.coordinates_[i] for i, a in enumerate(direction_)]
+            )
+            if target_tile:
+                # if target tile has some construction on it
+                construction = target_tile.get_construction()
+                # if it is a door
+                if construction and construction.get_sort() == 'door':
+                    door = construction
+
+        # if the door was still not specified
+        if not door:
+            self.log.warning('There is no door there')
+            # opening door failed
+            return False
+        # in the end, open the door
+        return Hero.manipulate_door(self, door)

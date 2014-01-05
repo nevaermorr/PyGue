@@ -51,3 +51,9 @@ class Tile(MetaInventoryInterface):
         get coordinate from y-axis
         """
         return self.coordinates_[1]
+
+    def get_construction(self):
+        """
+        obtain access to construction present on this tile (if any)
+        """
+        return self.construction

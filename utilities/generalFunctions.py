@@ -29,15 +29,6 @@ def is_set(array, *index):
             return True
 
 
-def get_key_input():
-    """
-    read pressed key
-    """
-    import sys
-    # for now take first character from given line
-    return sys.stdin.readlines(1)[0][0]
-
-
 def char_range(start_char, stop_char):
     """
     generate characters from startChar to stopChar

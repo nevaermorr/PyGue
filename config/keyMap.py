@@ -20,4 +20,6 @@ hero_ = {
     '+': ['collect'],
     '-': ['drop'],
     'i': ['show_inventory'],
+    # interaction
+    'o': ['manipulate_door'],
 }

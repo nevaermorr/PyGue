@@ -8,16 +8,16 @@ class MetaDoor(Door):
     complement of wall
     """
 
-    def __init__(self, closed=True):
+    def __init__(self, opened=False):
         """
         creation of door
         """
         # inherited constructor
-        Door.__init__(self, closed)
+        Door.__init__(self, opened)
         # default color of the door
         self.font_color = pygame.Color(100, 100, 100)
         # default ascii symbols of the door
-        self.ascii_open = '/'
+        self.ascii_opened = '/'
         self.ascii_closed = '+'
 
     def get_ascii(self):
@@ -25,10 +25,10 @@ class MetaDoor(Door):
         obtain symbol of the wall
         """
         # symbol of the door depends whether it is open or closed
-        if self.closed:
-            return self.ascii_closed
+        if self.opened:
+            return self.ascii_opened
         else:
-            return self.ascii_open
+            return self.ascii_closed
 
     def get_font_color(self):
         """

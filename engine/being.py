@@ -21,7 +21,7 @@ class Being(MetaEntity, MetaInventoryInterface):
         MetaInventoryInterface.__init__(self)
         # initialize species-dependent features
         self.species = None
-        self.action_time_costs_ = None
+        self.action_time_costs_ = {}
         self.cool_down = 0
         # load species-dependent features
         self.load_species_dependencies(species)
@@ -128,3 +128,10 @@ class Being(MetaEntity, MetaInventoryInterface):
         dropped_items = self.get_items_from()
         self.get_current_tile().add_items(*dropped_items)
         return True
+
+    def manipulate_door(self, door):
+        """
+        open some door
+        """
+        # if door is open - close it
+        door.manipulate()

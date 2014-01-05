@@ -8,12 +8,12 @@ class MetaConstruction(Construction):
     complement of the construction
     """
 
-    def __init__(self):
+    def __init__(self, sort=''):
         """
         creation of the construction
         """
         # inherited constructor
-        Construction.__init__(self)
+        Construction.__init__(self, sort)
 
     def get_font_color(self):
         """

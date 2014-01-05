@@ -19,6 +19,6 @@ tiles_[7][5].construction = MetaWall()
 tiles_[6][5].construction = MetaWall()
 tiles_[5][5].construction = MetaWall()
 
-tiles_[5][1].construction = MetaDoor()
+tiles_[5][1].construction = MetaDoor(True)
 tiles_[6][1].construction = MetaWall()
 tiles_[7][1].construction = MetaDoor(False)

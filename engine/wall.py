@@ -12,7 +12,7 @@ class Wall(MetaConstruction):
         creation of the wall
         """
         # inherited constructor
-        MetaConstruction.__init__(self)
+        MetaConstruction.__init__(self, 'wall')
 
     def is_passable(self):
         """
