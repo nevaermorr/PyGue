@@ -21,8 +21,17 @@ class Being(MetaEntity, MetaInventoryInterface):
         MetaInventoryInterface.__init__(self)
         # initialize species-dependent features
         self.species = None
+        # time costs of all actions
         self.action_time_costs_ = {}
+        # time needed before being can act
         self.cool_down = 0
+        # how far can this being see
+        self.range_of_view_ = {
+            # full details
+            'visible': 0,
+            # silhouettes only
+            'shadow': 0
+        }
         # load species-dependent features
         self.load_species_dependencies(species)
         # announce that a new being has arrived
@@ -43,6 +52,8 @@ class Being(MetaEntity, MetaInventoryInterface):
         self.action_time_costs_ = species_dependency.timeCosts_
         # time needed between creation and first action
         self.cool_down = species_dependency.summoningSickness
+        # how far can this being see
+        self.range_of_view_ = species_dependency.range_of_view_
 
     def act(self):
         """
@@ -135,3 +146,9 @@ class Being(MetaEntity, MetaInventoryInterface):
         """
         # if door is open - close it
         door.manipulate()
+
+    def get_square_range_of_view(self):
+        """
+        obtain squared range of view
+        """
+        return {index   : s_range ** 2 for index, s_range in self.range_of_view_.items()}

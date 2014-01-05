@@ -22,17 +22,12 @@ class Door(MetaConstruction):
         # doors are passable if open
         return self.opened
 
-    def open(self):
+    def is_transparent(self):
         """
-        open the door
+        is it possible to see through door
         """
-        self.opened = True
-
-    def close(self):
-        """
-        close the door
-        """
-        self.opened = False
+        # doors are transparent if open
+        return self.opened
 
     def manipulate(self):
         """

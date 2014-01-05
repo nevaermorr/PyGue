@@ -22,6 +22,14 @@ class Tile(MetaInventoryInterface):
         self.passage = None
         # constructional element on this tile
         self.construction = None
+        # has the hero ever seen this tile?
+        self.visited = False
+        # is the tile it visible for hero?
+        # -1 = uncharted
+        # 0 = darkness
+        # 1 = shadow
+        # 2 = visible
+        self.visible = -1
 
     def is_passable(self):
         """
@@ -33,6 +41,43 @@ class Tile(MetaInventoryInterface):
         # otherwise it is determined by the tile's natural passability;
         # by default tile is passable
         return True
+
+    def get_visibility(self):
+        """
+        check if the tile is in hero's field of view
+        """
+        # if this check is performed, tile is considered as visited
+        if self.visible:
+            self.visited = True
+
+        if not self.visited:
+            return -1
+        # return the result
+        return self.visible
+
+    def calculate_visibility(self, hero):
+        """
+        examine if given tile is in sight of hero
+        :param hero: pointer to said hero
+        """
+
+        # squared distance between hero and the tile
+        sq_distance = (hero.get_x() - self.get_x()) ** 2\
+                       + (hero.get_y() - self.get_y()) ** 2
+
+        sq_range_ = hero.get_square_range_of_view()
+        # clearly visible
+        if sq_distance < sq_range_['visible']:
+            self.visible = 2
+        # barely visible
+        elif sq_distance < sq_range_['shadow']:
+            self.visible = 1
+        # not visible (but already has been seen)
+        elif self.visible != -1:
+            self.visible = 0
+        # still never seen
+        else:
+            self.visible = -1
 
     def get_coordinates(self):
         """

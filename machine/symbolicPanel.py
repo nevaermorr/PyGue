@@ -13,7 +13,8 @@ class SymbolicPanel(Panel):
             background_color=pygame.Color(0, 0, 0),
             font_path='utilities/fonts/veteran_typewriter.ttf',
             font_color=pygame.Color(255, 255, 255),
-            font_size=45):
+            font_size=45
+    ):
         """
         creation of the symbolic panel
         """

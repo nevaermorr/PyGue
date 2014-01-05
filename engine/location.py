@@ -16,6 +16,8 @@ class Location(MetaGear):
         self.tiles_ = tiles_
         # pointers to all beings in this map
         self.beings_ = []
+        # additional pointer to hero (if present)
+        self.hero = None
 
     def get_tile_by_coordinates(self, coordinates_):
         """
@@ -35,14 +37,26 @@ class Location(MetaGear):
         """
         return self.beings_
 
+    def get_hero(self):
+        """
+        obtain pointer to hero if present in this location
+        """
+        return self.hero
+
     def check_in(self, being):
         """
         notice presence of being in this location
         """
         self.beings_.append(being)
+        # for hero store another pointer
+        if type(being).__name__ == 'MetaHero':
+            self.hero = being
 
     def check_out(self, being):
         """
         when being leaves the location, forget it
         """
         self.beings_.remove(being)
+        # hero need special additional treatment
+        if type(being).__name__ == 'MetaHero':
+            self.hero = None

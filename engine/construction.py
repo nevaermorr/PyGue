@@ -17,12 +17,21 @@ class Construction(MetaGear):
         self.passable = True
         # what sort of construction is this?
         self.sort = sort
+        # is it possible to see through this construction?
+        self.transparent = True
 
     def is_passable(self):
         """
         is it possible to pass through this construction?
         """
         return self.passable
+
+    def is_transparent(self):
+        """
+        is it possible to see through this construction?
+        """
+        # return default value
+        return self.transparent
 
     def get_sort(self):
         """

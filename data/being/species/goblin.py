@@ -8,3 +8,7 @@ timeCosts_ = {
     'show_inventory': 0,
 }
 
+range_of_view_ = {
+    'visible': 4,
+    'shadow': 6
+}

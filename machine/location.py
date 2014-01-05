@@ -26,9 +26,12 @@ class MetaLocation(Location):
         # inherited routine
         Location.compose_reel(self)
 
+        self.update_tiles_visibility()
+
         # display the floor
         from machine.tile import MetaTile
         for tile_row in self.tiles_:
+            # display single tile
             for tile in tile_row:
                 self.reel.blit(tile.get_reel(), (tile.get_x() * MetaTile.width,
                                                  tile.get_y() * MetaTile.height))
@@ -36,3 +39,12 @@ class MetaLocation(Location):
         for being in self.beings_:
             self.reel.blit(being.get_reel(), (being.get_x() * MetaTile.width,
                                               being.get_y() * MetaTile.height))
+
+    def update_tiles_visibility(self):
+        """
+        update information about which tiles are visible for hero
+        """
+        for tile_row in self.tiles_:
+            # for single tile
+            for tile in tile_row:
+                tile.calculate_visibility(self.hero)

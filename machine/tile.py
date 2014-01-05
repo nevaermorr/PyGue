@@ -24,6 +24,11 @@ class MetaTile(Tile, SymbolicPanel):
         self.background_color = pygame.Color(20, 20, 20)
         self.font = pygame.font.Font('utilities/fonts/veteran_typewriter.ttf', 50)
 
+        # colors used for shadowing tiles outside the field of view
+        self.darkness_color = pygame.Color(0, 0, 0)
+        self.shadow_color = pygame.Color(80, 80, 80)
+        self.half_shadow_color = pygame.Color(130, 130, 130)
+
         # create the reel
         self.reel = pygame.Surface((MetaTile.width, MetaTile.height))
 
@@ -46,3 +51,29 @@ class MetaTile(Tile, SymbolicPanel):
             return self.construction.get_ascii()
         # default value
         return '#'
+
+    def compose_reel(self):
+        """
+        combine all the elements that are to be displayed on this layer
+        """
+        # examine visibility of this tile
+        visibility = self.get_visibility()
+
+        # if the tile has never been seen - don't bother with displaying
+        if visibility == -1:
+            self.reel.fill(self.darkness_color)
+            return True
+
+        # inherited routine
+        SymbolicPanel.compose_reel(self)
+
+        # shadow out tiles that are not in hero's field of view
+        # out of sight - fully shadowed
+        if visibility == 0:
+            self.reel.fill(self.shadow_color, None, pygame.BLEND_MULT)
+
+        # in long view range - partially shadowed
+        elif visibility == 1:
+            self.reel.fill(self.half_shadow_color, None, pygame.BLEND_MULT)
+
+        return True

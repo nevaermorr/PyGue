@@ -13,10 +13,7 @@ class Wall(MetaConstruction):
         """
         # inherited constructor
         MetaConstruction.__init__(self, 'wall')
-
-    def is_passable(self):
-        """
-        check if it is possible to pass through this tile
-        """
-        # walls are not passable by default
-        return False
+        # walls are opaque by default
+        self.transparent = False
+        # walls are impassable by default
+        self.passable = False
