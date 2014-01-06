@@ -19,15 +19,15 @@ class Location(MetaGear):
         # additional pointer to hero (if present)
         self.hero = None
 
-    def get_tile_by_coordinates(self, coordinates_):
+    def get_tile_by_coordinates(self, x, y):
         """
         return tile corresponding to given coordinates
         """
         # negative coordinates not allowed
-        if coordinates_[0] < 0 or coordinates_[1] < 0:
+        if x < 0 or y < 0:
             return False
-        elif is_set(self.tiles_, *coordinates_):
-            return self.tiles_[coordinates_[0]][coordinates_[1]]
+        elif is_set(self.tiles_, x, y):
+            return self.tiles_[x][y]
         else:
             return False
         

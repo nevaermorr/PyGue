@@ -6,7 +6,7 @@ from machine.panel import *
 
 class MetaGear(Gear, Panel):
     """
-    every element of the machine
+    complement of every element of the machine
     """
 
     def __init__(self, width=25, height=25):

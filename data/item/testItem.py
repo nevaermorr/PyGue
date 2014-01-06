@@ -7,8 +7,8 @@ class TestItem(MetaItem):
     """
     __id = 1
 
-    def __init__(self, location, coordinates_):
-        Item.__init__(self, location, coordinates_)
+    def __init__(self, location, x, y):
+        Item.__init__(self, location, x, y)
         #assign unique id
         self.id = TestItem.__id
         TestItem.__id += 1

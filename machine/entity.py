@@ -9,12 +9,12 @@ class MetaEntity(Entity, SymbolicPanel):
     complement of entity
     """
 
-    def __init__(self, location, coordinates_):
+    def __init__(self, *parameters):
         """
         creation of entity
         """
         # inherited constructors
-        Entity.__init__(self, location, coordinates_)
+        Entity.__init__(self, *parameters)
         SymbolicPanel.__init__(self, self.width, self.height)
 
     def compose_reel(self):

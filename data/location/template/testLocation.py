@@ -1,7 +1,7 @@
 from machine.tile import MetaTile
 
 #create example grid
-tiles_ = [[MetaTile([i, j]) for j in range(20)] for i in range(32)]
+tiles_ = [[MetaTile(i, j) for j in range(20)] for i in range(32)]
 
 from machine.wall import *
 from machine.door import *

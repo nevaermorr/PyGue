@@ -1,21 +1,23 @@
 from utilities.generalFunctions import *
 from machine.inventory import *
+from machine.spatial import *
 
 
-class Tile(MetaInventoryInterface):
+class Tile(MetaInventoryInterface, MetaSpatial):
     """
     quantum of space
     """
 
-    def __init__(self, coordinates_):
+    def __init__(self, x, y):
         """
         creation of tile
-        :param coordinates_: coordinates of the tile relative to the location
+        :param x: horizontal coordinate of the tile relative to the location
+        :param y: vertical coordinate of the tile relative to the location
         """
+        # inherited constructors
+        MetaSpatial.__init__(self, x, y)
         # add inventory
         MetaInventoryInterface.__init__(self)
-        # coordinates of this tile in context of location
-        self.coordinates_ = coordinates_
         # type of terrain
         self.terrain = ''
         # optional pointer to corresponding location, to where this tile leads
@@ -66,8 +68,17 @@ class Tile(MetaInventoryInterface):
                        + (hero.get_y() - self.get_y()) ** 2
 
         sq_range_ = hero.get_square_range_of_view()
+        # in range, but view is blocked
+        if sq_distance < sq_range_['shadow'] and not hero.in_line_of_sight(self):
+            # not visible (but already has been seen)
+            if self.visible != -1:
+                self.visible = 0
+            # still never seen
+            else:
+                self.visible = -1
+
         # clearly visible
-        if sq_distance < sq_range_['visible']:
+        elif sq_distance < sq_range_['visible']:
             self.visible = 2
         # barely visible
         elif sq_distance < sq_range_['shadow']:
@@ -79,26 +90,19 @@ class Tile(MetaInventoryInterface):
         else:
             self.visible = -1
 
-    def get_coordinates(self):
-        """
-        get coordinates of this tile
-        """
-        return self.coordinates_
-
-    def get_x(self):
-        """
-        get coordinate from x-axis
-        """
-        return self.coordinates_[0]
-
-    def get_y(self):
-        """
-        get coordinate from y-axis
-        """
-        return self.coordinates_[1]
-
     def get_construction(self):
         """
         obtain access to construction present on this tile (if any)
         """
         return self.construction
+
+    def is_transparent(self):
+        """
+        is it possible to see through this tile?
+        """
+        # if there is nothing that could block the way
+        if not self.construction:
+            return True
+        # otherwise the obstacle determines its transparency
+        else:
+            return self.construction.is_transparent()

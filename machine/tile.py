@@ -13,12 +13,12 @@ class MetaTile(Tile, SymbolicPanel):
     # width in pixels
     width = 25
 
-    def __init__(self, coordinates_):
+    def __init__(self, x, y):
         """
         creation of the tile
         """
         # inherited constructors
-        Tile.__init__(self, coordinates_)
+        Tile.__init__(self, x, y)
         SymbolicPanel.__init__(self, MetaTile.width, MetaTile.height)
         self.font_color = pygame.Color(0, 0, 0)
         self.background_color = pygame.Color(20, 20, 20)

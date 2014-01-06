@@ -8,12 +8,12 @@ class MetaHero(Hero):
     complement of hero
     """
 
-    def __init__(self, location, coordinates_, species):
+    def __init__(self, *parameters):
         """
         creation of the hero
         """
         # inherited constructors
-        Hero.__init__(self, location, coordinates_, species)
+        Hero.__init__(self, *parameters)
 
         # import key map
         from config.keyMap import hero_
@@ -89,17 +89,18 @@ class MetaHero(Hero):
         result = Hero.move(self, direction_)
         # for successful movement
         if result:
-            self.log.action('Hero moved to', self.coordinates_)
+            self.log.action('Hero moved to', self.x, self.y)
         # return the original result
         return result
 
-    def can_move_to(self, coordinates_):
+    def can_move_to(self, x, y):
         """
         check if certain position in the location is accessible for this entity
-        :param coordinates_: coordinates of desired position
+        :param x: horizontal coordinate of desired position
+        :param y: vertical coordinate of desired position
         """
         # original action
-        result = Hero.can_move_to(self, coordinates_)
+        result = Hero.can_move_to(self, x, y)
         # if movement is not possible
         if not result:
             self.log.warning('unable to move there')
@@ -120,8 +121,8 @@ class MetaHero(Hero):
             direction_ = self._get_direction()
 
             target_tile = self.location.get_tile_by_coordinates(
-                # sum the vectors to find coordinates of potential door
-                [a+self.coordinates_[i] for i, a in enumerate(direction_)]
+                self.get_x() + direction_[0],
+                self.get_y() + direction_[1]
             )
             if target_tile:
                 # if target tile has some construction on it

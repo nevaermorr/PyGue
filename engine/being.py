@@ -8,15 +8,16 @@ class Being(MetaEntity, MetaInventoryInterface):
     entity capable of taking actions
     """
 
-    def __init__(self, location, coordinates_, species):
+    def __init__(self, location, x, y, species):
         """
         create being
         :param location: location where the being is placed
-        :param coordinates_: coordinates depicting the position of being in given location
+        :param x: horizontal coordinate
+        :param y: vertical coordinate
         :param species: species of this being
         """
         # inherited constructor
-        MetaEntity.__init__(self, location, coordinates_)
+        MetaEntity.__init__(self, location, x, y)
         #provide the being with space for its belongings
         MetaInventoryInterface.__init__(self)
         # initialize species-dependent features
@@ -151,4 +152,19 @@ class Being(MetaEntity, MetaInventoryInterface):
         """
         obtain squared range of view
         """
-        return {index   : s_range ** 2 for index, s_range in self.range_of_view_.items()}
+        return {index: s_range ** 2 for index, s_range in self.range_of_view_.items()}
+
+    def in_line_of_sight(self, target):
+        """
+        examine if given point is in line of sight of the being
+        :param target: point as object of class Spatial
+        """
+        # examine all subsequent points of route starting from the being
+        for point_ in self.get_route_to(target.get_x(), target.get_y()):
+            tile = self.location.get_tile_by_coordinates(point_[0], point_[1])
+
+            # if something opaque blocks the way - report failure
+            if not tile or not tile.is_transparent():
+                return False
+        # if nothing was in the way - target is in line of sight
+        return True

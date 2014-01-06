@@ -52,3 +52,22 @@ def char_gen(length=26):
     """
     # cast parameters to fit char_range() function
     return char_range('a', chr(ord('a') + length - 1))
+
+
+def sign(x):
+    """
+    obtain sign of a number variable
+    :param x: variable to be examined
+    """
+    # positive
+    if x > 0:
+        return 1
+    # negative
+    elif x < 0:
+        return -1
+    # neutral
+    elif x == 0:
+        return 0
+    # something wrong here
+    else:
+        return None
