@@ -37,16 +37,20 @@ class MetaGear(Gear, Panel):
 
         # if bare unicode is desired
         if unicode:
-            return key.unicode
+            if hasattr(key, 'unicode'):
+                return key.unicode
+            else:
+                return None
 
         # if full pygame key object is preferred
         else:
             return key
 
-    def _get_direction(self, vector=True):
+    def _get_direction(self, vector=True, confirm=False):
         """
         obtain direction from directional keys
         :param vector: flag for choosing between vector and literal key
+        :param confirm: flag determining whether retrieve also keys for confirming/cancelling
         """
         key = self._get_key(True)
 
@@ -73,5 +77,12 @@ class MetaGear(Gear, Panel):
         elif key == '9':
             return [1, -1]
 
-        # if none of the above - read keys until proper is pressed
+        # if confirmation/cancellation is accepted
+        elif confirm:
+            if key == '\r':
+                return True
+            elif key == '\x1b':
+                return False
+
+        # if none of the above - read keys until proper one is pressed
         return self._get_direction(vector)

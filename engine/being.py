@@ -98,8 +98,13 @@ class Being(MetaEntity, MetaInventoryInterface):
         action_result = getattr(self, action_name)(*action_parameters_)
         # if action performed successfully
         if action_result:
+            # find action time cost
+            if not is_set(self.action_time_costs_, action_name):
+                time_cost = 0
+            else:
+                time_cost = self.action_time_costs_[action_name]
             # set cool-down to time cost of chosen action
-            self.cool_down += self.action_time_costs_[action_name]
+            self.cool_down += time_cost
         # report success or failure of action
         return action_result
 

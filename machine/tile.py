@@ -42,13 +42,13 @@ class MetaTile(Tile, SymbolicPanel):
         else:
             return self.font_color
 
-    def get_ascii(self):
+    def get_symbol(self):
         """
         obtain symbol of this element
         """
         # if there is a construction on the tile it determines the symbol of the tile
         if self.construction:
-            return self.construction.get_ascii()
+            return self.construction.get_symbol()
         # default value
         return '#'
 

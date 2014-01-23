@@ -5,7 +5,6 @@ timeCosts_ = {
     'move': 100,
     'collect': 50,
     'drop': 50,
-    'show_inventory': 0,
 }
 
 range_of_view_ = {

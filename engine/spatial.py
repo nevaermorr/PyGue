@@ -24,7 +24,7 @@ class Spatial():
         """
         return self.y
 
-    def get_route_to(self, x, y):
+    def get_route_to(self, x, y, debug = False):
         """
         generate coordinates of subsequent points of route from this point to [x, y]
         :param x: horizontal coordinate of target point
@@ -35,30 +35,26 @@ class Spatial():
         # vertical part of route vector
         vector_y = y - self.y
 
-#pprint('----------')
-#print('target:')
-#pprint([x, y])
-#print('start:')
-#pprint([self.x, self.y])
-#print('vector:')
-#pprint([vector_x, vector_y])
-
-        # calculate the steps
+        # trivial case
         if vector_x == 0 and vector_y == 0:
-            dx = 0
-            dy = 0
-        elif abs(vector_x) >= abs(vector_y):
-            dx = sign(vector_x)
-            dy = sign(vector_y) * abs(vector_y / vector_x)
-        else:
-            dx = sign(vector_x) * abs(vector_x / vector_y)
-            dy = sign(vector_y)
+            yield self.x, self.y
+        # only vertical
+        if vector_x == 0:
+            for i in range(abs(vector_y) - 1):
+                yield self.x, self.y + sign(vector_y) * (i + 1)
+        # only horizontal
+        elif vector_y == 0:
+            for i in range(abs(vector_x) - 1):
+                yield self.x + sign(vector_x) * (i + 1), self.y
 
-#print('step:')
-#pprint([dx, dy])
-#print('number of steps:')
-#pprint(max(vector_x, vector_y))
-        # round the values to integers
-        for i in range(max(abs(vector_x), abs(vector_y))):
-#pprint([int(self.x + i * dx), int(self.y + i * dy)])
-            yield int(self.x + i * dx), int(self.y + i * dy)
+        elif abs(vector_x) > abs(vector_y):
+            for i in range(abs(vector_x)):
+                if i != 0:
+                    yield self.x + i * sign(vector_x),\
+                        self.y + int(i*(vector_y + 1) / abs(vector_x))
+
+        else:
+            for i in range(abs(vector_y)):
+                if i != 0:
+                    yield self.x + int(i * (vector_x + 1) / abs(vector_y)),\
+                        self.y + i * sign(vector_y)

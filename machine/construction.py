@@ -21,7 +21,7 @@ class MetaConstruction(Construction):
         """
         return None
 
-    def get_ascii(self):
+    def get_symbol(self):
         """
         obtain symbol of this element
         """

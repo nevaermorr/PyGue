@@ -24,6 +24,8 @@ class Panel:
         self.height = 0
         # personal reel exclusive for this element
         self.reel = None
+        # storage for additional temporal reels for outer overlays
+        self.overlay_ = []
         # path to the font file
         self.font_path = None
         # size of the font
@@ -93,8 +95,10 @@ class Panel:
         :parameter recompose: should the reel be recomposed before returning?
         """
         # perform re-composition if necessary
-        if recompose:
+        if not self.reel or recompose:
             self.compose_reel()
+            # add overlay if necessary
+            self.overlay_reel()
         # one way or another - return the reel
         return self.reel
 
@@ -111,3 +115,21 @@ class Panel:
             # if the element has transparent background
             else:
                 self.reel.fill(pygame.Color(0, 0, 0, 0))
+
+    def overlay_reel(self):
+        for layer in self.overlay_:
+            self.reel.blit(layer, [0, 0])
+
+    def add_overlay(self, reel):
+        """
+        add some temporal elements that are to be additionally displayed
+        :param reel: additional reel to combine with the proper one
+        """
+        self.overlay_.append(reel)
+
+    def remove_overlay(self, reel):
+        """
+        remove some temporal elements that are no longer needed to be additionally displayed
+        :param reel: additional reel to combine with the proper one
+        """
+        self.overlay_.remove(reel)

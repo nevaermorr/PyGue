@@ -25,7 +25,7 @@ class MetaWall(Wall):
         """
         return self.font_color
 
-    def get_ascii(self):
+    def get_symbol(self):
         """
         ascii symbol for the construction
         """

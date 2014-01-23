@@ -22,4 +22,5 @@ hero_ = {
     'i': ['show_inventory'],
     # interaction
     'o': ['manipulate_door'],
+    't': ['aim'],
 }

@@ -20,7 +20,7 @@ class MetaDoor(Door):
         self.ascii_opened = '/'
         self.ascii_closed = '+'
 
-    def get_ascii(self):
+    def get_symbol(self):
         """
         obtain symbol of the wall
         """
