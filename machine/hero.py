@@ -183,7 +183,7 @@ class MetaHero(Hero):
             # draw line of sight
             if target_tile:
                 target_tile.add_overlay(MetaHero.crosshair.get_reel())
-                for step in self.get_route_to(*crosshair_, debug=True):
+                for step in self.get_route_to(*crosshair_):
                     step_tile = self.location.get_tile_by_coordinates(*step)
                     step_tile.add_overlay(MetaHero.crosshair_shadow.get_reel())
 

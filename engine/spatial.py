@@ -24,7 +24,7 @@ class Spatial():
         """
         return self.y
 
-    def get_route_to(self, x, y, debug = False):
+    def get_route_to(self, x, y):
         """
         generate coordinates of subsequent points of route from this point to [x, y]
         :param x: horizontal coordinate of target point
@@ -51,10 +51,10 @@ class Spatial():
             for i in range(abs(vector_x)):
                 if i != 0:
                     yield self.x + i * sign(vector_x),\
-                        self.y + int(i*(vector_y + 1) / abs(vector_x))
+                        self.y + int(i*(vector_y + sign(vector_y)) / abs(vector_x))
 
         else:
             for i in range(abs(vector_y)):
                 if i != 0:
-                    yield self.x + int(i * (vector_x + 1) / abs(vector_y)),\
+                    yield self.x + int(i * (vector_x + sign(vector_x)) / abs(vector_y)),\
                         self.y + i * sign(vector_y)
