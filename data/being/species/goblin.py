@@ -9,5 +9,5 @@ timeCosts_ = {
 
 range_of_view_ = {
     'visible': 4,
-    'shadow': 6
+    'shadow': 8,
 }

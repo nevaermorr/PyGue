@@ -23,4 +23,5 @@ hero_ = {
     # interaction
     'o': ['manipulate_door'],
     't': ['aim'],
+    'T': ['beam'],
 }

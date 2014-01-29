@@ -182,7 +182,9 @@ class MetaHero(Hero):
             target_tile = self.location.get_tile_by_coordinates(*crosshair_)
             # draw line of sight
             if target_tile:
+                # draw target mark
                 target_tile.add_overlay(MetaHero.crosshair.get_reel())
+                # draw route to target
                 for step in self.get_route_to(*crosshair_):
                     step_tile = self.location.get_tile_by_coordinates(*step)
                     step_tile.add_overlay(MetaHero.crosshair_shadow.get_reel())
@@ -195,6 +197,54 @@ class MetaHero(Hero):
             for step in self.get_route_to(*crosshair_):
                 step_tile = self.location.get_tile_by_coordinates(*step)
                 step_tile.remove_overlay(MetaHero.crosshair_shadow.get_reel(False))
+
+        # targeting aborted
+        return False
+
+    def beam(self):
+        """
+        choose target by freely moving the crosshair
+        """
+
+        self.log.message('Choose target')
+        # current position of crosshair
+        crosshair_ = [self.get_x(), self.get_y()]
+
+        direction_ = self._get_direction(confirm=True)
+
+        while direction_:
+            # once the target is confirmed retrieve its coordinates
+            if direction_ is True:
+                return crosshair_
+            # aiming is being aborted
+            elif direction_ is False:
+                return False
+            # if proper direction was chosen, change position of the crosshair
+            else:
+
+                crosshair_[0] += direction_[0]
+                crosshair_[1] += direction_[1]
+
+            # acquire target tile
+            target_tile = self.location.get_tile_by_coordinates(*crosshair_)
+            # draw line of sight
+            if target_tile:
+                # draw target mark
+                target_tile.add_overlay(MetaHero.crosshair.get_reel())
+                # draw route to target
+                for step_ in self.get_beam_route_to(*crosshair_):
+                    for sub_step in step_:
+                        step_tile = self.location.get_tile_by_coordinates(*sub_step)
+                        step_tile.add_overlay(MetaHero.crosshair_shadow.get_reel())
+
+            direction_ = self._get_direction(confirm=True)
+
+            # remove line of sight that has been displayed
+            target_tile.remove_overlay(MetaHero.crosshair.get_reel())
+            for step_ in self.get_beam_route_to(*crosshair_):
+                for sub_step in step_:
+                    step_tile = self.location.get_tile_by_coordinates(*sub_step)
+                    step_tile.remove_overlay(MetaHero.crosshair_shadow.get_reel())
 
         # targeting aborted
         return False

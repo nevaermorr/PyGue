@@ -164,12 +164,37 @@ class Being(MetaEntity, MetaInventoryInterface):
         examine if given point is in line of sight of the being
         :param target: point as object of class Spatial
         """
-        # examine all subsequent points of route starting from the being
-        for point_ in self.get_route_to(target.get_x(), target.get_y()):
-            tile = self.location.get_tile_by_coordinates(point_[0], point_[1])
-
-            # if something opaque blocks the way - report failure
-            if not tile or not tile.is_transparent():
+        # start with empty previous step
+        previous_step_ = []
+        # check each step of the route to see if it is not blocked
+        for step_ in self.get_beam_route_to(target.get_x(), target.get_y()):
+            transparent_ = [
+                # coordinates
+                tile_
+                # of each tile in a step
+                for tile_ in step_
+                # which is transparent
+                if self.location.get_tile_by_coordinates(*tile_).is_transparent()
+            ]
+            # if all tiles belonging to this step are opaque, the line of sight is blocked
+            if not transparent_:
                 return False
+
+            # if this is beginning of the route,
+            # there is no possibility of discontinuity for the transparent tiles
+            if not previous_step_:
+                # note the current step
+                previous_step_ = transparent_
+                continue
+
+            # otherwise check if any of the transparent tiles
+            # is connected to any of the previous ones (so the view is not blocked)
+            if not any([self.location.get_tile_by_coordinates(*point_).neighbours_with(*previous_point_)
+                       for point_ in transparent_ for previous_point_ in previous_step_]):
+                return False
+
+            # note the current step
+            previous_step_ = transparent_
+
         # if nothing was in the way - target is in line of sight
         return True

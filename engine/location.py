@@ -10,6 +10,7 @@ class Location(MetaGear):
     def __init__(self, tiles_):
         """
         create location
+        :param tiles_: tiles constituting the location
         """
         MetaGear.__init__(self)
         # assign defined grid
@@ -22,6 +23,8 @@ class Location(MetaGear):
     def get_tile_by_coordinates(self, x, y):
         """
         return tile corresponding to given coordinates
+        :param x: horizontal coordinate of tile
+        :param y: vertical coordinate of tile
         """
         # negative coordinates not allowed
         if x < 0 or y < 0:
@@ -46,6 +49,7 @@ class Location(MetaGear):
     def check_in(self, being):
         """
         notice presence of being in this location
+        :param being: being which enters the location
         """
         self.beings_.append(being)
         # for hero store another pointer
@@ -55,6 +59,7 @@ class Location(MetaGear):
     def check_out(self, being):
         """
         when being leaves the location, forget it
+        :param being: being which leaves the location
         """
         self.beings_.remove(being)
         # hero need special additional treatment
