@@ -158,54 +158,74 @@ class MetaHero(Hero):
         """
         choose target by freely moving the crosshair
         """
-
         self.log.message('Choose target')
         # current position of crosshair
-        crosshair_ = [self.get_x(), self.get_y()]
+        target_ = [self.get_x(), self.get_y()]
 
         direction_ = self._get_direction(confirm=True)
 
         while direction_:
             # once the target is confirmed retrieve its coordinates
             if direction_ is True:
-                return crosshair_
+                return target_
             # aiming is being aborted
             elif direction_ is False:
                 return False
             # if proper direction was chosen, change position of the crosshair
             else:
 
-                crosshair_[0] += direction_[0]
-                crosshair_[1] += direction_[1]
+                target_[0] += direction_[0]
+                target_[1] += direction_[1]
 
-            # acquire target tile
-            target_tile = self.location.get_tile_by_coordinates(*crosshair_)
-            # draw line of sight
-            if target_tile:
-                # draw target mark
-                target_tile.add_overlay(MetaHero.crosshair.get_reel())
-                # draw route to target
-                for step in self.get_route_to(*crosshair_):
-                    step_tile = self.location.get_tile_by_coordinates(*step)
-                    step_tile.add_overlay(MetaHero.crosshair_shadow.get_reel())
+            self.draw_targeting_line(target_)
 
             self.log.message('Choose target')
             direction_ = self._get_direction(confirm=True)
 
-            # remove line of sight that has been displayed
-            target_tile.remove_overlay(MetaHero.crosshair.get_reel())
-            for step in self.get_route_to(*crosshair_):
-                step_tile = self.location.get_tile_by_coordinates(*step)
-                step_tile.remove_overlay(MetaHero.crosshair_shadow.get_reel(False))
+            self.erase_targeting_line(target_)
 
         # targeting aborted
         return False
 
+    def draw_targeting_line(self, target_):
+        """
+        draw marks on tiles that are in the line of sight to the target
+        :param target_: coordinates of the target
+        """
+        # acquire target tile
+        target_tile = self.location.get_tile_by_coordinates(*target_)
+        # mark the target
+        if target_tile:
+            target_tile.add_overlay(MetaHero.crosshair.get_reel())
+        # mark the route to target
+        for step in self.get_route_to(
+                *target_,
+                max_area_=self.location.get_area()
+        ):
+            step_tile = self.location.get_tile_by_coordinates(*step)
+            step_tile.add_overlay(MetaHero.crosshair_shadow.get_reel())
+
+    def erase_targeting_line(self, target_):
+        """
+        erase marks on tiles that are in the line of sight to the target
+        :param target_: coordinates of the target
+        """
+        # acquire target tile
+        target_tile = self.location.get_tile_by_coordinates(*target_)
+        # remove those parts of line of sight that has been displayed
+        if target_tile:
+            target_tile.remove_overlay(MetaHero.crosshair.get_reel())
+        for step in self.get_route_to(
+                *target_,
+                max_area_=self.location.get_area()
+        ):
+            step_tile = self.location.get_tile_by_coordinates(*step)
+            step_tile.remove_overlay(MetaHero.crosshair_shadow.get_reel(False))
+
     def beam(self):
         """
-        choose target by freely moving the crosshair
+        choose target by freely moving the crosshair followed by broad beam
         """
-
         self.log.message('Choose target')
         # current position of crosshair
         crosshair_ = [self.get_x(), self.get_y()]

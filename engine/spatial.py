@@ -30,11 +30,13 @@ class Spatial():
         """
         return [self.x, self.y]
 
-    def get_route_to(self, x, y):
+    def get_route_to(self, x, y, max_area_=False):
         """
         generate coordinates of subsequent points of route from this point to [x, y]
         :param x: horizontal coordinate of target point
         :param y: vertical coordinate of target point
+        :param max_area_: maximal size of area from which coordinates are desired
+        as [[x_min, y_min], [x_max, y_max]]
         """
         # horizontal part of route vector
         vector_x = x - self.x
@@ -47,27 +49,52 @@ class Spatial():
         # only vertical
         if vector_x == 0:
             for i in range(abs(vector_y) - 1):
-                yield self.x, self.y + sign(vector_y) * (i + 1)
+                result_ = [self.x, self.y + sign(vector_y) * (i + 1)]
+                # stop if the route stepped outside the area
+                if max_area_ and not Spatial.in_area(result_, max_area_):
+                    break
+                yield result_
         # only horizontal
         elif vector_y == 0:
             for i in range(abs(vector_x) - 1):
-                yield self.x + sign(vector_x) * (i + 1), self.y
-
-        elif abs(vector_x) > abs(vector_y):
-            for i in range(abs(vector_x)):
-                if i != 0:
-                    yield [
-                        self.x + i * sign(vector_x),
-                        self.y + int(i * (vector_y + sign(vector_y)) / abs(vector_x))
-                    ]
-
+                result_ = [self.x + sign(vector_x) * (i + 1), self.y]
+                # stop if the route stepped outside the area
+                if max_area_ and not Spatial.in_area(result_, max_area_):
+                    break
+                yield result_
+        # every other case is nontrivial
         else:
-            for i in range(abs(vector_y)):
-                if i != 0:
-                    yield [
-                        self.x + int(i * (vector_x + sign(vector_x)) / abs(vector_y)),
-                        self.y + i * sign(vector_y)
-                    ]
+            for step_ in self.get_nontrivial_route_by([vector_x, vector_y], max_area_):
+                yield step_
+
+    def get_nontrivial_route_by(self, vector_, max_area_):
+        """
+        generate coordinates of subsequent points of nontrivial route from this point to [x, y]
+        :param vector_: vector to target point as [x_coordinate, y_coordinate]
+        :param max_area_: maximal size of area from which coordinates are desired
+        as [[x_min, y_min], [x_max, y_max]]
+        """
+        # local copy of route's starting point is needed
+        start_ = [self.x, self.y]
+        # the first coordinate has to be the longer one - reverse if necessary
+        reverse = abs(vector_[1]) > abs(vector_[0])
+        if reverse:
+            vector_.reverse()
+            start_.reverse()
+
+        for i in range(abs(vector_[0])):
+            if i != 0:
+                result_ = [
+                    start_[0] + i * sign(vector_[0]),
+                    start_[1] + int(i * (vector_[1] + sign(vector_[1])) / abs(vector_[0]))
+                ]
+                # revert result if necessary
+                if reverse:
+                    result_.reverse()
+
+                # stop if result is outside the desired area
+                if not max_area_ or Spatial.in_area(result_, max_area_):
+                    yield result_
 
     def get_beam_route_to(self, x, y):
         """
@@ -98,14 +125,12 @@ class Spatial():
             if i == 0:
                 continue
             # obtain all possible components of the vectors
-            if int(i * dx) == i * dx:
-                x_components_ = [int(i * dx)]
-            else:
-                x_components_ = [int(i * dx), int(i * dx) + sign(dx)]
-            if int(i * dy) == i * dy:
-                y_components_ = [int(i * dy)]
-            else:
-                y_components_ = [int(i * dy), int(i * dy) + sign(dy)]
+            x_components_ = [int(i * dx)]
+            if int(i * dx) != i * dx:
+                x_components_.append(int(i * dx) + sign(dx))
+            y_components_ = [int(i * dy)]
+            if int(i * dy) != i * dy:
+                y_components_.append(int(i * dy) + sign(dy))
 
             # combine components to points
             points_ = []
@@ -117,9 +142,25 @@ class Spatial():
 
     def neighbours_with(self, x, y):
         """
-        check if this object neighbours with another
+        verify if this space point is adjacent to another
+        :param x: horizontal coordinate of the other space point
+        :param y: vertical coordinate of the other space point
         """
         return (
-            x - 1 <= self.x <= x +1
+            x - 1 <= self.x <= x + 1
             and y - 1 <= self.y <= y + 1
+        )
+
+    @staticmethod
+    def in_area(point_, area_):
+        """
+        verify if given point lies within given area
+        :param point_: coordinates of a point as [x, y]
+        :param area_: list of coordinates of extreme corners of area
+        as [[x_min, y_min], [x_max, y_max]]
+        """
+
+        return (
+            area_[0][0] <= point_[0] <= area_[1][0]
+            and area_[0][1] <= point_[1] <= area_[1][1]
         )

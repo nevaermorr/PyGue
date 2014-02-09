@@ -65,3 +65,25 @@ class Location(MetaGear):
         # hero need special additional treatment
         if type(being).__name__ == 'MetaHero':
             self.hero = None
+
+    def get_width(self):
+        """
+        obtain width of the location
+        """
+        return len(self.tiles_)
+
+    def get_height(self):
+        """
+        obtain height of the location
+        """
+        return len(self.tiles_[0])
+
+    def get_area(self):
+        """
+        obtain coordinates of two extreme corners of the location
+        as [[ax, ay], [bx, by]], where ax <= bx and ay <= by
+        """
+        return [
+            [0 ,0],
+            [self.get_width(), self.get_height()]
+        ]

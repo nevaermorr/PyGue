@@ -71,3 +71,41 @@ def sign(x):
     # something wrong here
     else:
         return None
+
+
+def max_abs(list_):
+    """
+    obtain value with higher absolute value
+    """
+    # for empty list
+    if not list_:
+        return None
+
+    max_abs_element = list_.pop()
+
+    # try every element of the list
+    for element in list_:
+        # if there is no
+        if abs(element) > abs(max_abs_element):
+            max_abs_element = element
+
+    return max_abs_element
+
+
+def min_abs(list_):
+    """
+    obtain value with higher absolute value
+    """
+    # for empty list
+    if not list_:
+        return None
+
+    min_abs_element = list_.pop()
+
+    # try every element of the list
+    for element in list_:
+        # if there is no
+        if abs(element) < abs(min_abs_element):
+            min_abs_element = element
+
+    return min_abs_element

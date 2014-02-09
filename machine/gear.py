@@ -52,37 +52,36 @@ class MetaGear(Gear, Panel):
         :param vector: flag for choosing between vector and literal key
         :param confirm: flag determining whether retrieve also keys for confirming/cancelling
         """
-        key = self._get_key(True)
+        # repeat until any acceptable key is pressed
+        while True:
+            key = self._get_key(True)
 
-        # if literal
-        if not vector:
-            if key in ['1', '2', '3', '4', '6', '7', '8', '9']:
-                return key
+            # if literal
+            if not vector:
+                if key in ['1', '2', '3', '4', '6', '7', '8', '9']:
+                    return key
 
-        # if vector is preferred
-        elif key == '1':
-            return [-1, 1]
-        elif key == '2':
-            return [0, 1]
-        elif key == '3':
-            return [1, 1]
-        elif key == '4':
-            return [-1, 0]
-        elif key == '6':
-            return [1, 0]
-        elif key == '7':
-            return [-1, -1]
-        elif key == '8':
-            return [0, -1]
-        elif key == '9':
-            return [1, -1]
+            # if vector is preferred
+            elif key == '1':
+                return [-1, 1]
+            elif key == '2':
+                return [0, 1]
+            elif key == '3':
+                return [1, 1]
+            elif key == '4':
+                return [-1, 0]
+            elif key == '6':
+                return [1, 0]
+            elif key == '7':
+                return [-1, -1]
+            elif key == '8':
+                return [0, -1]
+            elif key == '9':
+                return [1, -1]
 
-        # if confirmation/cancellation is accepted
-        elif confirm:
-            if key == '\r':
-                return True
-            elif key == '\x1b':
-                return False
-
-        # if none of the above - read keys until proper one is pressed
-        return self._get_direction(vector)
+            # if confirmation/cancellation is accepted
+            elif confirm:
+                if key == '\r':
+                    return True
+                elif key == '\x1b':
+                    return False
