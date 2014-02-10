@@ -1,4 +1,4 @@
-from utilities.generalFunctions import *
+from utilities.general_functions import *
 
 
 class Log:

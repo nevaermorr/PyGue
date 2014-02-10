@@ -1,7 +1,7 @@
-from utilities.generalFunctions import *
+from utilities.general_functions import *
 import pygame
 from engine.tile import *
-from machine.symbolicPanel import *
+from machine.symbolic_panel import *
 
 
 class MetaTile(Tile, SymbolicPanel):

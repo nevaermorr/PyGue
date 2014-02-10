@@ -1,4 +1,4 @@
-from utilities.generalFunctions import *
+from utilities.general_functions import *
 import pygame
 from engine.gear import *
 from machine.panel import *

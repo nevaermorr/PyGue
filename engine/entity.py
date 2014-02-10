@@ -1,4 +1,4 @@
-from utilities.generalFunctions import *
+from utilities.general_functions import *
 from machine.gear import *
 from machine.spatial import *
 

@@ -1,4 +1,4 @@
-from utilities.generalFunctions import *
+from utilities.general_functions import *
 import pygame
 from engine.hero import *
 
@@ -8,7 +8,7 @@ class MetaHero(Hero):
     complement of hero
     """
     # resources necessary for drawing targeting
-    from machine.symbolicPanel import SymbolicPanel
+    from machine.symbolic_panel import SymbolicPanel
     from machine.tile import MetaTile
     crosshair_shadow = SymbolicPanel(
         MetaTile.width, MetaTile.height,
@@ -31,7 +31,7 @@ class MetaHero(Hero):
         Hero.__init__(self, *parameters)
 
         # import key map
-        from config.keyMap import hero_
+        from config.key_map import hero_
         self.key_map = hero_
 
         # visuals

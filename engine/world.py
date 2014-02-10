@@ -1,4 +1,4 @@
-from utilities.generalFunctions import *
+from utilities.general_functions import *
 from machine.gear import *
 from machine.clock import *
 
@@ -57,10 +57,10 @@ class World(MetaGear):
         """
         create some environment for testing purposes
         """
-        from data.environment.testEnvironment import initEnvironment
+        from data.environment.test_environment import init_environment
 
         # a single map will do for now
-        self.locations_ = initEnvironment()
+        self.locations_ = init_environment()
         # pointer to current location
         self.set_current_location(self.locations_[0])
 

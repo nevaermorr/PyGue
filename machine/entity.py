@@ -1,7 +1,7 @@
-from utilities.generalFunctions import *
+from utilities.general_functions import *
 import pygame
 from engine.entity import *
-from machine.symbolicPanel import *
+from machine.symbolic_panel import *
 
 
 class MetaEntity(Entity, SymbolicPanel):
