@@ -45,7 +45,7 @@ class Spatial():
 
         # trivial case
         if vector_x == 0 and vector_y == 0:
-            yield self.x, self.y
+            yield [self.x, self.y]
         # only vertical
         if vector_x == 0:
             for i in range(abs(vector_y) - 1):
