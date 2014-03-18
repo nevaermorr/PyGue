@@ -29,16 +29,17 @@ class MetaLocation(Location):
         self.update_tiles_visibility()
 
         # display the floor
-        from machine.tile import MetaTile
+        from machine.symbolic_panel import SymbolicPanel
         for tile_row in self.tiles_:
             # display single tile
             for tile in tile_row:
-                self.reel.blit(tile.get_reel(), (tile.get_x() * MetaTile.width,
-                                                 tile.get_y() * MetaTile.height))
+                self.reel.blit(tile.get_reel(),
+                               (tile.get_x() * SymbolicPanel.pixels_per_unit_width,
+                                tile.get_y() * SymbolicPanel.pixels_per_unit_height))
         # display all entities
         for being in self.beings_:
-            self.reel.blit(being.get_reel(), (being.get_x() * MetaTile.width,
-                                              being.get_y() * MetaTile.height))
+            self.reel.blit(being.get_reel(), (being.get_x() * SymbolicPanel.pixels_per_unit_width,
+                                              being.get_y() * SymbolicPanel.pixels_per_unit_height))
 
     def update_tiles_visibility(self):
         """

@@ -28,9 +28,9 @@ class Tile(MetaInventoryInterface, MetaSpatial):
         self.visited = False
         # is the tile it visible for hero?
         # -1 = uncharted
-        # 0 = darkness
-        # 1 = shadow
-        # 2 = visible
+        # 0 = darkness (visited but not visible)
+        # 1 = shadow (in far vision field)
+        # 2 = visible (in near vision field)
         self.visible = -1
 
     def is_passable(self):
@@ -48,7 +48,7 @@ class Tile(MetaInventoryInterface, MetaSpatial):
         """
         check if the tile is in hero's field of view
         """
-        # if this check is performed, tile is considered as visited
+        # when the tile becomes visible at least once, it is considered visited
         if self.visible:
             self.visited = True
 
@@ -64,8 +64,7 @@ class Tile(MetaInventoryInterface, MetaSpatial):
         """
 
         # squared distance between hero and the tile
-        sq_distance = (hero.get_x() - self.get_x()) ** 2\
-                       + (hero.get_y() - self.get_y()) ** 2
+        sq_distance = (hero.get_x() - self.get_x()) ** 2 + (hero.get_y() - self.get_y()) ** 2
 
         sq_range_ = hero.get_square_range_of_view()
         # in range, but view is blocked

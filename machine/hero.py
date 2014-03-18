@@ -9,15 +9,15 @@ class MetaHero(Hero):
     """
     # resources necessary for drawing targeting
     from machine.symbolic_panel import SymbolicPanel
-    from machine.tile import MetaTile
+    #TODO move crosshair to separate class
     crosshair_shadow = SymbolicPanel(
-        MetaTile.width, MetaTile.height,
+        1, 1,
         symbol='x',
         font_size=20,
         background_color=pygame.Color(0, 0, 0, 0)
     )
     crosshair = SymbolicPanel(
-        MetaTile.width, MetaTile.height,
+        1, 1,
         symbol='x',
         font_size=30,
         background_color=pygame.Color(0, 0, 0, 0)
@@ -81,6 +81,7 @@ class MetaHero(Hero):
         """
         # original action
         result = Hero.quit(self)
+        #TODO extract messages to external file
         self.log.message('Nothing to do here...')
         # return the original result
         return result

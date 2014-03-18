@@ -9,9 +9,9 @@ class MetaTile(Tile, SymbolicPanel):
     complement of tile
     """
     # height in pixels
-    height = 25
+    pixel_height = 25
     # width in pixels
-    width = 25
+    pixel_width = 25
 
     def __init__(self, x, y):
         """
@@ -19,7 +19,7 @@ class MetaTile(Tile, SymbolicPanel):
         """
         # inherited constructors
         Tile.__init__(self, x, y)
-        SymbolicPanel.__init__(self, MetaTile.width, MetaTile.height)
+        SymbolicPanel.__init__(self)
         self.font_color = pygame.Color(0, 0, 0)
         self.background_color = pygame.Color(20, 20, 20)
         self.font = pygame.font.Font('utilities/fonts/veteran_typewriter.ttf', 50)
@@ -30,7 +30,9 @@ class MetaTile(Tile, SymbolicPanel):
         self.half_shadow_color = pygame.Color(130, 130, 130)
 
         # create the reel
-        self.reel = pygame.Surface((MetaTile.width, MetaTile.height))
+        self.reel = pygame.Surface(
+            (SymbolicPanel.pixels_per_unit_width, SymbolicPanel.pixels_per_unit_height)
+        )
 
     def get_font_color(self):
         """
@@ -71,8 +73,10 @@ class MetaTile(Tile, SymbolicPanel):
         # out of sight - fully shadowed
         if visibility == 0:
             self.reel.fill(self.shadow_color, None, pygame.BLEND_MULT)
+            # nothing more will be displayed on a tile beyond field of view
+            return True
 
-        # in long view range - partially shadowed
+        # in far view field - partially shadowed
         elif visibility == 1:
             self.reel.fill(self.half_shadow_color, None, pygame.BLEND_MULT)
 

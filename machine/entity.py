@@ -15,7 +15,7 @@ class MetaEntity(Entity, SymbolicPanel):
         """
         # inherited constructors
         Entity.__init__(self, *parameters)
-        SymbolicPanel.__init__(self, self.width, self.height)
+        SymbolicPanel.__init__(self)
 
     def compose_reel(self):
         """

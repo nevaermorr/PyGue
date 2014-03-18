@@ -8,7 +8,9 @@ class Panel:
     """
 
     def __init__(
-            self, width, height,
+            self,
+            pixel_width,
+            pixel_height,
             background_color=pygame.Color(0, 0, 0),
             font_path='utilities/fonts/veteran_typewriter.ttf',
             font_color=pygame.Color(255, 255, 255),
@@ -19,9 +21,9 @@ class Panel:
         """
         # initialize visual options
 
-        # resolution of this panel
-        self.width = 0
-        self.height = 0
+        # resolution of this panel in pixels
+        self.pixel_width = 0
+        self.pixel_height = 0
         # personal reel exclusive for this element
         self.reel = None
         # storage for additional temporal reels for outer overlays
@@ -40,13 +42,13 @@ class Panel:
 
         # set visual options
         self.set_panel_options(
-            width, height, font_path, font_size, font_color, background_color
+            pixel_width, pixel_height, font_path, font_size, font_color, background_color
         )
 
     def set_panel_options(
             self,
-            width=None,
-            height=None,
+            pixel_width=None,
+            pixel_height=None,
             font_path=None,
             font_size=None,
             font_color=None,
@@ -58,13 +60,13 @@ class Panel:
         set visual options for the panel
         """
 
-        if width:
-            self.width = width
-        if height:
-            self.height = height
+        if pixel_width:
+            self.pixel_width = pixel_width
+        if pixel_height:
+            self.pixel_height = pixel_height
         # re-form the reel if necessary
-        if width or height:
-            self.reel = pygame.Surface((width, height), pygame.SRCALPHA, 32)
+        if pixel_width or pixel_height:
+            self.reel = pygame.Surface((pixel_width, pixel_height), pygame.SRCALPHA, 32)
 
         if font_path:
             self.font_path = font_path

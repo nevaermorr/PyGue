@@ -9,13 +9,13 @@ class MetaGear(Gear, Panel):
     complement of every element of the machine
     """
 
-    def __init__(self, width=25, height=25):
+    def __init__(self, pixel_width=25, pixel_height=25):
         """
         creation of the gear
         """
         # inherited constructors
         Gear.__init__(self)
-        Panel.__init__(self, width, height)
+        Panel.__init__(self, pixel_width, pixel_height)
 
     def _get_key(self, unicode=False):
         """

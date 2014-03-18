@@ -8,8 +8,15 @@ class SymbolicPanel(Panel):
     common class for elements with symbolic (one character) visualisation on the screen
     """
 
+    # width of one unit (or quantum) for symbolic panels
+    pixels_per_unit_width = 25
+    # height of one unit (or quantum) for symbolic panels
+    pixels_per_unit_height = 25
+
     def __init__(
-            self, width, height,
+            self,
+            unit_width=1,
+            unit_height=1,
             background_color=pygame.Color(0, 0, 0),
             font_path='utilities/fonts/veteran_typewriter.ttf',
             font_color=pygame.Color(255, 255, 255),
@@ -20,7 +27,12 @@ class SymbolicPanel(Panel):
         creation of the symbolic panel
         """
         # inherited constructor
-        Panel.__init__(self, width, height, background_color, font_path, font_color, font_size)
+        Panel.__init__(
+            self,
+            unit_width * SymbolicPanel.pixels_per_unit_width,
+            unit_height * SymbolicPanel.pixels_per_unit_height,
+            background_color, font_path, font_color, font_size
+        )
         self.symbol = symbol
 
     def compose_reel(self):
@@ -32,8 +44,8 @@ class SymbolicPanel(Panel):
         # print centered
         self.reel.blit(
             font,
-            ((self.width - font.get_width()) / 2,
-             (self.height - font.get_height()) / 2)
+            ((self.pixel_width - font.get_width()) / 2,
+             (self.pixel_height - font.get_height()) / 2)
         )
 
     def get_font_color(self):
