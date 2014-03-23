@@ -35,7 +35,7 @@ class MetaHero(Hero):
         self.key_map = hero_
 
         # visuals
-        self.ascii = '@'
+        self.symbol = '@'
         self.set_panel_options(
             background_color=None,
             font_color=pygame.Color(20, 255, 20),
@@ -123,12 +123,6 @@ class MetaHero(Hero):
         # return the original result
         return result
 
-    def get_symbol(self):
-        """
-        obtain symbol of this element
-        """
-        return self.ascii
-
     def manipulate_door(self, door=None):
         # if the door is unspecified - ask
         if not door:
@@ -179,6 +173,8 @@ class MetaHero(Hero):
                 target_[1] += direction_[1]
 
             self.draw_targeting_line(target_)
+            # TODO store information about the line points
+            # so it can be provided as parameter for erasing
 
             self.log.message('Choose target')
             direction_ = self._get_direction(confirm=True)
@@ -187,6 +183,28 @@ class MetaHero(Hero):
 
         # targeting aborted
         return False
+
+    def collect(self):
+        """
+        collect some items
+        """
+        result = Hero.collect(self)
+
+        # if something was collected inform the player
+        if result:
+            self.log.message('picked ' + str(len(result)) + ' items')
+
+    def drop(self):
+        """
+        collect some items
+        """
+        result = Hero.drop(self)
+
+        # if something was collected inform the player
+        if result:
+            # TODO extract messages to external file
+            # TODO during extraction to external file, manage bindings of parameters
+            self.log.message('dropped ' + str(len(result)) + ' items')
 
     def draw_targeting_line(self, target_):
         """

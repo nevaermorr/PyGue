@@ -89,3 +89,9 @@ class InventoryInterface:
         is the inventory of this object empty?
         """
         return self.inventory.is_empty()
+
+    def count_items(self):
+        """
+        count the items in the inventory
+        """
+        return len(self.inventory.get_items())

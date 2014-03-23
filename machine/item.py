@@ -8,9 +8,12 @@ class MetaItem(Item, SymbolicPanel):
     """
     complement of entity
     """
-
-    def __init__(self):
+    def __init__(self, location, x, y):
         # inherited constructors
-        Item.__init__(self)
+        Item.__init__(self, location, x, y)
+        SymbolicPanel.__init__(
+            self,
+            font_size=25,
+        )
         #TODO extract default symbols to external file
-        SymbolicPanel.__init__(self, symbol='&')
+        self.symbol = '&'

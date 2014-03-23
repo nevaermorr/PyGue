@@ -8,10 +8,6 @@ class MetaTile(Tile, SymbolicPanel):
     """
     complement of tile
     """
-    # height in pixels
-    pixel_height = 25
-    # width in pixels
-    pixel_width = 25
 
     def __init__(self, x, y):
         """
@@ -19,7 +15,10 @@ class MetaTile(Tile, SymbolicPanel):
         """
         # inherited constructors
         Tile.__init__(self, x, y)
-        SymbolicPanel.__init__(self)
+        SymbolicPanel.__init__(
+            self,
+            symbol='#',
+        )
         self.font_color = pygame.Color(0, 0, 0)
         self.background_color = pygame.Color(20, 20, 20)
         self.font = pygame.font.Font('utilities/fonts/veteran_typewriter.ttf', 50)
@@ -52,32 +51,54 @@ class MetaTile(Tile, SymbolicPanel):
         if self.construction:
             return self.construction.get_symbol()
         # default value
-        return '#'
+        return self.symbol
 
     def compose_reel(self):
         """
         combine all the elements that are to be displayed on this layer
         """
-        # examine visibility of this tile
-        visibility = self.get_visibility()
 
         # if the tile has never been seen - don't bother with displaying
-        if visibility == -1:
+        if self.get_visibility() == -1:
             self.reel.fill(self.darkness_color)
             return True
 
-        # inherited routine
+        # inherited routine - compose the basis of the reel
         SymbolicPanel.compose_reel(self)
+        # display items if any present
+        self.overlay_items()
+        # lay proper shadow if necessary
+        self.overlay_shadow()
 
-        # shadow out tiles that are not in hero's field of view
+        return True
+
+    def overlay_shadow(self):
+        """
+        cover the reel with proper shadow if the tile is beyond hero's field of view
+        """
         # out of sight - fully shadowed
-        if visibility == 0:
+        if self.get_visibility() == 0:
             self.reel.fill(self.shadow_color, None, pygame.BLEND_MULT)
             # nothing more will be displayed on a tile beyond field of view
             return True
 
         # in far view field - partially shadowed
-        elif visibility == 1:
+        elif self.get_visibility() == 1:
             self.reel.fill(self.half_shadow_color, None, pygame.BLEND_MULT)
 
         return True
+
+    def overlay_items(self):
+        """
+        add the present items to the reel
+        """
+        # if the tile is not visible or there is nothing to display, ignore this
+        if (
+            not self.get_visibility()
+            or self.has_empty_inventory()
+        ):
+            return False
+
+        # otherwise display the symbolic inventory
+        self.reel.blit(self.inventory.get_reel(), [0, 0])
+

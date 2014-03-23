@@ -17,7 +17,7 @@ class SymbolicPanel(Panel):
             self,
             unit_width=1,
             unit_height=1,
-            background_color=pygame.Color(0, 0, 0),
+            background_color=None,
             font_path='utilities/fonts/veteran_typewriter.ttf',
             font_color=pygame.Color(255, 255, 255),
             font_size=45,

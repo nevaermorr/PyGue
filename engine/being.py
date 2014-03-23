@@ -125,6 +125,7 @@ class Being(MetaEntity, MetaInventoryInterface):
     def collect(self):
         """
         collect some items
+        :return: list of collected items
         """
         # add items chosen from current tile's inventory
         collected_items_ = self.get_items_from(self.get_current_tile().get_inventory())
@@ -132,7 +133,7 @@ class Being(MetaEntity, MetaInventoryInterface):
         if collected_items_:
             self.add_items(*collected_items_)
             # collected successfully
-            return True
+            return collected_items_
         else:
             # failed to collect
             return False
@@ -140,11 +141,12 @@ class Being(MetaEntity, MetaInventoryInterface):
     def drop(self):
         """
         drop some items
+        :return: list of dropped items
         """
         # choose items to drop (as for now - all)
-        dropped_items = self.get_items_from()
-        self.get_current_tile().add_items(*dropped_items)
-        return True
+        dropped_items_ = self.get_items_from()
+        self.get_current_tile().add_items(*dropped_items_)
+        return dropped_items_
 
     def manipulate_door(self, door):
         """
